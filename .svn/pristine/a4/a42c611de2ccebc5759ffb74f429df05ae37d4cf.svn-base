@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "分享小程序",
+  "usingComponents": {
+    "bottomFrame": "/components/bottomFrame/bottomFrame"
+  }
+}

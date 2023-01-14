@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "bottomFrame": "/components/bottomFrame/bottomFrame",
+    "SelectUnique": "/components/SelectUnique/SelectUnique",
+    "Icon":"../../dist/icon/index"
+  }
+}

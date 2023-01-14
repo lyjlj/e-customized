@@ -1,0 +1,11 @@
+<!--custom-tab-bar/index.wxml-->
+
+<view class="foot-nav" style="height:{{navHeight}}rpx"  hidden="{{!showTab}}">
+  <view wx:for="{{foot}}" data-path="{{item.url}}"  bindtap="switchTab" open-type="reLaunch" wx:key="index" data-index="{{index}}" class="tab-bar-item" style="width:{{750/foot.length}}rpx">
+    <view class="img-box">
+      <view hidden="{{selected!=index}}"><image class="barimage"  src="{{item.selectedIconPath}}"></image></view>
+      <view hidden="{{selected==index}}"><image class="barimage"  src="{{item.iconPath}}"></image></view>
+    </view>
+    <text style="color:#{{selected === index ? item.selectedColor:item.color}}">{{item.text}}</text>
+  </view>
+</view>

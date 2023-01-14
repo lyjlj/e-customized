@@ -1,0 +1,21 @@
+<view wx:if='{{flag}}'>
+  <view class='wrap {{wrapAnimate}}' style='background:rgba(0,0,0,{{bgOpacity}});z-index:{{zindex}}'></view>
+  <view catchtap='hideFrame' class='frame-wrapper {{frameAnimate}}' style="z-index:{{zindex+1}}" animation="{{closeframeAnimate}}">
+    <view catchtap='catchNone' class='frame' style="z-index:{{zindex+2}}" bindtouchstart="handlerTouchstart" bindtouchmove="handlerTouchmove" bindtouchend="handlerTouchend" style="{{parse.setPosition(position)}}">
+      <!-- 内容 -->
+      <slot></slot>
+    </view>
+  </view>
+</view>
+
+<wxs module="parse">
+  module.exports = {
+    setStyle: function (item) {
+      var defaults = '#f7f7f7';
+      return 'background:' + (item.background ? item.background : defaults) + ';' + 'color:' + item.color;
+    },
+    setPosition: function (position) {
+      return 'transform:translate(' + position.pageX + 'px,0);';
+    }
+  }
+</wxs>

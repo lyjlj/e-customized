@@ -1,0 +1,254 @@
+<import src="../wxParse/wxParse.wxml"></import>
+<swiper autoplay indicatorDots class="swiper-box">
+    <swiper-item wx:for="{{ProductImgs}}" wx:key="*this">
+        <image class="slide-image" mode="aspectFit" src="{{item}}"></image>
+    </swiper-item>
+</swiper>
+<view class="productcont">
+    <view class="productjs pl24 pr24">
+        <view class="pricel pb24 mt24" style="color:#{{DefaultColor}}">
+            <view class="saleprice">
+        ￥
+        <text class="font48">{{ShowPrice}}</text>
+            </view>
+            <view class="oldprice font28" hidden="{{MarketPrice<=0}}">
+        ￥
+        <text>{{MarketPrice}}</text>
+            </view>
+        </view>
+        <view class="name_share">
+            <view class="name">{{ProductName}}</view>
+            <button bindtap='popup' class="share-icon"  style="background:url({{sharebtn}}) center center; background-size:48rpx 48rpx"></button>
+            <text bindtap='popup' class="share_text" style="color:#{{DefaultColor}}">分享</text>
+        </view>
+        
+        <view class="mt16 line_height32 mb32"  style="display:flex;overflow:hidden; color:#757575;">
+            <view class="yunfei" hidden="true">
+          运费：
+          <text>￥{{Freight}}</text>
+            </view>
+            <view class="yunfei" hidden="true">
+          销量：
+          <text>{{ShowSaleCounts}}</text>
+            </view>
+            <view class="xiaoliang"  hidden="{{!referralId&&ReferralMoney>=0}}" hidden="true">
+          预计佣金：
+          <text>￥{{ReferralMoney}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="supplier" hidden="{{SupplierId<=0}}">
+        <view class="supplier-icon">
+            <image class="mt8" mode="widthFix" src="/images/ic_store.png" style="width:45rpx;"></image>
+            <text>{{SupplierName}}</text>
+        </view>
+    </view>
+    <view class="attributes hdonglist" bindtap="addShopCart" wx:if="{{ProductLine==1}}">
+        <view class="attributevalues" wx:if="{{!HasUnique}}" wx:for="{{selectcontents}}" wx:key="index">
+           <view><text style="word-break:normal;">{{item.attributename+':'}}</text><text style="word-break:break-word;">{{item.Value}}</text></view>
+        </view>
+        <view class="attributevalues" wx:if="{{HasUnique}}" wx:for="{{uniqueItem.citems}}" wx:key="index">
+           <view><text style="word-break:normal;">{{item.name+':'}}</text><text style="word-break:break-word;">{{item.value}}</text></view>
+        </view>
+    </view>
+    <view class="attributes">
+       <view class="attributevalues" >
+           <view>{{ProductLine==1?'款号':'证书编号'}}:<text>{{ProductCode}}</text></view>
+        </view>
+        <view class="attributevalues" wx:for="{{ExtendAttribute}}" wx:key="{{item.ExtAttrName}}">
+           <view><text style="word-break:normal;">{{item.ExtAttrName+':'}}</text><text style="word-break:break-word;">{{item.ExtAttrValue}}</text></view>
+        </view>
+    </view>
+
+
+    
+    <view class="productxq">
+        <view class="xqtitle font32">
+            <view class="coupontitle">
+                <view class="coupontitlel" hidden="true">
+                    <view bindtap="onTabClick"  data-status="0">详情描述</view>
+                </view>
+                <view class="coupontitlel"  wx:if="{{false}}">
+                    <view bindtap="onTabClick" class="{{AttributeStatus}}" data-status="1">产品参数</view>
+                </view>
+            </view>
+        </view>
+        <view class="xqcont" wx:if="{{DetailStatus=='active'}}">
+            <view class="wxParse">
+                <template is="wxParse" data="{{wxParseData:metaDescription.nodes}}"></template>
+            </view>
+        </view>
+        <view class="xqattr" wx:if="{{AttributeStatus=='active'}}">
+            <text wx:for="{{ExtendAttribute}}" wx:key="*this">{{item.ExtAttrName+'：'+item.ExtAttrValue}}</text>
+        </view>
+        <view class="xqcont" wx:if="{{ProductLine==2}}">
+            <view class="wxParse">
+                <!-- 大小 -->
+                <view class="size backg">
+                    <!-- <view class="b_title">钻重：{{CurrentSku.Weight}}</view> -->
+                    <view class="back_txt" style="width:100px;position: relative;top:{{size_top}}rpx;left:{{size_left}}rpx;">
+                        <view class="sj_up" style="border-bottom: 10px solid #{{DefaultColor}};margin-left: 45px;"></view>
+                        <view class="size_txt" style="background-color: #{{DefaultColor}}">{{CurrentSku.Weight}}ct \n your Diamond</view>
+                    </view> 
+                </view>
+                <!-- 颜色 -->
+                <view class="color backg">
+                    <!-- <view class="b_title">颜色：{{color}}</view> -->
+                    <view class="back_txt {{color}}" style="position: relative;">
+                        <view class="sj_up" style="border-bottom: 10px solid #{{DefaultColor}};margin-left: 90rpx;"></view>
+                        <view class="color_txt" wx:if="{{color=='D'}}" style="background-color: #{{DefaultColor}}">完全无色。最高色级，极其稀有!</view>
+                        <view class="color_txt" wx:if="{{color=='E'}}" style="background-color: #{{DefaultColor}}">无色。仅仅只有宝石鉴定专家能够检测到微量颜色。是非常稀有的钻石</view>
+                        <view class="color_txt" wx:if="{{color=='F'}}" style="background-color: #{{DefaultColor}}">无色。少量的颜色只有珠宝专家可以检测到，但是仍然被认为是无色级。属于高品质钻石。</view>
+                        <view class="color_txt" wx:if="{{color=='G'||color=='H'}}" style="background-color: #{{DefaultColor}}">接近无色。当和较高色级钻石比较时，有轻微的颜色。但是这种色级的钻石仍然拥有很高的价值。</view>
+                        <view class="color_txt" wx:if="{{color=='I'||color=='J'}}" style="background-color: #{{DefaultColor}}">接近无色。可检测到轻微的颜色。价值较高。</view>
+                        <view class="color_txt" wx:if="{{color=='K'||color=='L'||color=='M'||color=='N'}}" style="background-color: #{{DefaultColor}}">颜色明显泛黄，火彩差。</view>
+                    </view>
+                </view>
+                <!-- 净度 -->
+                <view class="clear backg">
+                    <!-- <view class="b_title">净度：{{ExtendAttribute[3].ExtAttrValue}}</view> -->
+                    <view class="back_txt {{clar}}" style="position: relative;">
+                        <view class="sj_right" style="border-left: 10px solid #{{DefaultColor}};position:relative;left:305rpx;top:60rpx;"></view>
+                        <view class="clear_txt" wx:if="{{clar=='FL'}}" style="background-color: #{{DefaultColor}}">无暇级（完美无暇）指在10倍宝石放大镜下观察钻石洁净，即宝石内部和外部均不见内含物。</view>
+                        <view class="clear_txt" wx:if="{{clar=='IF'}}" style="background-color: #{{DefaultColor}}">无暇级（完美无暇）指在10倍宝石放大镜下观察钻石洁净，即宝石内部和外部均不见内含物。</view>
+                        <view class="clear_txt" wx:if="{{clar=='VVS1'}}" style="background-color: #{{DefaultColor}}">无暇级（内部无暇）指在10倍宝石放大镜下观察钻石内部无任何瑕疵，但表面或许有一点点瑕疵，重新抛光即可除去。。</view>
+                        <view class="clear_txt" wx:if="{{clar=='VVS2'}}" style="background-color: #{{DefaultColor}}">极微瑕级指在10倍宝石放大镜下观察钻石可见到亭部或表面有极小的瑕疵。</view>
+                        <view class="clear_txt" wx:if="{{clar=='VS1'}}" style="background-color: #{{DefaultColor}}">微瑕级指在10倍宝石放大镜下观察钻石可见非常微小的瑕疵。有极小内涵物，极难看到（肉眼不可见）。</view>
+                        <view class="clear_txt" wx:if="{{clar=='VS2'}}" style="background-color: #{{DefaultColor}}">微瑕级指在10倍宝石放大镜下观察钻石可见非常微小的瑕疵，可能有微小的棉状点或小毛茬。有极小内涵物，难看到（肉眼不可见）。</view>
+                        <view class="clear_txt" wx:if="{{clar=='SI1'||clar=='SI2'}}" style="background-color: #{{DefaultColor}}">在10倍放大镜的观察下可看见内含物，但肉眼看并不明显。</view>
+                        
+                    </view>
+                </view>
+                <!-- 切工 -->
+                <view class="cut backg">
+                    <!-- <view class="b_title">切工：{{cut}}</view> -->
+                    <view class="back_txt {{cut}}" style="position: relative;">
+                        <view class="sj_left" style="border-right: 10px solid #{{DefaultColor}};position:relative;left:-10px;top:36px;"></view>
+                        <view class="cut_txt" wx:if="{{cut=='EX'}}" style="background-color: #{{DefaultColor}}">理想切工(EXCELLENT):代表只有3%的一流高质量钻石才能达到的标准，这种切工使钻石几乎反射了所有进入钻石的光线，一种高雅且杰出的切工。</view>
+                        <view class="cut_txt" wx:if="{{cut=='VG'}}" style="background-color: #{{DefaultColor}}">非常好切工(VERY GOOD):代表大约15%的钻石切工。可以使钻石反射出和标准等级切工的光芒，但是价格稍高。</view>
+                        <view class="cut_txt " wx:if="{{cut=='GD'}}" style="background-color: #{{DefaultColor}}">好切工(GOOD):代表大约25%的钻石切工。是钻石反射了大部分进入钻使内部的光，比VG级便宜的多。</view>
+                        <view class="cut_txt" wx:if="{{cut=='FR'}}" style="background-color: #{{DefaultColor}}">一般切工(FAIR):代表粗糙度为35%的钻石切工，仍然是优质钻石，但是一般切工加工的钻石反射的光线不及G级切工。</view>
+                        <view class="cut_txt" wx:if="{{cut=='PR'}}" style="background-color: #{{DefaultColor}}">差切工(POOR)：这包含所有没有符合一般切工标准的钻石.这些钻石的切工要么深而窄要么浅而宽易于让光线从边部或底部逸出。</view>
+                    </view>
+                </view>
+                
+                
+            </view>
+        </view>
+    </view>
+</view>
+<view class="btn-area">
+    <navigator hoverClass="navigator-hover" openType="switchTab" url="../home/home">
+        <view class="icon">
+            <view class="iconfont home font48"></view>
+        </view>
+      主页
+    </navigator>
+    <navigator hoverClass="navigator-hover" openType="switchTab" url="../shopcart/shopcart">
+        <view class="icon">
+            <view class="iconfont icon__cart font48"></view>
+        </view>
+      购物车
+    </navigator>
+    <block wx:if="{{IsOnSale&&ActiveType<3}}">
+        <navigator  catchtap="addSku" class="goumai shop font36" style='background:#{{HasSelectAllSku?DefaultColor:"ccc"}}' hoverClass="other-navigator-hover"  openType="navigate" url="">
+        {{selectTip}}
+      </navigator>
+    </block>
+    <view class="xiajia font36" wx:else>{{ActiveText}}</view>
+</view>
+<!-- <view bindtap="clickback" class="btmbg {{backShow}}"></view> -->
+
+<bottomFrame id="SkuFrame" frameTitle="" animation="false">
+    <template is="{{HasUnique?'unique':'sku'}}" data="{{SkuItemList:SkuItemList,DefaultColor:DefaultColor,CurrentSku:CurrentSku,UniqueItems:UniqueItems,ProductName:ProductName}}"></template>
+</bottomFrame>
+
+<template name="sku">
+    <view class="lqyhq skuchoose">
+    <view class="positionre">
+        <view class="guige">
+            <view>{{ProductName}}</view>
+        </view>
+        <view class="nronggaodu">
+            <view class="sezhi" wx:for="{{SkuItemList}}" wx:for-index="i" wx:key="AttributeId">
+                <view class="sezhititle font28 line_height40">{{item.AttributeName}}</view>
+                <view class="sezhicont mt8">
+                    <block wx:for="{{item.AttributeValue}}" wx:for-item="sku" wx:key="ValueId">
+                        <image bindtap="onSkuClick" class="{{sku.Enable==0?'disable':''}} {{sku.UseAttributeImage=='selected'?'SKUSelectValueClass':'skuvalueclass'}}" style="border:5rpx solid #{{sku.UseAttributeImage=='selected'?DefaultColor:''}}" data-attributeid="{{item.AttributeId}}" data-enablevalue="{{sku.Enable}}" data-indexcount="{{i}}" data-skuvalue="{{sku.Value}}" id="{{sku.ValueId}}" src="{{sku.ImageUrl}}" wx:if="{{sku.ImageUrl!=''}}"></image>
+                        <text bindtap="onSkuClick" class="{{sku.Enable==0?'disable':''}} {{sku.UseAttributeImage=='selected'?'SKUSelectValueClass':'skuvalueclass'}}" style="background:#{{sku.UseAttributeImage=='selected'?DefaultColor:''}}" data-attributeid="{{item.AttributeId}}" data-enablevalue="{{sku.Enable}}" data-indexcount="{{i}}" data-skuvalue="{{sku.Value}}" id="{{sku.ValueId}}" wx:else> {{sku.Value}} </text>
+                    </block>
+                </view>
+            </view>
+            <view class="sezhi_last_child" hidden="{{SkuItemList==''||SkuItemList.length==0}}"></view>
+        </view>
+        <button bindtap="commitBuy" class="lijigoumai {{ActiveType>0?'xiajia':''}}" style="background:#{{DefaultColor}}" hidden="{{!isbuy}}">{{ActiveText}}</button>
+        <button  class="lijigoumai" bindtap="onSkuHide" style="background:#{{DefaultColor}}" >完成</button>
+    </view>
+   </view>
+</template>
+
+<template name="unique">
+       <view class="skuchoose">
+        <view class="uniquenronggaodu">
+            <view class="sezhi" style="display:flex;" wx:for="{{SkuItemList}}" wx:for-index="i" wx:key="AttributeId">
+                <view class="sezhititle font28" style="line-height:45rpx;width:100rpx">{{item.AttributeName+':'}}</view>
+                <view   class="sezhicont sezhicontextend" >
+                    <block  wx:for="{{item.AttributeValue}}" wx:for-item="sku" wx:key="ValueId">
+                        <image bindtap="onSkuClick" class="{{sku.Enable==0?'disable':''}} {{sku.UseAttributeImage=='selected'?'SKUSelectValueClass':'skuvalueclass'}}" style="border:5rpx solid #{{sku.UseAttributeImage=='selected'?DefaultColor:''}}" data-attributeid="{{item.AttributeId}}" data-enablevalue="{{sku.Enable}}" data-indexcount="{{i}}" data-skuvalue="{{sku.Value}}" id="{{sku.ValueId}}" src="{{sku.ImageUrl}}" wx:if="{{sku.ImageUrl!=''}}"></image>
+                        <text bindtap="onSkuClick" class="{{sku.Enable==0?'disable':''}} {{sku.UseAttributeImage=='selected'?'SKUSelectValueClass':'skuvalueclass'}}" style="line-height:45rpx;padding: 0 10rpx;background:#{{sku.Enable!=0&&sku.UseAttributeImage=='selected'?DefaultColor:''}}" data-attributeid="{{item.AttributeId}}" data-enablevalue="{{sku.Enable}}" data-indexcount="{{i}}" data-skuvalue="{{sku.Value}}" id="{{sku.ValueId}}" wx:else> {{sku.Value}} </text>
+                    </block>
+                </view>
+            </view>
+            <view class="sezhi_last_child" hidden="{{SkuItemList==''||SkuItemList.length==0}}"></view>
+        </view>
+<scroll-view style="height:750rpx;" scroll-y="true"  >
+<view >
+<view class="upitem" wx:for="{{UniqueItems}}" wx:key="UniqueProductId" data-uniquecode="{{item.UniqueProductCode}}" bindtap="selectUnique" style="border:2px solid #{{item.Select?DefaultColor:''}};background:#{{item.Quantity>0?'f5f5f5':''}}">
+  <view class="selecticon" wx:if="{{item.Select}}" >
+     <view class="scor" style="border-bottom: 30rpx solid #{{DefaultColor}};"></view>
+     <icon   color="#fff" class="icon-small sicon" type="success_no_circle" size="8"></icon>
+   </view>
+  <view class="ucontent">
+     <view class="uitem" wx:for="{{item.citems}}" wx:for-item="citem" wx:key="name"   >
+        <text class="n">{{citem.name}}</text><text class="v">{{citem.value}}</text>
+     </view>
+     <!-- <view>{{item.UniqueContent}}</view> -->
+  </view>
+  <view class="u-shop">
+       <text>￥{{item.Price}}</text>
+  </view>
+</view>
+</view>
+
+</scroll-view>
+        <button  class="lijigoumai" bindtap="onSkuHide"
+        style="background:#{{DefaultColor}}" >完成</button>
+    </view>
+</template>
+
+
+<bottomFrame id="bottomFrame" frameTitle="" >
+<view style="background:#eeeeed">
+  <button openType="share" class='text' style="border-bottom: 0.2px solid #d7d7d7!important">分享给朋友</button>
+  <view class='text' style="margin-bottom:5px" bindtap="showPosterModel">分享朋友圈</view>
+  <view class='text' bindtap="hidepup">取消</view>
+</view>
+</bottomFrame>
+
+<bottomFrame id="uniqueFrame" frameTitle="">
+   
+</bottomFrame>
+
+<!--生成海报  -->
+  <view class='imagePathBox' hidden="{{maskHidden == false}}">
+    <image src="{{imagePath}}" class='shengcheng'></image>
+    <button class='baocun' bindtap='baocun' style="left:53%;background:#{{DefaultColor}}">保存相册</button>
+    <button class='baocun' bindtap='hideMask' style='background:#{{DefaultColor}}'>关闭</button>
+  </view>
+  <view hidden="{{maskHidden == false}}" class="mask" bindtap='hideMask'></view>
+  <view class="canvas-box">
+    <canvas style="width: 750px;height:1334px;position:fixed;top:9999px" canvas-id="mycanvas" />
+  </view>
+  <i-modal title="分享标题" visible="{{ShowPosterModel}}" actions="{{TitleActions}}" bind:click="formSubmit">
+    <input hidden="{{!ShowPosterModel}}" value="{{ posterTitle }}"  bindblur="posterTitleChange"  placeholder="自定义分享标题" />
+</i-modal>

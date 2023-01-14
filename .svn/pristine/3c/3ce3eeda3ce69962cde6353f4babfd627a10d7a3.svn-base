@@ -1,0 +1,10 @@
+
+
+<scroll-view scroll-x="true" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll"  >
+  <view class="scroll-x">
+    <view wx:for-items="{{scrolls}}" wx:key="name">
+      <view id="{{item.tag}}" class="{{item.tag}}">{{item.name}}</view>
+    </view>
+  </view>
+</scroll-view>
+

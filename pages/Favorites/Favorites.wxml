@@ -1,0 +1,38 @@
+
+<!-- 左边导航 -->
+  <scroll-view class="leftcate" scroll-y="{{true}}">  
+   <view class="cateitem-l subs" bindtap="bindsubcateclick" data-cateid="-1" data-paraentid="0">全部</view>
+  <block wx:for="{{subs}}" wx:for-item="item">
+    <view bindtap="bindcateclick" class="cateitem-l {{item.istitle?'title':''}}" data-cateid="{{item.CategoryId}}" data-paraentid="{{item.ParentCategoryId}}">{{item.Name}}</view>
+    <block wx:for="{{item.subs}}" wx:for-item="d">
+     <view class="cateitem-l subs {{d.selected?'select':''}}" bindtap="bindsubcateclick" data-cateid="{{d.CategoryId}}" data-paraentid="{{d.ParentCategoryId}}">{{d.Name}}</view>
+    </block>     
+  </block>
+  <view wx:if="{{undersub.length>0}}" style="width:100%;height:30rpx;background:white;float:left"></view>
+  <view style="undersub">
+    <block wx:for="{{undersub}}" wx:for-item="d">
+     <view class="cateitem-l subs {{d.selected?'select':''}}" data-istitle="{{d.istitle}}" bindtap="bindundersub" data-cateid="{{d.CategoryId}}" data-paraentid="{{d.ParentCategoryId}}">{{d.Name}}</view>
+    </block>
+  </view>
+
+  </scroll-view>
+<view class="container" style="width: 590rpx;float: right;background: #e6e6e6;">
+  <view class="collect-list">
+    <!-- <view wx:for="{{FavoritesList}}" wx:key="{{item.index}}" wx:for-item='goods'> -->
+      <view class="item" wx:for='{{FavoritesList}}' wx:key='goods_id' data-id='{{item.ProductId}}'>
+        <image class="img" src="{{item.ThumbnailUrl100}}" catchtap="bindDetail" data-productid="{{item.ProductId}}"></image>
+        <view class="info" catchtap="bindDetail" data-productid="{{item.ProductId}}" >
+          <view class="name">{{item.ProductName}}</view>
+          <view class="name" style="font-size: 12px;">{{item.ProductCode}}</view>
+          <view style='color:red;'>￥{{item.SalePrice}}
+          </view>
+        </view>
+        <view class='del' bindtap='delCollect' data-goodsid='{{item.ProductId}}'>
+          删除
+        </view>
+        <view class="addcart" bindtap="catchAddCart" data-productid="{{item.ProductId}}"><image src="/images/cart_hover.png" style="width:40rpx;height:40rpx;"></image></view>
+      </view>
+    <!-- </view> -->
+  </view>
+</view>
+<SelectSku id="selectSku" productid="{{CurrentProduct.ProductId}}"  bindCartQuantity="setProductCartQuantity"></SelectSku>

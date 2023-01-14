@@ -1,0 +1,86 @@
+<!-- v1 -->
+<!-- components/banner/banner.wxml
+<view style="position: relative;width: {{width}};height: {{height}};background-color: orange;">
+
+
+  <image 
+    animation="{{index == current? animationData:null}}"
+    wx:key="{{index}}"
+    wx:for="{{banner}}" 
+    
+    style="border-radius: {{radius}}px;box-shadow: 0px 0px 10px red;z-index: {{banner.length-index}};top:{{(verticalSpace * index) / 2}}px;width: calc({{width}} - calc({{(total - 1) * space}}px));position: absolute;left: {{index==0?deltaX:index*space}}px;height: calc(100% - {{index * verticalSpace}}px)" 
+    src="{{item}}" 
+    bindtouchstart="touchstart"
+    bindtouchmove="touchmove"
+    bindtouchend="touchend"
+    />
+
+</view> -->
+
+<!-- V2 -->
+<!-- <view style="position: relative;width: {{width}};height: {{height}};background-color: orange;">
+
+  <view>
+  translateX:{{translateX}}
+  </view>
+  <view>
+  current : {{current}}
+  </view>
+  <image 
+    animation="{{index == current? animationData:null}}"
+    bindtransitionend="animationEnd"
+    wx:key="key"
+    wx:for-index="index"
+    wx:for="{{banner}}" 
+    class="img"
+    id="banner_{{index}}"
+    data-index = "{{index}}"
+    style="background-color: white;border-radius: {{radius}}px;box-shadow: 0px 0px 10px red;z-index: {{index<current? currnet - index -1: current+banner.length-1-index}};    transform: {{index == current ? translateX : 'translateX('+30*(index - current)+'px) scale('+(1-((index-current)/10))+')'}};position: absolute;" 
+    src="{{item}}" 
+    bindtouchstart="touchstart"
+    bindtouchmove="touchmove"
+    bindtouchend="touchend"
+    />
+  
+<button bindtap="onReset">重制</button>
+</view>  -->
+
+
+
+<!-- v3 -->
+<!-- <view style="position: relative;width: {{width}};height: {{height}};background-color: orange;">
+
+<view>
+translateX:{{translateX}}
+</view>
+<view>
+current : {{current}}
+</view>
+<image 
+  animation="{{index == current? animationData:null}}"
+  bindtransitionend="animationEnd"
+  wx:key="key"
+  wx:for-index="index"
+  wx:for="{{banner}}" 
+  
+  id="banner_{{index}}"
+  data-index = "{{index}}"
+  style="background-color: white;border-radius: {{radius}}px;box-shadow: 0px 0px 10px red;z-index: {{index<current? currnet - index -1: current+banner.length-1-index}};left:{{index == current ? deltaX+'px' : (index<current? (banner.length - currnet + index + 1)*space:(current+banner.length-1-index)*space)}}px;top:{{index<current? (banner.length - (currnet - index -1))*verticalSpace: (banner.length-(current+banner.length-1-index))*verticalSpace}}px;position: absolute;" 
+  src="{{item}}" 
+  bindtouchstart="touchstart"
+  bindtouchmove="touchmove"
+  bindtouchend="touchend"
+  />
+
+<button bindtap="onReset">重制</button>
+</view> -->
+
+
+<!-- v4 -->
+
+<view style="position: relative;width: {{width}};height: {{height}};overflow: visible;{{style}}" catchtouchmove="">
+
+    <view animation="{{index == current? animationData:null}}" bindtransitionend="animationEnd" wx:key="key" wx:for-index="index" wx:for="{{banner}}" wx:if="{{index<current?(total+current > banner.length?(index<total+current-banner.length):(false)):(current + total > index)}}" id="banner_{{index}}" data-index="{{index}}" data-link="{{item.link}}" style="overflow: hidden;height: {{height}};line-height: {{height}};font-weight: bolder;font-size: 60px;text-align: center;background-color: white;border-radius: {{radius}}px;{{boxShadow}};z-index: {{index<current? current - index : current+banner.length-1-index}};width:calc(100% - {{(total-1) * space}}px);left:{{index == current ? deltaX : (index<current? (banner.length - current + index ):(index-current))*space}}px;top:{{index<current? (banner.length - current + index + 1)*verticalSpace: (index-current)*verticalSpace}}px;position: absolute;height:calc({{height}} - {{(index < current ? (banner.length - current + index)*verticalSpace*2 : (index - current)*verticalSpace*2)}}px)" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend">
+        <image src="{{item.pic}}" style="width: 100%;height: 100%;" mode="aspectFill" bindload="loadImg" />
+    </view>
+</view>

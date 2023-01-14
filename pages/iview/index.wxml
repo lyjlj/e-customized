@@ -1,0 +1,21 @@
+<view bindtap="getGrant" style="padding:50rpx;margin-top:100rpx">获取授权</view>
+
+<bottomFrame id="bottomFrame" frameTitle="">
+<view  style="widht:750rpx;height:700rpx;background:#fff">
+<view>123</view>
+<view>123</view>
+</view>
+</bottomFrame>
+<wxs module="parse">
+    module.exports = {
+        setStyle : function( item ){
+            var defaults = '#f7f7f7';
+            return 'background:' + ( item.background ? item.background : defaults ) +';' + 'color:'+ item.color;
+        },
+        setPosition : function( position ){
+            return 'transform:translate(' + position.pageX + 'px,0);';
+        }
+    }
+</wxs>
+
+<event-view bindhandletap="multipleTap" bindhandlelongtap="longTap" binddbtap="dbTap"><view style="padding:20rpx;margin:auto">事件容器</view></event-view>

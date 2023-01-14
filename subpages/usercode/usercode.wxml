@@ -1,0 +1,16 @@
+<view class="codebody">
+  <view class="code_info">
+    <view class="code_title">
+      <image src="{{userInfo.picture}}" style="width: 100rpx;height: 100rpx;border-radius: 100%;margin-right: 20rpx;"></image>
+      <view>{{userInfo.UserName}}</view>
+    </view>
+    <view class="code_img">
+      <image style="width:100%" mode="widthFix" src="data:image/png;base64,{{img1}}"></image>
+      <view class="kh">{{userInfo.KH}}</view>
+    </view>
+    <view class="code_img">
+      <image style="width:400rpx;margin: 0 auto;" mode="widthFix" src="data:image/png;base64,{{img2}}"></image>
+      <view class="kh">{{userInfo.CellPhone}}</view>
+    </view>
+  </view>
+</view>

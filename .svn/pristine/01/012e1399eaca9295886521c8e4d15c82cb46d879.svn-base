@@ -1,0 +1,21 @@
+.grade-item{
+  line-height: 100rpx;
+  border-bottom: 1rpx solid #f7f7f7;
+  display: flex;
+  text-align: center;
+  font-size: 27rpx;
+}
+.grade-p{
+  width: 30%;
+}
+.userinfo image{
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 100%;
+  margin: 0 auto;
+}
+.userinfo{
+  text-align: center;
+  font-size: 26rpx;
+  line-height: 70rpx;
+}

@@ -1,0 +1,58 @@
+<view class="checkground">
+<view>ground-水果</view>
+<i-radio-group current="{{current2}}" bindchange="handleFruitChange2">
+        <i-radio i-class="iclass" wx:for="{{fruit}}" wx:key="{{item.id}}" value="{{item.name}}">
+        </i-radio>
+    </i-radio-group>
+</view>
+
+<view class="checkground">
+<view>group-水果</view>
+<i-checkbox-group  current="{{current}}" bindchange="handleFruitChange">
+        <i-checkbox i-class="iclass" wx:for="{{fruit}}"  wx:key="{{item.id}}" value="{{item.name}}">
+        </i-checkbox>
+    </i-checkbox-group>
+</view>
+
+<view class="checkground">
+<view>group-水果</view>
+<i-checkbox-group  current="{{current}}" bindchange="handleFruitChange">
+        <i-checkbox i-class="iclass" wx:for="{{fruit}}"  wx:key="{{item.id}}" value="{{item.name}}">
+        </i-checkbox>
+    </i-checkbox-group>
+</view>
+
+<view class="checkground">
+<view>group-水果</view>
+<i-checkbox-group  current="{{current}}" bindchange="handleFruitChange">
+        <i-checkbox i-class="iclass" wx:for="{{fruit}}"  wx:key="{{item.id}}" value="{{item.name}}">
+        </i-checkbox>
+    </i-checkbox-group>
+</view>
+
+<view class="checkground">
+<view>group-水果</view>
+<i-checkbox-group  current="{{current}}" bindchange="handleFruitChange">
+        <i-checkbox i-class="iclass" wx:for="{{fruit}}"  wx:key="{{item.id}}" value="{{item.name}}">
+        </i-checkbox>
+    </i-checkbox-group>
+</view>
+
+<view class="checkground">
+<view>group-水果</view>
+<i-checkbox-group  current="{{current}}" bindchange="handleFruitChange">
+        <i-checkbox i-class="iclass" wx:for="{{fruit}}"  wx:key="{{item.id}}" value="{{item.name}}">
+        </i-checkbox>
+    </i-checkbox-group>
+</view>
+
+<view class="checkground">
+<view>group-水果</view>
+<i-checkbox-group  current="{{current}}" bindchange="handleFruitChange">
+        <i-checkbox i-class="iclass" wx:for="{{fruit}}"  wx:key="{{item.id}}" value="{{item.name}}">
+        </i-checkbox>
+    </i-checkbox-group>
+</view>
+
+
+

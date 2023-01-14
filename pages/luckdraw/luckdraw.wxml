@@ -1,0 +1,43 @@
+<view class="main"
+  style="background-image: url({{hostUrl+'/Templates/xcxshop/images/luckdrawbg.png'}})">
+  <view class="goback" bindtap="goback">
+    返回
+  </view>
+  <view class="bg2" style="background-image: url({{hostUrl+'/Templates/xcxshop/images/luckdrawbg2.png'}});"> </view>
+  <view class="lcontainer">
+    <view class="tui-dot tui-dot-{{index+1}}" wx:for="{{circleList}}" wx:key="{{index}}"></view>
+    <view class="tui-container-in">
+      <view class="tui-content-out tui-award-{{index+1}} {{index==indexSelect?'tui-awardSelect':''}}"
+        wx:for="{{awardList}}" wx:key="{{index}}">
+        <image class="tui-award-image" mode="heightFix" src="{{item.AwardPic}}"></image>
+      </view>
+      <view wx:if="{{userInfo.CellPhone}}" class="tui-btn-start {{isRunning?'tui-ative':''}}" bindtap="startDrawing">
+        立即抽奖</view>
+      <button class="tui-btn-start {{isRunning?'tui-ative':''}}" open-type="getPhoneNumber"
+        bindgetphonenumber="getPhoneNumber" wx:if='{{!userInfo.CellPhone}}'>立即抽奖</button>
+    </view>
+  </view>
+  <view class="info">
+    <view class="a_1">
+      <view class="a_title" style="background: url({{hostUrl+'/templates/common/images/bar.png'}}) no-repeat">活动时间
+      </view>
+      <view>{{Activity.StartDate}} 至 {{Activity.EndDate}}</view>
+    </view>
+    <view class="a_1">
+      <view class="a_title" style="background: url({{hostUrl+'/templates/common/images/bar.png'}}) no-repeat">活动奖品
+      </view>
+      <block wx:for="{{Activity.AwardList}}" wx:key="{{index}}" wx:for-item="item">
+      <view>{{item.AwardGrade}}：{{item.AwardName}}({{item.PrizeType==1?'积分':item.PrizeType==2?'优惠券':'礼品'}})</view>
+      </block>
+    </view>
+    <view class="a_1">
+      <view class="a_title" style="background: url({{hostUrl+'/templates/common/images/bar.png'}}) no-repeat">活动说明
+      </view>
+      <text>{{Activity.Description}}</text>
+    </view>
+  </view>
+</view>
+<view class="poster" wx:if="{{second>0}}" style="height:{{windowHeight}}px">
+  <image src="{{posterurl}}"></image>
+  <view>{{second}}</view>
+</view>

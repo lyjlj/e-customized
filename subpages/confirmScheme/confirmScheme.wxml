@@ -1,0 +1,25 @@
+<!--subpages/confirmScheme/confirmScheme.wxml-->
+<view class="schemeBody">
+  <view class="scheme_item">
+    <view class="item_head">
+      <view class="item_left">
+        <view wx:if="{{needStr != 'undefined'}}">{{needStr}}</view>
+        <view class="item_type" style="margin-left: 15rpx;">{{type}}</view>
+      </view>
+      <view class="item_right">
+        <view>×{{quantity == 'undefined' ? 1 : quantity}}</view>
+        <view class="iconfont arrow_right font28"></view>
+      </view>
+    </view>
+    <view class="item_body">
+      <view class="body_img">
+        <image src="{{attachment}}"  mode="aspectFit"></image>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="schemeFoot">
+  <view class="scheme_query">若对方案有疑问,请联系业务员沟通方案</view>
+  <view class="scheme_btn" bindtap="onlineServices">沟通方案</view>
+</view>

@@ -1,0 +1,200 @@
+page{
+  background: #F8F8F8;
+}
+.main{
+  background: #F8F8F8;
+  display: flex;
+  padding:0 3% 3% 3%;
+  justify-content: space-between;
+}
+.colmn{
+  display: inline-block;
+  width:48.5%;
+}
+.lives{
+  width:100%;
+  background: #fff;
+  border-radius: 10rpx;
+  margin-top: 30rpx;
+  padding-bottom: 20rpx;
+  
+}
+.liveimage{
+  border-top-right-radius: 10rpx;
+  border-top-left-radius: 10rpx;
+  width:100%;
+  display: inline-block;
+line-height: 0;
+overflow: hidden;
+position: relative;
+}
+.livedesc{
+ text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+line-height: 40rpx;
+font-size: 28rpx;
+padding:20rpx 20rpx 0rpx 20rpx;
+}
+.liveproduct{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10rpx 20rpx 0 20rpx;
+ 
+}
+
+.productposition{
+position: absolute;
+bottom: 10rpx;
+left: 0rpx;
+color: #fff!important;
+width:100%;
+}
+
+.liveproduct .name{
+  font-size: 27rpx;
+  width:160rpx;
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  line-height: 40rpx;
+  color: #999999;
+}
+.productitem{
+  display: flex;
+  flex-direction: column;
+}
+.liveproduct .price{
+   font-size: 27rpx;
+   line-height: 50rpx;
+   color: rgb(51,51,51,0.5)
+}
+.liveproduct image{
+  width:100rpx;
+  height: 100rpx;
+  border-radius: 10rpx;
+  border:1px solid #EAEAEA;
+}
+.liver{
+  display: flex;
+  padding: 10rpx 20rpx;
+  align-items: center;
+}
+.liverimage{
+  width: 45rpx;
+  height: 45rpx;
+  border-radius: 50rpx;
+  margin-right: 20rpx;
+
+}
+.livername{
+  color:rgb(51,51,51,0.5);
+  font-size: 27rpx;
+}
+.liverpostion{
+  position: absolute;
+  bottom:5rpx;
+  
+}
+
+.liverpostion .livername{
+  color:#fff!important;
+}
+.playicon{
+  width:50rpx;
+  height: 50rpx;
+  position: absolute;
+  top:10rpx;
+  left: 10rpx;
+}
+.playingpositon{
+ position: absolute;
+  top:10rpx;
+  left: 10rpx;
+}
+.playingtitle{
+  background: rgb(51,51,51,0.5);
+  border-radius: 50rpx;
+  height:40rpx;
+  line-height:40rpx;
+  display: flex;
+  align-items: center;
+  color:#fff;
+  font-size: 25rpx;
+}
+.playing{
+  background: #EB544D;
+  color:#fff;
+  font-size: 24rpx;
+  border-radius: 50rpx;
+  height:40rpx;
+  line-height:40rpx;
+  display: flex;
+  padding:0 10rpx 0 20rpx;
+}
+.playingicon{
+  width:30rpx;
+  height: 30rpx;
+}
+.livecount{
+  margin-left: 15rpx;
+  margin-right: 20rpx;
+}
+.firstlive{
+  /* display: inline-block; */
+  width:100%;
+  background: #F8F8F8;
+}
+.liverpostion3{
+   position: absolute;
+  bottom:225rpx;
+}
+.firstinfo{
+  position: absolute;
+  bottom: 20rpx;
+  left: 10rpx;
+  color: #fff!important;
+}
+.firstinfo .liverimage{
+  width: 50rpx;
+  height: 50rpx;
+}
+.firstinfo .livername{
+  color: #fff!important;
+  font-size: 34rpx;
+}
+.firstinfo .livedesc{
+  font-size: 35rpx;
+  padding:10rpx 20rpx;
+}
+.firstinfo .liveproduct image{
+  margin-right: 20rpx;
+}
+.liveimage3{
+  border-radius: 10rpx;
+  width:94%;
+  display: inline-block;
+line-height: 0;
+overflow: hidden;
+position: relative;
+margin:3% 3% 0 3%;
+}
+.firstinfo .liveproduct{
+  padding:10rpx 20rpx;
+}
+.time{
+  display: flex;
+  padding: 10rpx 20rpx;
+  align-items: center;
+  font-size: 24rpx;
+  color: #999999;
+}

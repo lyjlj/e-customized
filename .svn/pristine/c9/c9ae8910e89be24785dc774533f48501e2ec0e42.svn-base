@@ -1,0 +1,55 @@
+<!--subpages/needList/needList.wxml-->
+<scroll-view class="customtitle" scroll-x="{{true}}" scroll-with-animation="{{true}}" scroll-left="{{scrollLeft}}rpx">
+  <view class="customtitlel">
+    <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==0?DefaultColor:''}};color:#{{Status==0?DefaultColor:''}};" data-status="0">全部</view>
+  </view>
+  <view class="customtitlel">
+    <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==50?DefaultColor:''}};color:#{{Status==50?DefaultColor:''}};" data-status="50">待处理 <text class="shop_num font28" wx:if="{{statusSum[50]!=0}}">{{statusSum[50]}}</text></view>
+  </view>
+  <view class="customtitlel">
+    <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==51?DefaultColor:''}};color:#{{Status==51?DefaultColor:''}};" data-status="51">待确认 <text class="shop_num font28" wx:if="{{statusSum[51]!=0}}">{{statusSum[51]}}</text></view>
+  </view>
+  <view class="customtitlel">
+    <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==52?DefaultColor:''}};color:#{{Status==52?DefaultColor:''}};" data-status="52">已确认 <text class="shop_num font28" wx:if="{{statusSum[52]!=0}}">{{statusSum[52]}}</text></view>
+  </view>
+  <view class="customtitlel">
+    <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==53?DefaultColor:''}};color:#{{Status==53?DefaultColor:''}};" data-status="53">签订合同 <text class="shop_num font28" wx:if="{{statusSum[53]!=0}}">{{statusSum[53]}}</text></view>
+  </view>
+  <view class="customtitlel">
+    <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==54?DefaultColor:''}};color:#{{Status==54?DefaultColor:''}};" data-status="54">生产中 <text class="shop_num font28" wx:if="{{statusSum[54]!=0}}">{{statusSum[54]}}</text></view>
+  </view>
+  <view class="customtitlel">
+    <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==55?DefaultColor:''}};color:#{{Status==55?DefaultColor:''}};" data-status="55">待发货 <text class="shop_num font28" wx:if="{{statusSum[55]!=0}}">{{statusSum[55]}}</text></view>
+  </view>
+  <view class="customtitlel">
+    <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==56?DefaultColor:''}};color:#{{Status==56?DefaultColor:''}};" data-status="56">待收货 <text class="shop_num font28" wx:if="{{statusSum[56]!=0}}">{{statusSum[56]}}</text></view>
+  </view>
+  <view class="customtitlel">
+    <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==57?DefaultColor:''}};color:#{{Status==57?DefaultColor:''}};" data-status="57">已完成 <text class="shop_num font28" wx:if="{{statusSum[57]!=0}}">{{statusSum[57]}}</text></view>
+  </view>
+</scroll-view>
+
+<view class="orderListBody">
+  <view wx:for="{{needData}}" wx:key="id" class="order_item" wx:if="{{Status == item.status || Status == 0 }}">
+    <view class="statustext">{{statusObj[item.status]}}</view>
+    <view class="item_head">
+      <view style="flex:1;">订单编码 : {{item.id}}</view>
+    </view>
+    <view class="item_body" bindtap="ToDetail" data-id="{{item.id}}">
+      <view class="body_img">
+        <image src="{{item.type == '详细定制' ? item.details.companyLogo : item.details.attachment}}" style="width:80px;height:80px;border-radius: 8px;" mode="aspectFill"></image>
+      </view>
+      <view class="body_msg">
+        <view class="need">定制需求 : {{item.type == '详细定制' ? item.details.variety : item.details.needStr}}</view>
+        <view class="time">创建时间 : {{item.createtime}}</view>
+      </view>
+    </view>
+    <view class="item_foot">
+      <view id="{{item.id}}" bindtap="checkScheme" class="check" wx:if="{{item.status != 50}}">查看方案</view>
+    </view>
+  </view>
+  <view class="no_data" wx:if="{{statusAll == 0 || statusSum[Status] == 0}}">
+    <image src="/images/no_data.jpg"></image>
+    <view style="font-size: 25rpx; color: #555555;">暂无数据</view>
+  </view>
+</view>

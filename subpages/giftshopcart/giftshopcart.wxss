@@ -1,0 +1,51 @@
+/* pages/giftshopcart/giftshopcart.wxss */
+page{
+  background:#f7f7f7;
+}
+.cart-item{
+  width: 100%;
+  margin: 20rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background:#fff;
+  font-size: 25rpx;
+}
+.cart-img{
+  width: 180rpx;
+  height: 180rpx;
+}
+.cart-footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 75rpx;
+  background:white;
+  font-size: 25rpx;
+  z-index: 10;
+}
+.submit{
+  background:red;
+  color:white;
+  text-align: center;
+  width: 150rpx;
+}
+.cart-body{
+  margin-bottom: 100rpx;
+}
+.total{
+  padding: 0 15rpx;
+}
+.quantity{
+  /* font-size: 40rpx; */
+  display: flex;
+  align-items: center;
+}
+.no-cart{
+  line-height: 200rpx;
+  text-align: center;
+  color: #ddd;
+}

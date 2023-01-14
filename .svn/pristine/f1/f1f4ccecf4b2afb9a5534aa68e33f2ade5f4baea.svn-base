@@ -1,0 +1,285 @@
+.wrapAnimate {
+  animation: wrapAnimate 0.5s ease-in-out forwards;
+}
+
+@keyframes wrapAnimate {
+  0% {
+  }
+
+  100% {
+    background: rgba(0, 0, 0, 0.35);
+  }
+}
+
+.wrapAnimateOut {
+  animation: wrapAnimateOut 0.5s ease-in-out forwards;
+}
+
+@keyframes wrapAnimateOut {
+  0% {
+    background: rgba(0, 0, 0, 0.35);
+  }
+
+  100% {
+    background: rgba(0, 0, 0, 0);
+  }
+}
+
+.frameAnimate {
+  animation: frameAnimate 0.5s ease forwards;
+}
+
+@keyframes frameAnimate {
+  0% {
+    left: 750rpx;
+    top: 0vh;
+  }
+
+  100% {
+    opacity: 1;
+    left: 0rpx;
+    top: 0vh;
+  }
+}
+
+.frameAnimateOut {
+  animation: frameAnimateOut 0.5s ease forwards;
+}
+
+@keyframes frameAnimateOut {
+  0% {
+    opacity: 1;
+    left: 0rpx;
+    top: 0vh;
+  }
+
+  100% {
+    opacity: 0;
+    left: 750rpx;
+    top: 0vh;
+  }
+}
+
+.frame-wrapper {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 50vh;
+  background: #f7f7f7;
+}
+
+.frame {
+  background: #fff;
+ position: fixed;
+  bottom: 0;
+  width: 750rpx;
+  right: 0;
+  height: 100%;
+  z-index: 999;
+}
+
+.title-wrapper {
+  justify-content: space-between;
+  font-size: 30rpx;
+  color: #4a4a4a;
+  position: relative;
+  height: 5vh;
+}
+
+.title-img {
+  width: 50rpx;
+  height: 50rpx;
+  padding: 2vw 5vw;
+  right: 0;
+  position: absolute;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.server-body {
+background: #fff;
+height: 80vh;
+bottom: 120rpx;
+width: 100%;
+margin: 0 auto;
+border-radius: 20rpx;
+}
+.message-body{
+  height: 80vh;
+  overflow: hidden;
+  margin: 0 auto;
+  width: 95%;  
+}
+
+.server-footer {
+  bottom: 0;
+  margin: 0 auto;
+  height: 15vh;
+  width: 700rpx;
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  position: relative;
+}
+
+.send {
+  display: inline-block;
+  width: 130rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  color: white;
+}
+
+.input-text {
+display: inline-block;
+width: 550rpx;
+margin-right: 10rpx;
+border: 1rpx solid #e6e6e6;
+padding: 10rpx;
+height: 5vh;
+border-radius: 10rpx;
+font-size: 25rpx;
+background: #ffffff;
+}
+
+.title{
+  text-align: center;
+}
+.left{
+  text-align: left;
+background-size: 40rpx 40rpx;
+background-repeat: no-repeat;
+margin-bottom: 50rpx;
+overflow: hidden;
+min-height: 80rpx;
+}
+.right-body{
+text-align: right;
+background-size: 40rpx 40rpx;
+background-repeat: no-repeat;
+background-position: right;
+  margin: 0rpx auto;
+  margin-bottom: 50rpx;
+  overflow: hidden;
+  min-height: 80rpx;
+}
+.time{
+  clear: both;
+    color: #b0b0b0;
+    font-size: 12px;
+    text-align: center;
+      width: 90%;
+  margin: 10rpx auto;
+}
+.left-text{
+display: inline-block;
+padding: 10rpx;
+font-size: 25rpx;
+border: 1rpx solid #e6e6e6;
+border-radius: 10rpx;
+letter-spacing: 4rpx;
+line-height: 35rpx;
+max-width: 535rpx;
+}
+.right-text{
+padding: 10rpx;
+font-size: 25rpx;
+background: #07c160;
+color: #f7f7f7;
+border-radius: 10rpx;
+letter-spacing: 4rpx;
+line-height: 35rpx;
+max-width: 535rpx;
+float: right;
+}
+
+.add{
+  width: 50rpx;
+  height: 50rpx;
+}
+.tag-footer{
+  height: 150rpx;
+  display: flex;
+  background: #f7f7f7;
+  overflow: hidden;
+  padding: 15rpx;
+}
+.tagitem{
+  background: white;
+  margin: 10rpx;
+  border-radius:20rpx;
+  width: 100rpx;
+  height: 110rpx;
+  padding: 10rpx;
+}
+.tagitem image{
+  width: 75rpx;
+  height: 75rpx;
+  margin: 0 auto;
+}
+.tagitem view{
+  text-align: center;
+  line-height: 50rpx;
+  font-size: 22rpx;
+}
+.coupon,.product{
+  height: 750rpx;
+  padding: 10rpx;
+  overflow:scroll;
+}
+
+.product-info{
+  text-align: center;
+  float: left;
+  background: #f7f7f7;
+  border-radius: 20rpx;
+  padding: 10rpx;
+}
+.product-info image{
+  width: 350rpx;
+  height: 350rpx;
+  margin: 10rpx auto;
+}
+.coupon-item{
+  background: white;
+  margin: 10rpx;
+  border-radius: 20rpx;
+  display: flex;
+  padding: 10rpx 25rpx;
+  justify-content: space-between;
+  align-items: center;
+}
+.coupon-item image{
+  width: 100rpx;
+  height: 100rpx;
+  margin-right: 10rpx;
+}
+.coupon-content{
+  text-align: center;
+  font-size: 22rpx;
+  display: flex;
+}
+.quick_ask{
+  position: absolute;
+  top: -49px;
+  left: 0;
+  background: rgba(0,0,0,0.1);
+  width: 100%;
+  color: #000;
+  font-size: 25rpx;
+  padding: 10rpx;
+  border-radius: 10rpx;
+  line-height: 40rpx;
+}

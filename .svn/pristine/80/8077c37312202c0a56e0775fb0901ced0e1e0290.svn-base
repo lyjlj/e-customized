@@ -1,0 +1,50 @@
+<view class="yongjingbox">
+    <view class="leftbox">
+        <text class="title">下级成交金额</text>
+        <text class="money">￥{{LowerUserSaleTotal}}</text>
+    </view>
+    <view class="leftbox">
+        <text class="title">下级成交克重</text>
+        <text class="money">{{LowerUserSaleWeight}}g</text>
+    </view>
+</view>
+<view class="drawalsBox pd24" hidden="true">
+    <view class="drawals fl">
+        <view class="drawals_width">
+            <text>{{ExpandMemberInMonth}}</text>
+        </view>
+        <text>本月发展会员人数</text>
+    </view>
+    <view class="drawals fr">
+        <view class="drawals_width">
+            <text>{{ExpandMemberAll}}</text>
+        </view>
+        <text>累计发展会员人数</text>
+    </view>
+</view>
+<view class="yongjin_list" wx:for="{{subMemberList}}" wx:key="{{subMemberList}}">
+    <view class="list_li">
+        <view class="list_id">
+            <text class="idnum" wx:if="{{item.RealName}}">{{item.RealName}}</text>
+            <text class="idnum" wx:elif="{{item.CellPhone}}">{{item.CellPhone}}</text>
+            <text class="idnum" wx:else>{{item.UserName}}</text>
+            <text class="time">{{item.CreateDate}}</text>
+        </view>
+        <view class="list_id width">
+            <view class="idnum">
+                <text class="icon_money">¥</text>
+                <text class="count">{{item.SubSumOrderTotal}}</text>
+            </view>
+            <text class="time">累计金额</text>
+        </view>
+        <view class="list_id width">
+            <view class="idnum">
+                <text class="count">{{item.OrderNumber}}</text>
+            </view>
+            <text class="time">累计订单</text>
+        </view>
+        <view class="list_id del">          
+        <switch type="switch"  bindchange="delSubMember" checked="{{item.IsEnable}}" data-userid="{{item.UserID}}"></switch>
+        </view>
+    </view>
+</view>

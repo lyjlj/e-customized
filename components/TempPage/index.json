@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "SelectSku": "/components/SelectSku/SelectSku",
+    "sticky": "/components/sticky/sticky",
+    "temp-page": "/components/TempPage/index",
+    "banner": "/components/banner/banner"
+  }
+}

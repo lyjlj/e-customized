@@ -1,0 +1,94 @@
+<view wx:if="{{firstlive.length>0}}" class="firstlive">
+  <template is="liveinfo3" data="{{item}}" wx:for="{{firstlive}}" wx:key="Id" wx:for-index="idx"  ></template>
+</view>
+<view style="text-align:center;font-size:34rpx;margin-top:50rpx;" hidden="{{liveData.length>0||firstlive.length>0}}">无直播记录</view>
+<view class="main">
+  <view class="colmn">
+    <template is="{{item.IsLooking?'liveinfo2':'liveinfo'}}" data="{{item}}" wx:for="{{liveData}}" wx:key="Id" wx:for-index="idx" wx:if="{{idx%2==0}}"></template>
+  </view>
+  <view class="colmn">
+    <template is="{{item.IsLooking?'liveinfo2':'liveinfo'}}" data="{{item}}" wx:for="{{liveData}}" wx:key="Id" wx:for-index="idx" wx:if="{{idx%2!=0}}"></template>
+  </view>
+</view>
+<template name="liveinfo">
+  <view class="lives"  bindtap="toLiveDetail" data-looking="{{item.IsLooking}}" data-id="{{item.Id}}" data-prefix="{{item.Prefix}}">
+    <view>
+      <image mode="widthFix" class="liveimage" src="{{item.Image}}">
+        <view>
+          <image mode="widthFix" class="playicon" src="/images/play.png"></image>
+        </view>
+        <view class="productposition">
+          <view class="liveproduct" style="flex-direction:row-reverse;" wx-if="{{item.Products.length>0}}">
+            <view class="productitem">
+              <view class="name" style="color:#fff">{{item.Products[0].ProductName?item.Products[0].ProductName:item.Products[0].Name}}</view>
+              <view class="price" style="color:#fff">￥{{item.Products[0].SalePrice?item.Products[0].SalePrice:item.Products[0].AdjustedPrice}}</view>
+            </view>
+            <image src="{{item.Products[0].ThumbnailUrl410?item.Products[0].ThumbnailUrl410:item.Products[0].ThumbnailUrl180}}"></image>
+          </view>
+        </view>
+
+      </image>
+    </view>
+
+    <view class="livedesc">{{item.Description}}</view>
+    <view class="liver">
+      <image class="liverimage" src="{{item.HeadImage?item.HeadImage:item.Image}}"></image>
+      <view class="livername">{{item.UserName}}</view>    
+    </view>
+    <view class="time">{{item.CreateTime}}</view>
+  </view>
+</template>
+<template name="liveinfo2" >
+  <view class="lives" bindtap="toLiveDetail" data-looking="{{item.IsLooking}}" data-id="{{item.LiveRoomId}}" data-prefix="{{item.Prefix}}" >
+    <view>
+      <image mode="widthFix" class="liveimage" src="{{item.Image}}">
+        <view class="playingpositon">
+          <view class="playingtitle">
+            <view class="playing">
+              <image mode="widthFix" class="playingicon" src="/images/playing.gif"></image>
+              <text>直播中</text>
+            </view>
+            <view class="livecount">{{item.ViewCount}}人观看</view>
+          </view>
+        </view>
+        <view class="liver liverpostion">
+          <image class="liverimage" src="{{item.HeadImage?item.HeadImage:item.Image}}"></image>
+          <view class="livername">{{item.UserName}}</view>
+        </view>
+      </image>
+    </view>
+    <view class="livedesc">{{item.Description}}</view>
+    <view class="liveproduct" wx-if="{{item.Products.length>0}}">
+      <view class="productitem">
+        <view class="name">{{item.Products[0].ProductName?item.Products[0].ProductName:item.Products[0].Name}}</view>
+        <view class="price">￥{{item.Products[0].SalePrice?item.Products[0].SalePrice:item.Products[0].AdjustedPrice}}</view>
+      </view>
+      <image src="{{item.Products[0].ThumbnailUrl410?item.Products[0].ThumbnailUrl410:item.Products[0].ThumbnailUrl180}}"></image>
+    </view>
+
+  </view>
+</template>
+<template name="liveinfo3">
+  <image bindtap="toLiveDetail" data-looking="{{item.IsLooking}}" data-id="{{item.LiveRoomId}}" data-prefix="{{item.Prefix}}" mode="widthFix" class="liveimage3" src="{{item.Image}}">
+        <view class="playingpositon">
+          <view class="playingtitle">
+            <view class="playing">
+              <image mode="widthFix" class="playingicon" src="/images/playing.gif"></image>
+              <text>直播中</text>
+            </view>
+            <view class="livecount">{{item.ViewCount}}人观看</view>
+          </view>
+        </view>
+        <view class="firstinfo">
+          <view class="liver">
+            <image class="liverimage" src="{{item.HeadImage?item.HeadImage:item.Image}}"></image>
+            <view class="livername">{{item.UserName}}</view>
+          </view>
+          <view class="livedesc">{{item.Description}}</view>
+          <view class="liveproduct" wx-if="{{item.Products.length>0}}">
+            <image wx:for="{{item.Products}}" wx:for-index="idx2" wx:if="{{idx2<=3}}" wx:for-item="p" src="{{p.ThumbnailUrl410?p.ThumbnailUrl410:p.ThumbnailUrl180}}"></image>
+          </view>
+        </view>
+      </image>
+</template>
+<LiveWindow id="liveWindow"></LiveWindow>

@@ -1,0 +1,52 @@
+page{
+  height: auto;
+  padding-bottom: 250rpx;
+}
+/* pages/PointInfo/PointInfo.wxss */
+.pointinfo{
+  padding: 50rpx;
+  font-size: 26rpx;
+  line-height: 50rpx;
+}
+.price{
+  text-decoration: line-through;
+  color: #ddd;
+}
+.title{
+  font-size: 28rpx;
+  font-weight: bolder;
+}
+.submit-footer{
+  width: 700rpx;
+  line-height: 100rpx;
+  color:white;
+  position: fixed;
+  bottom: 0;
+  left: 25rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.giftimg{
+  width: 90%;
+  margin: 0 auto;
+  border-radius: 20rpx;
+  border: 1rpx solid #e6e6e6;
+}
+.submit{ 
+  font-weight: bold;
+  background: red;
+  width: 350rpx;  
+  text-align: center;
+  font-size: 30rpx;
+}
+.xqcont {
+  font-size: 28rpx;
+  overflow: hidden;
+  padding: 20rpx;
+}
+.wxParse-p,.wxParse-inline{
+  display: flex;
+}
+.descempty{
+  text-align: center;
+}

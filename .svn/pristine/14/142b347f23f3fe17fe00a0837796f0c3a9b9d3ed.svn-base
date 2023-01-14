@@ -1,0 +1,21 @@
+<import src="../wxParse/wxParse.wxml"></import>
+<view>
+  <image class="giftimg" src="{{RequestUrl}}{{info.ImageUrl}}" mode="widthFix"></image>
+  <view class="pointinfo">
+    <view class="title">{{info.Name}}</view>
+    <!-- <view class="price">市场价：￥{{info.MarketPrice}}</view> -->
+    <view>{{info.ShortDescription}}</view>
+    <view>剩余数量：{{info.TotalCount}}</view>
+    <view>所需积分：<text style="color:red">{{info.NeedPoint}}</text>分</view>
+  </view>
+</view>
+<view class="xqcont">
+			<view class="wxParse" wx:if="{{richtext.length>0}}">		
+        <rich-text nodes="{{richtext}}"></rich-text>
+			</view>  
+			<view wx:else class="descempty">暂无详情描述</view>
+		</view>
+<view class="submit-footer" style="bottom:{{bottom}}px">
+  <view class="submit" bindtap="giftcart" style="background:#e6e6e6;color:black">购物车</view>
+  <view class="submit" bindtap="submit">立即兑换</view>
+</view>

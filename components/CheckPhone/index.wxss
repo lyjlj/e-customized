@@ -1,0 +1,54 @@
+
+.loginBg{
+  width:400rpx;
+height:162rpx;
+margin:auto;
+margin-top:20px;
+}
+.welcome{
+  margin: auto;
+text-align: center;
+margin-bottom: 50rpx;
+font-size: 31rpx;
+}
+.welcome2{
+  margin:10rpx;
+text-align:center;
+font-size:32rpx;
+margin-bottom:30rpx;
+
+}
+.mask {
+position: fixed;
+left: 0;
+top: 0;
+z-index: 10;
+bottom: 0;
+right: 0;
+background-color: rgba(0,0,0,0.7);
+
+}
+.comm-stand {
+margin: 55rpx;
+background: #fff;
+border-radius: 7px;
+/* box-shadow: 0rpx 0rpx 15rpx #ccc; */
+position: fixed;
+top: 15%;
+left: 0rpx;
+right: 0rpx;
+
+}
+.tjiaoname button {
+margin-top: 16rpx;
+width: 50%;
+margin-left: 24rpx;
+font-size: 35rpx;
+padding: 20rpx;
+margin: auto;
+margin-bottom: 45rpx;
+color: #fff;
+line-height: 40rpx;
+}
+
+

@@ -1,0 +1,24 @@
+<!--components/SelectUnique/SelectUnique.wxml-->
+<view class="container">
+<view style="height:100%">
+<scroll-view style="height:100%" scroll-y="true"  >
+<view style="padding:20rpx;">
+<view class="upitem" wx:for="{{UniqueItems}}" wx:key="UniqueProductId">
+  <view class="ucontent">
+     <view class="uitem" wx:for="{{item.citems}}" wx:for-item="citem" wx:key="name">
+        <text class="n">{{citem.name}}</text><text class="v">{{citem.value}}</text>
+     </view>
+     <!-- <view>{{item.UniqueContent}}</view> -->
+  </view>
+  <view class="u-shop">
+       <text>标签价:{{item.Price}}</text>
+       <view style="background:#{{item.Quantity>0?'':DefaultColor}}" class="{{item.Quantity>0?'cart-disable':'cart-active'}}"  data-uniquecode="{{item.UniqueProductCode}}" bindtap="addcart">{{item.Quantity>0?'移出购物车':'加入购物车'}}</view>
+  </view>
+</view>
+</view>
+<view style="text-align: center;" wx:if="{{UniqueItems.length==0}}">
+暂无库存
+</view>
+</scroll-view>
+</view>
+</view>

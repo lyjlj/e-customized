@@ -1,0 +1,505 @@
+page{
+  background: rgb(59,59,59,0.78);
+  overflow: hidden;
+}
+.foot-nav {
+  width:100%;
+  height:110rpx;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+  box-sizing:border-box;
+  color:#999;
+  background:#2D2D2D;
+  box-shadow:0px -5rpx 10rpx rgba(209, 209, 209, 0.3);
+}
+.foot-nav .tab-bar-item {
+  position:relative;
+  width:20%;
+  height:110rpx;
+  display: inline-block;
+  text-align: center;
+  /* bottom:40rpx; */
+}
+.foot-nav .tab-bar-item .img-box {
+  top: 10rpx;
+  position: relative;
+}
+.foot-nav .tab-bar-item:nth-child(3) .img-box {
+  top: 4rpx;
+  position: relative;
+}
+.foot-nav .tab-bar-item text{
+  font-size: 10px;
+}
+.foot-nav .tab-bar-item .barimage {
+  display: block;
+  width:60rpx;
+  height:60rpx;
+  margin:0 auto;
+}
+.uploadimage{
+  width:350rpx;
+  line-height: 90rpx;
+  border-radius: 100rpx;
+  margin:auto;
+  top:35%;
+  left: 200rpx;
+  text-align: center;
+  z-index: 10;
+  color:#fff;
+  position: fixed;
+}
+.imageContain {
+  margin:auto;
+  display: flex;
+  align-items: center;
+}
+.imageContain image{
+  width:100%;
+  height: 100%;
+}
+.imageMain{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.tagMain{
+  z-index: 30;
+  position: absolute;
+  top: 0;
+  width: 750rpx;
+  background: rgb(51,51,51,0.9);
+}
+.searchMain{
+  width: 100%;
+  overflow: hidden;
+  height: 120rpx;
+  position: fixed;
+  top: 20px;
+  left: 0;
+  z-index: 30;
+}
+.searchr{
+  color: #CECDCD;
+}
+.searchk{
+  margin-top: 40rpx;
+  border:none;
+  display: flex;
+  align-items: center;
+}
+.closeTab{
+  margin-left: 20rpx;
+  margin-right: 10rpx;
+}
+.searchl{
+  width:330rpx;
+  background: #3B3B3B;
+  border-radius: 100rpx;
+  align-items: center;
+}
+.searchl icon{
+  padding:0;
+}
+.searchl input {
+  padding:15rpx 0;
+}
+.tagItem{
+  background: rgb(96,96,98,0.37);
+  width:650rpx;
+  border-radius: 10rpx;
+  display: flex;
+  margin: 25rpx;
+  padding:20rpx 25rpx;
+}
+.tagImage{
+  width:150rpx
+}
+.tagImage image{
+  width:100rpx;
+  height: 100rpx;
+  margin: auto;
+  border-radius: 10rpx;
+}
+.tagDetail{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.tagName{
+  color:#DCDCDC;
+}
+.tagDec{
+  color:#A2A2A2;
+  font-size: 29rpx;
+}
+.nav {
+  width: 100%;
+  line-height: 100rpx;
+  height: 100rpx;
+  position: fixed;
+  top: 150rpx;
+  left: 0;
+  z-index: 30;
+ 
+  border-top: 1rpx solid #737373;
+  border-bottom: 1rpx solid #737373;
+}
+.nav-item {
+  display: inline-block;
+  text-align: center;
+  font-size: 31rpx;
+  width: 33%;
+  height: 98rpx;
+  line-height: 98rpx;
+  color:#7D7D7D;
+}
+.itemtext.active{
+  line-height: 85rpx;
+  height: 85rpx;
+  display: inline-block;
+}
+.itemtext.active::after{
+  content:"  "; 
+  width:40rpx; 
+  height:6rpx; 
+  background-color: #fff; 
+  margin:0 auto; 
+  display:block;
+  border-radius: 10rpx;
+}
+.tab-box{
+  padding-top: 250rpx;
+  height: 100%;
+  box-sizing: border-box;
+}
+.tab-content{
+  overflow-y: scroll;
+}
+.frameAnimate {
+  animation: frameAnimate 1s ease forwards;
+}
+
+@keyframes frameAnimate {
+  0% {
+  }
+
+  100% {
+    opacity: 1;
+    top: 0vh;
+  }
+}
+
+.frameAnimateOut {
+  animation: frameAnimateOut 0.5s ease forwards;
+}
+
+@keyframes frameAnimateOut {
+  0% {
+    opacity: 1;
+    top: 0vh;
+  }
+
+  100% {
+    opacity: 0;
+    top: 100vh;
+  }
+}
+movable-view {
+  pointer-events: auto;
+  width:auto
+}
+
+movable-area {
+  pointer-events: none;
+  z-index: 20;
+}
+.pointMain{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width:100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+.pointsArea{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background: none;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+}
+
+.pointitem{
+  z-index: 20;
+  width: auto;
+  /* display: flex; */
+  align-items: center;
+  text-align: center;
+}
+.pointitem2{
+  z-index: 20;
+  width: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+.pointitem2 .pointDetail{
+  padding-right: 20rpx;
+}
+.pointitem .pointDetail{
+  padding-left: 20rpx;
+}
+.pointDetail{
+  color: #fff;
+background: rgb(51,51,51,0.5);
+line-height: 40rpx;
+border-radius: 50rpx;
+font-size: 24rpx;
+height: 40rpx;
+display: flex;
+justify-content: between;
+}
+.pointName{
+  overflow:hidden;
+text-overflow:ellipsis;
+white-space:nowrap;
+/* max-width: 60px; */
+}
+.circle-container{
+  width:25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+.circle{
+  width:10rpx;
+  height: 10rpx;
+  border-radius: 20rpx;
+  background: #fff;
+  animation: circleAnimate 0.8s infinite forwards;
+  margin:auto;
+}
+@keyframes circleAnimate {
+  0% {
+    border:1rpx solid rgb(0,0,0,0.5);
+  }
+
+  100% {
+    border:10rpx solid rgb(0,0,0,0.5);
+  }
+}
+@-webkit-keyframes circleAnimate {
+  0% {
+    border:1rpx solid rgb(0,0,0,0.5);
+  }
+
+  100% {
+    border:10rpx solid rgb(0,0,0,0.5);
+  }
+}
+.galleryMain{
+    z-index: 30;
+    position: absolute;
+    top: 0;
+    width: 750rpx;
+    background: rgb(51,51,51,0.9);
+}
+.galleryTabName{
+  text-align: center;
+  width: 100%;
+  color:#fff;
+  margin-top: 50rpx;
+}
+.galleryContain{
+  padding: 35rpx;
+  margin-top: 50rpx;
+}
+.galleryItem{
+  padding:30rpx;
+  border-radius: 25rpx;
+  background: rgb(96,96,98,0.37);
+  margin-bottom: 30rpx;
+  color:#fff;
+}
+
+.saveBtn{
+  z-index: 25;
+  position: fixed;
+  bottom: 125rpx;
+  right: 20rpx;
+  width: 110rpx;
+  height: 55rpx;
+  border-radius: 52rpx;
+  color: #fff;
+  text-align: center;
+  line-height: 55rpx;
+  font-size: 27rpx;
+}
+.iLabel{
+  padding: 30rpx;
+  border-radius: 25rpx;
+  background: rgb(96,96,98,0.37);
+  color: #fff;
+}
+.iname{
+  padding: 30rpx;
+  border-radius: 10rpx;
+  background: rgb(96,96,98,0.37);
+  color: #fff;
+  margin-top: 25rpx;
+}
+
+.next{
+  background: rgb(96,96,98,0.37);
+  color: #fff;
+  padding: 25rpx;
+  text-align: center;
+  margin:auto;
+  width:300rpx;
+  border-radius: 100rpx;
+  margin-top: 55rpx;
+}
+.return{
+  position: absolute;
+  top: 40rpx;
+  left: 15rpx;
+  width: 70rpx;
+  height: 70rpx;
+  margin: auto;
+  border-radius: 100rpx;
+  }
+  /* .pointExtattr{
+    text-align: left;
+    font-size: 24rpx;
+    color: #fff;
+    background: rgb(51,51,51,0.5);
+    border-radius: 15rpx;
+    padding-left: 20rpx;
+    padding-right: 20rpx;
+    width: 110px;
+    line-height: 36rpx;
+
+  } */
+  .tagExt{
+    margin: 0 25rpx;
+
+  }
+  .checkl{
+    margin-right: 15px;
+
+  }
+  .fx-check{
+    width: 50%;
+    text-align: left;
+    margin-bottom: 5rpx;
+    font-size: 24rpx;
+    color:#fff;
+  }
+  .checkit{
+    color: #DCDCDC;
+    border: 1px solid;
+    text-align: center;
+    border-radius: 5px;
+    width: 160rpx;
+    font-size: 14px;
+  }
+  .filter-container {
+    padding: 20rpx;
+    overflow-y: auto;
+    height: calc(100% - 135rpx);
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .filter {
+    width: 110rpx;
+    position: fixed;
+    top: 0;
+    right: 0;
+    line-height: 75rpx;
+    text-align: center;
+  }
+  
+  .attributeitem {
+    width: 100%;
+    padding: 20rpx 0rpx;
+    display: flex;
+    color:#fff;
+  }
+  
+  .attributeitem:before {
+    content: "";
+    width: 8rpx;
+    height: 35rpx;
+    background: #000;
+    margin-right: 10rpx;
+    margin-top: 6rpx;
+  }
+  
+  .valueitems {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .valueitem {
+    width: 125rpx;
+    padding: 5rpx 20rpx;
+    background: #eeeeed;
+    border-radius: 10rpx;
+    margin-right: 12rpx;
+    margin-bottom: 12rpx;
+    line-height: 59rpx;
+    font-size: 27rpx;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .valueitems .active {
+    color: #fff;
+    background: #000;
+  }
+  
+  .filter-btn {
+    /* height: 100%; */
+    width: 100%;
+    color: #fff;
+    display: flex;
+    text-align: center;
+    line-height: 100rpx;
+    position: fixed;
+    bottom: 0px;
+  }
+  
+  .filter-btn view {
+    width: 100%;
+  }
+  
+  .showfilter {
+    position: fixed;
+    right: 30rpx;
+    top: 10rpx;
+    line-height: 70rpx;
+  }
+  .pointExtattr text{
+    text-align: left;
+font-size: 24rpx;
+color: #fff;
+background: rgb(51,51,51,0.5);
+border-radius: 15rpx;
+padding-left: 20rpx;
+padding-right: 20rpx;
+width: max-content;
+line-height: 36rpx;
+
+  }

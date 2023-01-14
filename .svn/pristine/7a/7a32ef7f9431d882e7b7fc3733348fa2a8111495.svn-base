@@ -1,0 +1,108 @@
+<scroll-view style="background:#fff;height:100vh" scroll-top="{{top}}" scroll-y="true" scroll-with-animation="true">
+		<view class='title-wrapper flex' wx:if="false">
+			<view style="width:100%;text-align:center">{{username}}</view>
+			<image catchtap='hideFrame' src='/images/colse_03.jpg' class="title-img" mode='widthFix'></image>
+		</view>
+		<view class="server-body">
+			<scroll-view class="message-body" scroll-y="true" scroll-top="{{top}}" scroll-with-animation="true"
+				bindscrolltoupper="loadmore">
+				<view class="msglist">
+					<block wx:for="{{msglist}}" wx:for-item="item" wx:key="msg">
+						<view class="time" wx:if="{{item.showtime}}">{{item.time}}</view>
+						<view wx:if="{{item.clientid==userinfo.UserId&&item.isclient}}" class="right">
+							<image style="width:50rpx;height:50rpx;float:right;border-radius: 10rpx;margin-left:10rpx"
+								src="{{userinfo.picture}}"></image>
+							<view class="right-text" wx:if="{{item.type=='SYSTEXT'}}">{{item.alert}}</view>
+							<view wx:if="{{item.type=='PHOTO'}}" class="product-info" style="float:right" bindtap="PreViewPhoto"
+								data-img="{{item.alert}}">
+								<image src="{{item.alert}}" mode="widthFix"></image>
+							</view>
+							<view wx:if="{{item.type=='PRODUCT'}}" style="float:right" class="product-info" bindtap="goProductDetail"
+								data-id="{{item.id}}">
+								<image src="{{item.img}}"></image>
+								<view>{{item.name}}</view>
+							</view>
+						</view>
+						<view wx:if="{{item.clientid!=userinfo.UserId||!item.isclient}}" class="left">
+							<image style="width:50rpx;height:50rpx;float:left;border-radius: 10rpx;margin-right:10rpx"
+								src="{{host}}Templates/xcxshop/images/server_u.png"></image>
+							<view class="left-text" wx:if="{{item.type=='SYSTEXT'}}">{{item.alert}}</view>
+							<view wx:if="{{item.type=='PRODUCT'}}" class="product-info" bindtap="goProductDetail"
+								data-id="{{item.id}}">
+								<image src="{{item.img}}"></image>
+								<view>{{item.name}}</view>
+							</view>
+							<view wx:if="{{item.type=='COUPON'}}" class="product-info" bindtap="goCouponDetail" data-id="{{item.id}}">
+							<image src="https://www.daogoujingling.com/Templates/common/images/coupon.png"></image> 
+								<view>{{item.name}}</view>
+							</view>
+							<view wx:if="{{item.type=='PHOTO'}}" class="product-info" bindtap="PreViewPhoto"
+								data-img="{{item.alert}}">
+								<image src="{{item.alert}}" mode="widthFix"></image>
+							</view>
+						</view>
+					</block>
+				</view>
+			</scroll-view>
+		</view>
+		<view class="server-footer">
+			<input type="text" class="input-text" bindfocus="bindfocus" cursor-spacing="20" bindinput="inputmsg"
+				confirm-hold="true" confirm-type="send" bindinput='inputmsg' bindconfirm='send' maxlength="100"
+				placeholder="输入内容... 最多输入100个字符" value="{{msginfo}}"></input>
+			<image src="/images/add1.png" class="add" bindtap="add"></image>
+			<!-- <view class="send" bindtap="send" style="background:{{msginfo!=''?'#07c160':'#e6e6e6'}}">发送</view> -->
+		</view>
+		<view class="tag-footer" wx:if="{{show==1}}">
+		<!-- <view class="tagitem" data-type="2" bindtap="showWindows">
+			<image src="https://www.daogoujingling.com/Templates/common/images/coupon.png"></image>
+			<view>优惠券</view>
+		</view> -->
+		<view  class="tagitem" data-type="3" bindtap="showWindows">
+			<image src="https://www.daogoujingling.com/Templates/xcxshop/images/product.png"></image>
+			<view>商品</view>
+		</view>
+		<view class="tagitem" bindtap="SendPhoto">
+			<image src="https://www.daogoujingling.com/Templates/xcxshop/images/photo.png"></image>
+			<view>图片</view>
+		</view>
+	</view>
+	</scroll-view>
+<bottomFrame id="selectWindow" frameTitle="" >
+<view style="background:#eeeeed;">
+	<scroll-view class="coupon" wx:if="{{show==2}}" scroll-y="true" scroll-with-animation="true" bindscrolltolower="morecoupon">
+		<block wx:for="{{coupon}}" wx:for-item="item" wx:key="coupon">
+			<view class="coupon-item">		
+			<view class="coupon-content">
+				<image src="https://www.daogoujingling.com/Templates/common/images/coupon.png"></image>
+				<view style="text-align:left">
+					<view>{{item.CouponName}}</view>
+					<view>面值：{{item.Price}}元</view>
+					<view>数量：{{item.SendCount}}</view>
+				</view>		
+			</view>
+			<view style="background:#{{DefaultColor}}" data-couponid="{{item.CouponId}}" data-name="{{item.CouponName}}"  class="send" bindtap="sendcoupon">
+				发送
+			</view>
+		</view>
+		</block>
+	</scroll-view>
+	<scroll-view class="product" wx:if="{{show==3}}" scroll-y="true" scroll-with-animation="true" bindscrolltolower="moreproducts">
+		<block wx:for="{{productlist}}" wx:for-item="item" wx:key="product">
+			<view class="coupon-item">		
+			<view class="coupon-content">
+				<image src="{{item.ThumbnailUrl410}}"></image>
+				<view style="text-align:left">
+					<view>{{item.ProductName}}</view>
+					<view>款号：{{item.ProductId}}</view>
+					<view>克重：{{item.WeightItems}}</view>
+					<view>库存：{{item.Stock}}</view>
+				</view>		
+			</view>
+			<view style="background:#{{DefaultColor}}" data-productid="{{item.ProductId}}" data-img="{{item.ThumbnailUrl410}}" data-name="{{item.ProductName}}" class="send" bindtap="sendproduct">
+				发送
+			</view>
+		</view>
+		</block>		
+	</scroll-view>
+</view>
+</bottomFrame>

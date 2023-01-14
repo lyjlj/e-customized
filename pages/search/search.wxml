@@ -1,0 +1,49 @@
+<view class="searchk padding24">
+    <view class="searchl">
+        <view class="iconfont icon__search font40 search_btn"></view>
+        <input bindconfirm="onConfirmSearch" bindinput="onInputKeyword" class="ptb16" confirmType="search" focus="true" placeholder="搜索商品"></input>
+    </view>
+    <view bindtap="bindShowFilter" class="searchr pt24 pl24">筛选</view>
+    <!-- <view class="showfilter" bindtap="bindShowFilter">筛选</view> -->
+</view>
+<view class="searls padding24">
+    <view class="searlsl">搜索历史</view>
+</view>
+<view class="searchlslist ml24" hidden="{{KeyWordList==null||KeyWordList.length<=0}}">
+    <view class="searclibut ptb24" wx:for="{{KeyWordList}}" wx:key="*this">
+        <button bindtap="onHistoryKeyWordClick" data-keyword="{{item}}">{{item}}</button>
+        <text bindtap="removeKeyWord" class="iconfont icon__close1 font32" data-keyword="{{item}}"></text>
+    </view>
+</view>
+<view class="searchlslistq pt24">
+    <button bindtap="ClearKeyWord" class="qkls pt16 pb16">清空历史记录</button>
+</view>
+<!-- <i-drawer i-class="drawer-container" mode="right" visible="{{showfilter}}" bind:close="bindShowFilter"> -->
+  <view class="filter-container">
+    <view wx:for="{{filters}}" wx:key="item" wx:for-item="item" wx:for-index="fidx">
+      <view wx:for="{{item}}" wx:key="attribute" wx:for-item="attribute" wx:for-index="aidx" wx:if="{{attribute.AttributeValues.length>0}}">
+        <view class="attributeitem">{{attribute.AttributeName}}</view>
+        <view class="valueitems" wx:if="{{attribute.ParamType!='NumSearch'}}">
+          <view class="valueitem {{value.IsCheck?'active':''}}" style="background:#{{value.IsCheck?DefaultColor:''}}" wx:for="{{attribute.AttributeValues}}" wx:for-item="value" wx:for-index="vidx" wx:key="ValueId" data-valueid="{{value.ValueId}}" data-aidx="{{aidx}}" data-fidx="{{fidx}}"
+            data-ischeck="{{value.IsCheck}}" bindtap="selectFilterValue" hidden="{{!attribute.ShowAll&&attribute.AttributeValues.length>6&&vidx>=5}}" >{{value.ValueStr}}</view>
+          <view class="moreitem" bindtap="bindmoreitem" data-aidx="{{aidx}}" data-fidx="{{fidx}}" hidden="{{attribute.AttributeValues.length<7}}">{{attribute.ShowAll?'<收起':'更多>'}}</view>
+        </view>
+        <view class="searchitem" style="display:flex" wx:if="{{attribute.ParamType=='NumSearch'}}">
+            <view class="searchl" style="width:200rpx">
+              <input  type="number" bindblur="bindExtendInput" data-valueindex="0" data-aidx="{{aidx}}" data-fidx="{{fidx}}" value="{{attribute.AttributeValues[0].ValueId}}"></input>
+            </view>
+            <view style="line-height:25rpx;padding:16rpx">—</view>
+            <view class="searchl" style="width:200rpx">
+              <input  type="number" bindblur="bindExtendInput" data-valueindex="1" data-aidx="{{aidx}}" data-fidx="{{fidx}}" value="{{attribute.AttributeValues[1].ValueId}}"></input>
+            </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view style="height:50px;width:100%;">
+  </view>
+  <view class="filter-btn">
+    <view style="background:#{{SecondColor}}" bindtap="resetFilter">重置</view>
+    <view style="background:#{{DefaultColor}}" bindtap="bindConfirmFilter">确认</view>
+  </view>
+<!-- </i-drawer> -->

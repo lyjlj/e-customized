@@ -1,0 +1,43 @@
+<import src="../wxParse/wxParse.wxml">
+</import>
+<!-- <navigator url="/pages/LiveRecord/LiveRecord">直播</navigator> -->
+<!-- <nav-bar navbar-data='{{nvabarData}}'></nav-bar> -->
+<view class="homecont">
+  <temp-page id="temppage" scrollTop="{{scrollTop}}" pageUrl='{{TopicUrl}}' bindshowGoldPrice="showGoldPrice" bindgoKeyWordPage="gotoKeyWordPage" />
+  <view class="shop_box" hidden="true">
+    <view class="shop_icon iconfont icon__cart font48"></view>
+    <text class="shop_num font28">{{TotalNum}}</text>
+  </view>
+<!-- <navigator url="/subpages/needSubmit/needSubmit">
+定制需求
+</navigator>
+<navigator url="/subpages/needList/needList">
+定制需求列表
+</navigator> -->
+
+  <bottomFrame id="bottomFrame" frameTitle="">
+    <view class="GoldPriceMain">
+      <view class="GoldPriceTitle">参考金价</view>
+      <view class="GoldPriceDesc">(以结算金价为准)</view>
+    <view class="price-items" >
+       <view class="price-item" wx:for="{{GoldPrices}}" wx:key="item">
+       <view style="flex:5">{{item.MaterialName}}</view>
+       <view style="flex:2;color:#{{DefaultColor}}">{{item.Price}}</view>
+       <view style="flex:3">元/克</view>
+       </view>
+    </view>
+    </view>
+  </bottomFrame>
+  <LiveWindow id="liveWindow"></LiveWindow>
+</view>
+
+<!-- 在线客服
+<onlineserver  id="onlineserver" username="{{username}}"  /> -->
+<movable-area  class="movearea" >
+<movable-view direction="all" x="650rpx" y="800rpx">
+<view bindtap="showonlineserver" data-name="在线客服" wx:if="{{showOnlineServer}}" class="onlineserver" style="background-image: url({{RequestUrl}}Templates/xcxshop/images/server.png)">
+<!-- <image src="/images/server.png" class="serverimg" mode="widthFix"> -->
+<view wx:if="{{MsgCount>0}}" class="msgcount" style="background-color:#{{DefaultColor}}">{{MsgCount}}</view>
+</view>
+</movable-view>
+</movable-area>

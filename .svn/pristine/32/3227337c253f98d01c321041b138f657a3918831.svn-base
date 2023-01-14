@@ -1,0 +1,66 @@
+page{
+  background: #f5f5f5;
+}
+.prizename{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 32rpx;
+  flex: auto;
+  padding: 10rpx;
+}
+.record{
+  display: flex;
+  height: 180rpx;
+  margin-bottom: 20rpx;
+  background: #fff;
+}
+.prizeimage{
+  width: 180rpx;
+  height: 180rpx;
+}
+.prizeimage image{
+  width: 100%;
+  height: 100%;
+}
+.hx{
+  padding: 8rpx 18rpx;
+  border: 1px solid RGB(245,7,7);
+  border-radius: 10rpx;
+  text-align: center;
+  color:RGB(245,7,7);
+  width:150rpx;
+}
+.action{
+  display: flex;
+  flex-direction: column;
+  justify-content:space-around;
+  padding: 15rpx 10rpx;
+}
+.awardcode{
+  height: 600rpx;
+  width: 600rpx;
+  margin:auto;
+  margin-bottom:35%;
+  background: #fff;
+}
+.awardcodetitle{
+  line-height: 80rpx;
+  margin-left: 50rpx;
+}
+.awardcode image{
+   width:500rpx;
+   height:500rpx;
+   margin:auto;
+}
+.close{
+  position: absolute;
+top: 15rpx;
+right: 100rpx;
+}
+.noneAward{
+  text-align: center;
+  margin:auto;
+  margin-top: 200rpx;
+  font-size: 40rpx;
+}

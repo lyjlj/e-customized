@@ -1,0 +1,18 @@
+{
+  "component": true,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "i-button": "../../dist/button/index",
+    "i-modal": "../../dist/modal/index",
+    "i-avatar": "../../dist/avatar/index",
+    "i-input": "../../dist/input/index",
+    "i-radio-group": "../../dist/radio-group/index",
+    "i-radio": "../../dist/radio/index",
+    "i-panel": "../../dist/panel/index",
+    "i-input-number": "../../dist/input-number/index",
+    "i-toast": "../../dist/toast/index",
+    "i-drawer": "../../dist/drawer/index",
+    "bottomFrame": "/components/bottomFrame/bottomFrame",
+    "event-view": "/components/event-view/event-view"
+  }
+}

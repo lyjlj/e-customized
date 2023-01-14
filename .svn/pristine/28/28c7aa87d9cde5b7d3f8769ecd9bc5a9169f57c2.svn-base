@@ -1,0 +1,197 @@
+<view style="position:fixed;background:#fff;z-index:5;top:0">
+  <view class="coupontitle">
+    <view class="coupontitlel">
+      <view style="padding-right:0px" bindtap="onSortClick" style="background:#{{Num==0?DefaultColor:''}}" class="{{Num==0?'active':''}}" data-num="0" data-sortby="ProductId">综合排序</view>
+    </view>
+    <view class="coupontitlel">
+      <view bindtap="onSortClick" style="background:#{{Num==1?DefaultColor:''}}" class="jiages {{Num==1?'active'+' '+SortClass:''}}" data-num="1" data-sortby="SaleCounts">销量</view>
+    </view>
+    <view class="coupontitlel">
+      <view bindtap="onSortClick" style="background:#{{Num==2?DefaultColor:''}}" class="jiages {{Num==2?'active'+' '+SortClass:''}}" data-num="2" data-sortby="SalePrice">价格</view>
+    </view>
+    <view class="coupontitlel">
+      <view bindtap="onSortClick" style="background:#{{Num==3?DefaultColor:''}}" class="jiages1s jiages {{Num==3?'active'+' '+SortClass:''}}" data-num="3" data-sortby="VistiCounts">浏览量</view>
+    </view>
+  </view>
+</view>
+
+<view class="prodcut-list search-list" style="margin-top:65rpx">
+  <view class="prodcut-comm">
+    <view class="prodcut {{index==ProductList.length-1&&ProductList.length%2>0?'noborder':''}}" wx:for="{{ProductList}}" wx:key="ProductId">
+      <view class="brand-info">
+        <image class="brandimg" src="{{item.CategoryIcon}}"></image>
+        <view style="word-wrap:break-word">{{item.CategoryName}}</view>
+      </view>
+      <view class="product-info">
+         <view class="dzrow" style="margin-bottom:{{item.CustomProductCount>0?-65:''}}rpx">
+           <view atchtap="goToProductDetail" class="product-name"  data-activeid="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-productid="{{item.ProductId}}">{{item.ProductName}}<text wx-if="{{item.ProductLine==3}}" style="color:red">(定制)</text></view>
+           <view class="cpimage" bindtap="customProduct" data-productid="{{item.ProductId}}" wx-if="{{item.CustomProductCount>0}}">
+            <image src="https://www.daogoujingling.com//Templates/xcxshop/images/cp.png"></image><text>定制</text>
+           </view>
+         </view>
+          
+        <view class="product-price">销售价
+          <text style="color:#{{DefaultColor}}">{{item.SalePrice==0?'按克重计算':('￥'+item.SalePrice)}}</text>
+        </view>
+        <view class="product-att">标准金重:
+          <text>{{item.WeightItems}}</text>
+        </view>
+        <view class="product-att">材质名称:
+          <text>{{item.MaterialNames}}</text>
+        </view>
+        <view class="product-att" wx-if="{{item.ShowAttributes}}" wx:for="{{item.ExtendAttributes}}" wx:for-item="attr">{{attr.name}}:
+          <text>{{attr.value}}</text>
+        </view>
+        <view wx-if="{{item.ExtendAttributes.length>0}}" class="moreAttribute" data-productid="{{item.ProductId}}" style="color:#{{DefaultColor}}" bindtap="showMoreAttribute">{{item.ShowAttributes?'收起':'更多'}}</view>
+        <view class="product-pic">
+          <view catchtap="previewImage" wx:for="{{item.Imgs}}" wx:for-item="pic" wx:key="pic" data-current="{{pic}}" data-urls="{{item.Imgs}}">
+            <image class="image" src="{{pic}}"></image>
+          </view>
+        </view>
+        <view class="product-des">
+
+          <view class="product-into">
+            <view class="product-share">
+              <view bindtap='gotoProduct' data-productid="{{item.ProductId}}" style="border-right:1px solid #999999;padding-right:10rpx">专款分析</view>
+              <view bindtap='popup' data-product="{{item}}" style="margin-left:10rpx">分享商品</view>
+            </view>
+
+            <view class="product-shop">
+              <view catchtap="catchAddCart" class="product-add" style="color:#{{DefaultColor}}" data-activeId="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-opensku="{{item.HasSKU}}" data-operator="+" data-productid="{{item.ProductId}}" data-sku="{{item.SkuId}}"
+                wx:if="{{item.HasSKU||!item.HasSKU&&item.CartQuantity==0}}">
+                <text class="addcarttxt" style="background:#{{DefaultColor}}">加购物车</text>
+                <view hidden="{{item.CartQuantity<=0}}">{{item.CartQuantity}}</view>
+              </view>
+              <view class="product-buy" wx:if="{{!item.HasSKU&&item.CartQuantity>0}}">
+                <view catchtap="catchAddCart" class="l" data-activeId="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-opensku="{{item.HasSKU}}" data-operator="-" data-productid="{{item.ProductId}}" data-sku="{{item.SkuId}}">
+                  <text class="iconfont icon__minus_L font24"></text>
+                </view>
+                <text class="m">{{item.CartQuantity}}</text>
+                <view catchtap="catchAddCart" class="r" data-activeId="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-opensku="{{item.HasSKU}}" data-operator="+" data-productid="{{item.ProductId}}" data-sku="{{item.SkuId}}">
+                  <text class="iconfont icon__plus_L font24"></text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="kong" hidden="{{ProductList.length>0}}">
+  <image src="/images/null_search.png"></image>
+</view>
+
+<bottomFrame id="skuFrame" frameTitle="">
+  <view class="" style="background:#fff">
+    <view class="comm-stand-con">
+      <view class="comm-name">
+        <view class="comm-txt">{{CurrentProduct.ProductName}}</view>
+        <view bindtap="hideSkuDOM" class="comm-icon">
+          <view class="iconfont icon__close1 font40"></view>
+        </view>
+      </view>
+      <view class="comm-bd">
+        <view class="comm-item" wx:for="{{CurrentProduct.SkuItems}}" wx:for-index="i" wx:key="AttributeId">
+          <view class="comm-title">{{item.AttributeName}}</view>
+          <view class="comm-attr">
+            <text catchtap="onSkuClick" class="{{sku.Enable==0?'disable':''}} {{sku.UseAttributeImage=='selected'?'active':''}}" style="background:#{{sku.UseAttributeImage=='selected'?DefaultColor:''}}" data-attributeid="{{item.AttributeId}}" data-enablevalue="{{sku.Enable}}"
+              data-indexcount="{{i}}" data-skuvalue="{{sku.Value}}" id="{{sku.ValueId}}" wx:for="{{item.AttributeValue}}" wx:for-item="sku" wx:key="ValueId">{{sku.Value}}</text>
+          </view>
+        </view>
+      </view>
+      <view style="margin-top:15rpx;">
+        <view class="cart-item">
+          <view>{{CurrentSku.IsCustomPrice?'预估价':'销售价'}}</view>
+          <view>￥
+            <text style="font-size:38rpx;color:#{{DefaultColor}}">{{CurrentSku.SalePrice}}</text>
+          </view>
+        </view>
+        <view class="cart-item">
+          <view>标准金重</view>
+          <view>{{CurrentSku.Weight}}g</view>
+        </view>
+        <view class="cart-item">
+          <view>材质名称</view>
+          <view>{{CurrentSku.MaterialName}}</view>
+        </view>
+        <view class="cart-item" wx-if="{{CurrentSku.IsCustomPrice}}">
+          <view>材质金价</view>
+          <view>{{CurrentSku.GoldPrice==0?'材质金价没有维护':CurrentSku.GoldPrice+'元/克'}}</view>
+        </view>
+        <view class="cart-item" style="line-height:70rpx">
+          <view>数量</view>
+          <view>
+            <view class="product-shop ">
+              <view catchtap="catchAddCart " data-opensku="false " data-operator="+ " data-productid="{{CurrentProduct.ProductId}} " data-sku="{{CurrentSku.SkuId}} " hidden="{{CurrentSku&&CurrentSku.CartQuantity>0}}">0
+                <view hidden="{{!CurrentSku||CurrentSku.CartQuantity<=0}}">{{CurrentSku.CartQuantity}}</view>
+              </view>
+              <view class="product-buy" hidden="{{!CurrentSku||CurrentSku.CartQuantity<=0}}">
+                <view catchtap="catchAddCart" class="l" style="color:#{{DefaultColor}}" data-opensku="false" data-operator="-" data-productid="{{CurrentProduct.ProductId}}" data-sku="{{CurrentSku.SkuId}}">
+                  <text class="iconfont icon__minus_L font36"></text>
+                </view>
+                <text class="m">{{CurrentSku.CartQuantity}}</text>
+                <view catchtap="catchAddCart" class="r" style="color:#{{DefaultColor}}" data-opensku="false" data-operator="+" data-productid="{{CurrentProduct.ProductId}}" data-sku="{{CurrentSku.SkuId}}">
+                  <text class="iconfont icon__plus_L font36"></text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view style="padding-bottom:20rpx">
+      <view class="addcart-btn" style="background:#{{DefaultColor}}" catchtap="catchAddCart" data-opensku="false" data-operator="+" data-productid="{{CurrentProduct.ProductId}}" data-sku="{{CurrentSku.SkuId}}">加购物车</view>
+    </view>
+
+  </view>
+</bottomFrame>
+
+
+<view class="shop_box" hidden="{{TotalNum<=0}}">
+  <navigator openType="switchTab" url="../shopcart/shopcart">
+    <view class="shop_icon iconfont icon__cart font48"></view>
+    <text class="shop_num font28">{{TotalNum}}</text>
+  </navigator>
+</view>
+
+<bottomFrame id="bottomFrame" frameTitle="">
+  <view style="background:#eeeeed">
+    <button openType="share" class='text' style="border-bottom: 0.2px solid #d7d7d7!important">分享给朋友</button>
+    <view class='text' style="margin-bottom:5px" bindtap="showPosterModel">分享朋友圈</view>
+    <view class='text' bindtap="hidepup">取消</view>
+  </view>
+</bottomFrame>
+
+<!--生成海报  -->
+<view class='imagePathBox' hidden="{{maskHidden == false}}">
+  <image src="{{imagePath}}" class='shengcheng'></image>
+  <button class='baocun' bindtap='baocun' style="left:53%;background:#{{DefaultColor}}">保存相册</button>
+  <button class='baocun' bindtap='hideMask' style='background:#{{DefaultColor}}'>关闭</button>
+</view>
+<view hidden="{{maskHidden == false}}" class="mask" bindtap='hideMask'></view>
+<view class="canvas-box">
+  <canvas style="width: 750px;height:1334px;position:fixed;top:9999px" canvas-id="mycanvas" />
+</view>
+<i-toast id="toast" />
+<i-drawer i-class="drawer-container" mode="right" visible="{{showfilter}}" bind:close="bindShowFilter">
+  <view class="filter-container">
+    <view wx:for="{{filters}}" wx:key="item" wx:for-item="item" wx:for-index="fidx">
+      <view wx:for="{{item}}" wx:key="attribute" wx:for-item="attribute" wx:for-index="aidx" wx:if="{{attribute.AttributeValues.length>0}}">
+        <view class="attributeitem">{{attribute.AttributeName}}</view>
+        <view class="valueitem">
+          <view class="{{value.IsCheck?'active':''}}" style="background:#{{value.IsCheck?DefaultColor:''}}" wx:for="{{attribute.AttributeValues}}" wx:for-item="value" wx:key="value.ValueId" data-valueid="{{value.ValueId}}" data-aidx="{{aidx}}" data-fidx="{{fidx}}"
+            data-ischeck="{{value.IsCheck}}" bindtap="selectFilterValue">{{value.ValueStr}}</view>
+        </view>
+
+      </view>
+    </view>
+  </view>
+  <view class="filter-btn">
+    <view style="background:#{{SecondColor}}" bindtap="resetFilter">重置</view>
+    <view style="background:#{{DefaultColor}}" bindtap="bindShowFilter">确认</view>
+  </view>
+</i-drawer>
+<i-modal title="分享标题" visible="{{ShowPosterModel}}" actions="{{TitleActions}}" bind:click="formSubmit">
+  <input value="{{ posterTitle }}" bindblur="posterTitleChange" placeholder="自定义分享标题" />
+</i-modal>

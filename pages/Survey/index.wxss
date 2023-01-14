@@ -1,0 +1,18 @@
+.i-cell::after{
+  border-bottom:unset!important;
+}
+.iclass{
+  color:red;
+  border-bottom:unset!important;
+}
+page{
+  background:#000;
+}
+.checkground{
+  border-radius: 10rpx;
+width: 500rpx;
+margin: auto;
+margin-top: 40rpx;
+padding: 20rpx;
+background: #fff;
+}

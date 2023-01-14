@@ -1,0 +1,59 @@
+.livemovable-area {
+  position: fixed;
+  width: 750rpx;
+  height: 1100rpx;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+}
+
+.closeLive {
+  color: #828282;
+  font-size: 40rpx;
+  position: absolute;
+  top: 2rpx;
+  right: 5rpx;
+  padding: 10rpx;
+  line-height: 20rpx;
+  width: 35rpx;
+}
+
+movable-view {
+  pointer-events: auto;
+}
+
+movable-area {
+  pointer-events: none;
+  z-index: 1003;
+}
+
+.liveTip {
+  height: 200rpx;
+  width: 200rpx;
+  border-radius: 20rpx;
+}
+
+.liveTip .poster {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 20rpx;
+}
+.playing{
+  background: #EB544D;
+  color:#fff;
+  font-size: 24rpx;
+  border-radius: 50rpx;
+  height:40rpx;
+  line-height:40rpx;
+  display: flex;
+  padding:0 10rpx 0 20rpx;
+  position: absolute;
+  top:1rpx;
+  left: 1rpx;
+}
+.playingicon{
+  width:30rpx;
+  height: 30rpx;
+}

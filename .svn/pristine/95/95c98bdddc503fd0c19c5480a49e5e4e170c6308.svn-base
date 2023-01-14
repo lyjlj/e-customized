@@ -1,0 +1,12 @@
+<view class="mask" wx:if="{{visible}}">
+  <view class="comm-stand">
+    <view>
+      <image src='{{Logo}}' class="loginBg"> </image>
+    </view>
+    <view class="tjiaoname">
+      <view class="welcome">需要获取您联系方式</view>
+      <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="font32 pd17 pb17 line_height40" style='background:#{{DefaultColor}}' >
+        微信授权 </button>
+    </view>
+  </view>
+</view>

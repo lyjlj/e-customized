@@ -1,0 +1,100 @@
+/* subpages/confirmScheme/confirmScheme.wxss */
+page {
+  background-color: #F9F9F9;
+}
+
+.scheme_item {
+  border-radius: 10px;
+  padding: 10px;
+  background: white;
+  position: relative;
+}
+
+.item_head {
+  display: flex;
+  justify-content: space-between;
+  color: #9D9D9D;
+  font-size: 14px;
+}
+
+.item_head .item_left {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item_head .item_left .item_type {
+  font-size: 28rpx;
+  background: #F6F6F6;
+  color: #83242a;
+  padding: 5rpx;
+  border-radius: 5rpx;
+}
+
+.item_head .item_right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 32rpx;
+}
+
+.item_head .item_right .arrow_right {
+  margin-left: 10rpx;
+}
+
+
+.schemeBody {
+  margin: 10px;
+}
+
+.item_body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.body_img {
+  margin: 10px;
+  width: 600rpx;
+  height: 260rpx;
+  border: 1rpx solid #F6F6F6;
+}
+
+.body_img image {
+  width: 600rpx;
+  height: 260rpx;
+}
+
+.body_msg {
+  margin: 10px 0;
+}
+
+.schemeFoot {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 260rpx;
+  background: #fff;
+}
+
+.schemeFoot .scheme_query {
+  background-color: rgb(252, 200, 57, 0.2);
+  color: #755e1c;
+  width: 100%;
+  height: 70rpx;
+  line-height: 70rpx;
+  text-align: center;
+  font-size: 26rpx;
+}
+
+.schemeFoot .scheme_btn {
+  background-color: #702c2f;
+  color: #fff;
+  width: 75%;
+  height: 80rpx;
+  margin: 20rpx auto;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 36rpx;
+  border-radius: 6rpx;
+}

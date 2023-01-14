@@ -1,0 +1,121 @@
+/* pages/Favorites/Favorites.wxss */
+view{
+  overflow: visible;
+}
+page{
+    background: #f4f4f4;
+    min-height: 100%;
+}
+.container{
+    background: #f4f4f4;
+    min-height: 100%;
+}
+.collect-list{
+  width: 550rpx;
+  height: auto;
+  overflow: hidden;
+  background: #fff;
+  border-top: 1px solid #e1e1e1;
+  float: right;
+  padding: 0 5rpx;
+}
+
+.item{
+  height: 160rpx;
+  background: #fff;
+  border-bottom: 1px solid #ededed;
+  position: relative;
+  margin-bottom: 20rpx;
+}
+
+.item:last-child{
+  border-bottom: 1px solid #fff;
+}
+
+.item .img{
+  float: left;
+  width: 150rpx;
+  height: 150rpx;
+  border: 1px solid #e1e1e1;
+border-radius: 14px;
+
+}
+.del{
+  position: absolute;
+  font-size: 14px;
+  bottom: 20rpx;
+  right: 20rpx;
+}
+.addcart{
+  position: absolute;
+  font-size: 14px;
+  bottom: 20rpx;
+  right: 100rpx;
+}
+.addcart image{
+  width: 40rpx;
+  height: 40rpx;
+}
+.item .info{
+  float: left;
+  height: 160rpx;
+  display: flex;
+  width: 370rpx;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10rpx;
+}
+
+.item .info .name{
+  font-size: 28rpx;
+  color: #333;
+  line-height: 40rpx;
+}
+.item .info .subtitle{
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: #888;
+  line-height: 40rpx;
+}
+
+.item .info .price{
+  margin-top: 8rpx;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 40rpx;
+}
+
+.leftcate{
+  width: 170rpx;
+  background: #f7f7f7;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+.cateitem-l{
+  float: left;
+  width: 100%;
+  line-height: 60rpx;
+  height: 60rpx;
+  border-bottom: 1rpx solid #f7f7f7;
+  text-align: center;
+  color: #000000;
+  font-size: 27rpx;
+  overflow: hidden; 
+  text-overflow:ellipsis; 
+  white-space: nowrap;
+}
+.subs{
+  background: #f7f7f7;
+  border-bottom: 1rpx solid #f7f7f7;
+}
+.title{
+  background: #e6e6e6;
+  color: black;
+}
+.select{
+  font-weight: bolder;
+  font-size: 30rpx;
+  border-left: 10rpx solid #000000;
+}

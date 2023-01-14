@@ -1,0 +1,25 @@
+/* subpages/usercode/usercode.wxss */
+.codebody{
+  background: #f7f7f7; 
+  padding: 100rpx 0;
+}
+.code_info{
+  width: 700rpx;
+  margin: 0 auto;
+  border-radius: 20rpx;
+  background: white;
+}
+page{
+  height: 100%;
+}
+.code_title{
+  display: flex;
+  padding: 20rpx;
+  align-items: center;
+}
+.code_img {
+text-align: center;
+}
+.kh{
+  padding: 10rpx;
+}

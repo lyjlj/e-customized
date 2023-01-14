@@ -1,0 +1,11 @@
+<scroll-view wx:if="{{isshow}}" class="{{source==1?'visit-pro-info':'visit-info'}}" scroll-top="{{top}}"  scroll-y="true" scroll-with-animation="true" enhanced="true" show-scrollbar="false">
+  <block wx:for="{{banner}}" wx:for-item="item" wx:key="visit">
+    <view class="visit-item">
+      <image src="{{item.headImage}}" style="width:50rpx;height:50rpx;"></image>
+      <view class="visit-text">
+        {{item.customName}}{{item.action}}
+      </view>
+   
+    </view>
+  </block>
+</scroll-view>

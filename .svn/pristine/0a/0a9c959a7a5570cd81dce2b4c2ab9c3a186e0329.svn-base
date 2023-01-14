@@ -1,0 +1,25 @@
+<view class="no-cart" wx:if="{{cartinfo.LineGifts==undefined}}">
+  购物车空空如也
+</view>
+<view class="cart-body">
+  <block wx:for="{{cartinfo.LineGifts}}" wx:key="item">
+    <view class="cart-item">
+      <image class="cart-img" src="{{RequestUrl}}{{item.ThumbnailUrl180}}"></image>
+      <view><text>{{item.Name}}\n所需积分: {{item.NeedPoint}}分</text> </view>
+      <view class="quantity">
+        <p>x {{item.Quantity}}</p>
+        <!-- <p bindtap="plus" data-id="{{item.GiftId}}" data-quantity="{{item.Quantity}}" hidden="true">-</p> -->
+        <!-- <input style="width:50rpx;text-align:center;font-size: 25rpx;" disabled="disabled"
+          value="{{item.Quantity}}"></input> -->
+        <!-- <p bindtap="add" data-id="{{item.GiftId}}" data-quantity="{{item.Quantity}}" hidden="true">+</p> -->
+      </view>
+      <view bindtap="del" data-id="{{item.GiftId}}">
+        <icon type="cancel"></icon>
+      </view>
+    </view>
+  </block>
+</view>
+<view class="cart-footer">
+  <view class="total">所需积分:{{TotalPoint}}分</view>
+  <view bindtap="submit" style="{{cartinfo.LineGifts==undefined?'background:#e6e6e6':''}}" class="submit">立即兑换</view>
+</view>

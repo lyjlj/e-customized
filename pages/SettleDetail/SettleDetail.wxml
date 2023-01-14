@@ -1,0 +1,50 @@
+<view class="container mt32 font30 borderbott0m">
+    <template is="action" wx:if="{{settleAction>=0}}" data="{{DefaultColor:DefaultColor,settleActionText:settleActionText,UserCredentials:UserCredentials}}"></template>
+    <template is="record" data="{{item,DefaultColor:DefaultColor}}" wx:for="{{settles}}" wx:key="index"></template>
+</view>
+
+<template name="action">
+    <view class="w100">
+        <view style="padding:20rpx">
+            <view>{{settleActionText}}：</view>
+            <view class="logo">
+                <view class="logoimg">
+                    <image bindtap="ChooseImg" mode="aspectFit" src="{{UserCredentials}}" ></image>
+                    <view bindtap="DeleteImg" class="iconfont trush- delete"  style="color:#{{DefaultColor}}"></view>
+                </view>
+                <view class="logoinfo">点击上面的图片修改，建议尺寸：240*240像素，小于1M，支持jpg,gif,png格式</view>
+            </view>
+        </view>
+    </view>
+    <view class="w100">
+        <view class="loginpassword borderbott0m ">
+            <text>备注</text>
+            <input bindinput="InputValue" data-key="remark" maxlength="20" placeholder="请输入业务备注" placeholderStyle="color:#bdbdbd" type="text" value="{{remark}}"></input>
+        </view>
+    </view>
+</template>
+<template name="record">
+    <view class="w100">
+        <view style="padding:20rpx">
+            <view class="logo" style="flex-direction:row">
+                <view class="logoimg2">
+                    <image bindtap="previewImage" mode="aspectFit" data-srcs="{{item.SettleImage}}" src="{{item.SettleImage}}" ></image>
+                </view>
+                <view class="logoinfo">
+                   <view>操作:{{item.SettleAction}}</view>
+                   <view>操作时间:{{item.ActionTime}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="w100" wx:if="{{item.Remark}}">
+        <view class="loginpassword borderbott0m ">
+            <text>备注</text>
+            <view>{{item.Remark}}</view>
+        </view>
+    </view>
+</template>
+
+<view class="tjiaoname mt32 " wx-if="{{settleAction>=0}}">
+    <button bindtap="SaveStore" class="other-button-hover font36 pt24 pb24 line_height40" style="background:#{{DefaultColor}}">保存 </button>
+</view>

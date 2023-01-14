@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "直播列表",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "LiveWindow": "/components/LiveWindow/LiveWindow"
+  }
+}

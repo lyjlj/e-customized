@@ -1,0 +1,326 @@
+<!-- 聊天列表 -->
+<swiper class="cover-box" current="1" duration="300" bindchange="switchTab">
+  <swiper-item></swiper-item>
+  <swiper-item>
+    <view>
+      <!-- 标题 -->
+      <view class="live-title">
+        <view class="header-ad" style="top: {{safeArea.top+50}}px;">
+          <image src="http://cdn.unionallpay.com/static/cdn/jj/laba.png" class="laba" mode="heightFix"></image>
+          <view class='tongzhitext'>
+            <text class="tongzhi-text">{{LiveNotice}}</text>
+          </view>
+        </view>
+        <view class="header-ad" wx:if="{{Adinfo&&Adinfo!=''}}" style="background: rgb(255,366,255,0.5);width: 50%;color:#eb5330 ;top: {{safeArea.top+90}}px;">
+          <image src="http://cdn.unionallpay.com/static/cdn/jj/adv.png" class="laba" mode="heightFix"></image>
+          <view class='tongzhitext' style="line-height: 50rpx;height: 50rpx;">
+            <text class="tongzhi-text-1">{{Adinfo.description}}</text>
+          </view>
+        </view>
+        <view class="liveinfo" style="margin-top: {{safeArea.top}}px;">
+          <view>
+            <image class="live-exit" catchtap="bindExit" src="/images/icons/left.png" />
+          </view>
+          <view class="live-message" wx-if='{{liveRoomInfo!=null}}'>
+            <view>
+              <image class='HeadImage' src="{{liveRoomInfo.Image}}?x-oss-process=image/resize,m_fixed,h_100,w_100" />
+            </view>
+            <view style='padding:0 5px'>
+              <view>{{liveRoomInfo.Name}}</view>
+              <view>{{liveRoomInfo.PopularityCount}}人</view>
+            </view>
+          </view>
+        </view>
+        <!-- <view class="live-user">
+          <view style='margin:5px 0px 0px 5px' wx:for='{{userHeadImages}}' wx:for-item="usericon" wx:for-index="index">
+            <image src="{{userHeadImages[userHeadImages.length-index-1]}}" catchtap="bindShowImage" data-info='{{userHeadImages[userHeadImages.length-index-1]}}' ></image>
+          </view>
+        </view> -->
+      </view>
+      <!-- 输入框 -->
+      <view class="live-input" hidden="{{!focus}}">
+        <view class='live-keyboard'>
+          <input value="{{inputValue}}" cursor-spacing='20rpx' placeholder="说点好听的..." class="liveinput" bindinput='bindinput' bindconfirm='bindConfirm' bindblur="bindblur" confirm-type="send" adjust-position="true" focus="{{focus}}" />
+        </view>
+        <view class='sendBtn' style="background:#{{DefaultColor}};color:white" bindtap='sendMessage'>发送</view>
+      </view>
+      <!-- 红包 -->
+      <view class="red-envelopes" wx:if="{{userInfo.Balance>0}}">
+        <image src="{{host}}Templates/xcxshop/images/sendred.png" style="width: 80rpx;margin: 0 auto;" mode="widthFix" bindtap="closered" data-action="send"></image>
+        <view class="icon-text">发红包</view>
+      </view>
+      <!-- 公司logo -->
+      <view class="red-envelopes-logo" wx:if="{{siteAll.isShowCopyright=='True'}}">
+        <image src="{{host}}Templates/xcxshop/images/suport.png" style="width: 80rpx;" mode="widthFix"></image>
+      </view>
+      <!-- 抢红包 -->
+      <view class="red-envelopes-q" wx:if="{{RedEnvelope}}">
+        <image src="{{host}}Templates/xcxshop/images/getred.png" style="width: 80rpx;margin: 0 auto;" mode="widthFix" bindtap="closered" data-action="get"></image>
+        <view class="icon-text">抢红包</view>
+      </view>   
+         <!-- 抢优惠券 -->
+         <view class="red-envelopes-q" style="top: 600rpx;" bindtap="getcoupon" wx:if="{{CurCoupon}}">
+        <image src="http://cdn.unionallpay.com/static/cdn/jj/getcoupon.png" style="width: 80rpx;margin: 0 auto;" mode="widthFix"></image>
+        <view class="icon-text">抢券</view>
+      </view>   
+
+      <!-- 评论列表 -->
+      <view class='live-comment'>
+        <view class="livetip" wx:for="{{livetips}}">
+          <view class="tipitem livetip-animation" style="background:#{{DefaultColor}}">{{item.tip}}</view>
+        </view>
+        <scroll-view scroll-y="true" style="max-height:200rpx;width:58%;" scroll-top="{{scrollTop}}">
+          <view class='comment-item' wx:for="{{comments}}" wx:for-item="item" wx:for-index="index" wx:if="{{item.Type=='Live_Into'}}">
+            <view>
+              <text>{{item.UserName}}</text>{{item.Comment}}
+            </view>
+          </view>
+        </scroll-view>
+
+        <scroll-view scroll-y="true" style="max-height:400rpx;width:58%;overflow-anchor:{{autoScroll?'auto':'none'}}" scroll-top="{{autoScroll?'':scrollTop}}" binddragging="scrolling" scroll-anchoring="{{autoScroll}}" enhanced="true" >
+          <view class='comment-item' wx:for="{{comments}}" wx:for-item="item" wx:key="UserName" wx:for-index="index" wx:if="{{item.Type=='Live_Comment'}}">
+            <view data-set="{{item.Type}}">
+              <text>{{item.UserName}}</text>{{item.Comment}}
+            </view>
+          </view>
+        </scroll-view>
+        <view style="width:58%;text-align: center;color: #e5e3e3;font-size: 13px;margin: 7px;border-radius: 30rpx;background: rgb(51,51,51,0.5);color:#d8b343;" wx:if="{{autoScroll}}" bindtap="autoScrolling">
+          回到底部
+        </view>
+        <!-- 当前商品 -->
+        <view class="curproduct" wx-if="{{CurProduct}}" hidden='{{focus}}'>
+          <view class="productinfo">
+            <view bindtap="toProductDetail" data-productid="{{CurProduct.ProductId}}" data-packagingid="{{CurProduct.PackagingId}}" style="position: relative;">
+              <image mode="aspectFill" src="{{CurProduct.ThumbnailUrl410?CurProduct.ThumbnailUrl410:CurProduct.ThumbnailUrl160}}"></image>
+            </view>
+            <view class="productdetail" bindtap="toSelectSku" data-productid="{{CurProduct.ProductId}}">
+              <view>{{CurProduct.ProductName}}</view>
+              <view style="display:flex;justify-content:space-between;">
+                <view style="color:red">{{CurProduct.WeightItems}}克</view>
+              </view>
+            </view>
+            <view bindtap="closeCurrProduct" class="closecurp">
+              <icon type="clear" size="20" />
+            </view>
+
+          </view>
+        </view>
+      </view>
+
+      <!-- 点赞 -->
+      <view class='favorite-animation-container' wx:for='{{likes}}' wx:for-item="likeicon" wx:for-index="index">
+        <image style='width:2em;height:2em;' class='favorite-animation' src="{{likeicon.headImage}}"></image>
+      </view>
+
+      <!-- 底下按钮 -->
+      <view class="live-footer" hidden='{{focus}}'>
+        <view catchtap="bindShowProduct" class="shoppingcart">
+          <text class="productcount">{{productData.length}}</text>
+          <image src="http://cdn.unionallpay.com/static/cdn/jj/shopping.png"></image>
+          <!-- <image style="width:65rpx;height:78rpx" src="/images/icons/shopping.png"> -->
+          <!-- </image> -->
+        </view>
+        <view class="comment-input" catchtap="bindButtonTap">
+          <view style="text-align: center;">说点好听的...</view>
+        </view>
+        <view class="toshopcart" catchtap="ToShopCart" hidden="true">
+          <image style="width:55rpx;height:55rpx" src="/images/icons/cart.png"></image>
+        </view>
+       
+        <view bindtap="showShare" class="share_2">
+          <image style="width:40rpx;height:40rpx" src="/images/icons/share.png" />
+        </view>
+        <view bindtap="showonlineserver" class="share_2">
+            <image src="{{host}}Templates/xcxshop/images/server.png" style="width:40rpx;height:40rpx" mode="widthFix" ></image>        
+        </view>
+        <view class="share_2" bindtap="moreinfo">
+          <view style="font-size: 50rpx;color: white;margin-bottom: 28rpx;">...</view> 
+        </view>
+        <view catchtap="handleLike" class="share_2" style="margin-right:40rpx">
+          <text class="likecount">{{likeCountFormat}}</text>
+          <image src="{{clickLike?'/images/icons/hxin.png':'/images/icons/xin.png'}}" />
+        </view>
+      </view>
+    </view>
+  </swiper-item>
+</swiper>
+
+<!-- 直播页面 -->
+<live-player wx:if="{{playerUrl}}" id="player" src="{{playerUrl}}" mode="live" object-fit="fillCrop" style="height:{{windowHeight}}rpx;position: fixed;" bindstatechange="statechange" autoplay binderror="error">
+</live-player>
+<SelectSku id="selectSku" productid="{{CurProductId}}" bindCartQuantity="addShopTip"></SelectSku>
+
+
+<bottomFrame id="produtsFrame" zindex="50" frameTitle="">
+  <!-- 商品列表 -->
+  <view class="live-product">
+    <view class="frame-title">全部商品{{productData.length}}</view>
+    <view class="product-contain">
+      <template is="{{result.PackagingId>0?'package':result.CountDownId>0?'countdown':'common'}}" data="{{result:result,index:ind,length:productData.length}}" wx:for="{{productData}}" wx:for-index="ind" wx:for-item="result" wx:key="{{result.ProductId}}"></template>
+      <view style="text-align:center;margin-top:100rpx;" wx:if="{{productData.length==0}}">暂无商品</view>
+    </view>
+  </view>
+</bottomFrame>
+
+<!-- 发红包 -->
+<view class="red-envelopes-windows" wx:if="{{showredEnvelope=='send'}}">
+  <view class="red-envelopes-body">
+    <view class="title">发红包 <icon class="icon-small close" bindtap="closered" data-action="" type="cancel" color="#ddd" size="23"></icon>
+    </view>
+    <view class="jine"><input type="number" bindinput="inputtext" data-keys="price" placeholder="金额" /></view>
+    <view class="jine"><input type="number" bindinput="inputtext" data-keys="totalcount" placeholder="个数" /></view>
+    <view class="jine"><input type="text" bindinput="inputtext" data-keys="SendDesc" placeholder="恭喜发财，大吉大利" /></view>
+    <view class="title">￥{{price}}</view>
+    <view class="red-btn" bindtap="SendRedEnvelope" wx:if="{{price&&totalcount}}" style="background: #A52A2A">塞进红包</view>
+    <view class="red-btn" style="background: #E3BEB4" wx:if="{{!price||!totalcount}}">塞进红包</view>
+  </view>
+</view>
+<!-- 抢优惠券 -->
+<view class="red-envelopes-windows" wx:if="{{showCoupon}}">
+  <view class="coupon_bak" style="background-image: url('http://cdn.unionallpay.com/static/cdn/jj/coupon_bak.png');">
+    <icon class="icon-small closecoupon" bindtap="closecoupon" data-action="" type="cancel" color="#ddd" size="30"></icon>
+    <view class="coupon_body">
+        <view style="color: #b18035;word-break: break-all;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;font-weight: bolder;">{{CurCoupon.CouponName}}</view>
+    <view style="color:#d45a36">￥{{CurCoupon.Price}}</view>
+    <!-- <view style="color: #d45a36;">满2000元使用</view> -->
+    </view>
+  
+    <view class="coupnt-btn" bindtap="getcouponinfo" data-couponid="{{CurCoupon.CouponId}}">马上领取</view>
+  </view>
+</view>
+
+<!-- 抢红包弹窗 -->
+<view class="red-envelopes-windows" wx:if="{{showredEnvelope=='get'}}">
+  <view style="text-align: center;">
+    <image src="{{host}}Templates/xcxshop/images/jingtaiget.png" style="width: 600rpx;position: relative;" bindtap="startGet" mode="widthFix" wx:if="{{!getting}}">
+      <view class="getprice">
+        <view>来自{{RedEnvelope.UserName}}的红包</view>
+        <view class="red-detail">{{RedEnvelope.SendDesc}}</view>
+      </view>
+    </image>
+    <image src="{{host}}Templates/xcxshop/images/getting.gif" style="width: 600rpx;" mode="widthFix" wx:if="{{getting=='getting'}}"></image>
+    <image src="{{host}}Templates/xcxshop/images/redfinish.png" style="width: 600rpx;position: relative;" mode="widthFix" wx:if="{{getting=='finish'}}">
+      <view class="getprice">
+        <view>来自'{{RedEnvelope.UserName}}'的红包</view>
+        <view>{{gettext}}</view>
+        <view class="red-detail">{{RedEnvelope.SendDesc}}</view>
+      </view>
+      <view class="userlist">
+        <block wx:for="{{getuserlist}}" wx:for-item="item">
+          <view class="user-item">
+            <view style="display:flex;align-items: center;">
+              <image src="{{item.HeadImgUrl}}"></image>
+              {{item.NickName}}
+            </view>
+            <view>
+              抢到了{{item.Price}}元
+            </view>
+          </view>
+        </block>
+      </view>
+      <view class="go-detail" bindtap="godetail">查看领取记录</view>
+    </image>
+    <icon class="icon-small" bindtap="closered" style="margin-top: 10rpx;" data-action="" type="cancel" color="white" size="40"></icon>
+  </view>
+</view>
+
+<!-- 套系 -->
+<template name="package">
+  <view class='product_items2'>
+    <view bindtap="toProductDetail" data-packagingid="{{result.PackagingId}}">
+      <image mode="aspectFill" src="{{result.ImageUrl1}}">
+        <view class="productTag" style="background:#{{DefaultColor}}">套系</view>
+      </image>
+    </view>
+    <view class='product_items2_view1'>
+      <view bindtap="toProductDetail" data-packagingid="{{result.PackagingId}}">
+        {{result.PackageName}}
+      </view>
+      <view class='shopitem'>
+        <view style="display:flex;justify-content: space-between;width:55%">
+          <view class='price'>已销售:{{result.SaleCounts}}</view>
+        </view>
+        <text class="addshop" style="background:#{{DefaultColor}}" bindtap="toProductDetail" data-packagingid="{{result.PackagingId}}">加购</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<!-- 抢购 -->
+<template name="countdown">
+  <view class='product_items2'>
+    <view bindtap="toProductDetail" data-productid="{{result.ProductId}}" style="position: relative;">
+      <view class="ind">{{index+1}}</view>
+      <image mode="aspectFill" src="{{result.ThumbnailUrl160}}">
+        <view class="productTag" style="background:red">限时抢购</view>
+      </image>
+    </view>
+    <view class='product_items2_view1'>
+      <view bindtap="toProductDetail" data-productid="{{result.ProductId}}">
+        {{result.ProductName}}
+      </view>
+      <view class='shopitem'>
+        <view style="display:flex;justify-content:flex-start;width:55%">
+          <view class='price' style="color:red">￥{{result.CountDownPrice}}</view>
+          <view class="oldprice">￥{{result.SalePrice}}</view>
+          <!-- <view style="font-size:26rpx" wx:if="{{result.ProductLine==0}}">库存:{{result.Stock}}</view> -->
+        </view>
+        <text class="addshop" style="background:red" bindtap="toProductDetail" data-productid="{{result.ProductId}}">马上抢购</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<!-- 普通商品列表 -->
+<template name="common">
+  <view class='product_items2'>
+    <view bindtap="toProductDetail" data-productid="{{result.ProductId}}" style="position: relative;">
+      <view class="ind">{{length-index}}</view>
+      <image mode="aspectFill" src="{{result.ThumbnailUrl410}}">
+      </image>
+    </view>
+    <view class='product_items2_view1'>
+      <view bindtap="toProductDetail" data-productid="{{result.ProductId}}">
+        {{result.ProductName}}
+      </view>
+      <view class='shopitem'>
+        <view style="display:flex;justify-content: space-between;width:55%">
+          <view class='price'>{{result.WeightItems}}克</view>
+          <view style="font-size:26rpx">库存:{{result.Stock}}</view>
+        </view>
+        <text class="addshop" style="background:#{{DefaultColor}}" bindtap='toSelectSku' data-productid="{{result.ProductId}}">加购物车</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<bottomFrame id="shareFrame" frameTitle="">
+  <view style="background:#eeeeed">
+    <button openType="share" class='text' style="border-bottom: 0.2px solid #d7d7d7!important">分享给朋友</button>
+    <view class='text' style="margin-bottom:5px" bindtap="formSubmit">分享朋友圈</view>
+    <view class='text' bindtap="hideShare">取消</view>
+  </view>
+</bottomFrame>
+<bottomFrame id="moreinfo" frameTitle="">
+  <view class="live-product">
+    <view class="frame-title">直播介绍</view>
+    <view class="livedesc">
+      <view style="padding:20rpx 30rpx;font-size: 38rpx;font-weight:600;">主播:{{liveRoomInfo.Name}}</view>
+      <view style="color:#666;padding: 10rpx 30rpx;"> {{liveRoomInfo.Title}}</view>
+      <view style="padding: 10rpx 30rpx;margin-bottom: 30rpx;">
+        <image style="width:100%" src="{{liveRoomInfo.Image}}"></image>
+      </view>
+    </view>
+  </view>
+
+</bottomFrame>
+<!--生成海报  -->
+<view class='imagePathBox' hidden="{{maskHidden == false}}">
+  <image src="{{imagePath}}" class='shengcheng'></image>
+  <button class='baocun' bindtap='baocun' style="left:53%;background:#{{DefaultColor}}">保存相册</button>
+  <button class='baocun' bindtap='hideMask' style='background:#{{DefaultColor}}'>关闭</button>
+</view>
+<view hidden="{{maskHidden == false}}" class="mask" bindtap='hideMask'></view>
+<view class="canvas-box">
+  <canvas style="width: 750px;height:1334px;position:fixed;top:9999px" canvas-id="mycanvas" />
+</view>

@@ -1,0 +1,8 @@
+{
+    "enablePullDownRefresh": true,
+    "navigationBarTitleText": "定制详情",
+    "usingComponents": {
+      "bottomFrame": "/components/bottomFrame/bottomFrame",
+      "i-modal": "../../dist/modal/index"
+    }
+}

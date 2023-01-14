@@ -1,0 +1,7 @@
+<view class="qrcode" wx:if="{{showqrcode}}" bindtap="hideqrcode">
+    <view class="qrview">
+        <image style="width:500rpx" mode="widthFix" src="data:image/png;base64,{{url}}"></image>
+        <view>{{name}}</view>
+        <view  style="color:#999;font-size:26rpx" hidden="true" catchtap="saveimg">保存图片</view>
+    </view>
+</view>

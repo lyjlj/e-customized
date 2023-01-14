@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "temp-page": "/components/TempPage/index"
+  }
+}

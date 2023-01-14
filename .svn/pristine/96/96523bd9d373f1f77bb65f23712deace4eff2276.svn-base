@@ -1,0 +1,372 @@
+<view class="container1">
+	<scroll-view class="nav" scroll-left="{{navScrollLeft}}" scroll-with-animation="{{true}}">
+		<block>
+			<view class="nav-item {{currentTab == 0 ?'active':''}}" style="background:#{{currentTab == 0 ?DefaultColor:SecondColor}};z-index:101;width:{{currentTab==0?450:150}}rpx" data-current="0" bindtap="switchNav">
+				<view class="itemtext" style="width:{{currentTab == 0?450:150}}rpx">
+					<text wx:if="{{currentTab == 0}}" style="font-weight:600;">选款</text>
+					<text wx:if="{{currentTab == 0}}">挑选一款中意的款式</text>
+					<image src="{{currentTab==0?'/images/dred.png':'/images/unr.png'}}"></image>
+				</view>
+			</view>
+			<view class="nav-item {{currentTab == 1 ?'active':''}}" style="background:#{{currentTab == 1 ?DefaultColor:SecondColor}};z-index:100;width:{{currentTab == 2?300:600}}rpx" data-current="1" bindtap="switchNav">
+				<view class="itemtext" style="width:{{currentTab == 2?300:600}}rpx">
+					<text wx:if="{{currentTab == 1}}" style="font-weight:600;padding-left:{{currentTab == 1?150:0}}rpx">选钻</text>
+					<text wx:if="{{currentTab == 1}}">挑选一颗心仪的钻石</text>
+					<image src="{{currentTab==1?'/images/ded.png':'/images/und.png'}}"></image>
+				</view>
+			</view>
+			<view class="nav-item {{currentTab == 2 ?'active':''}}" style="background:#{{currentTab == 2 ?DefaultColor:SecondColor}};z-index:99;width:750rpx" data-current="2" bindtap="switchNav">
+				<view class="itemtext" style="width:100%">
+					<text wx:if="{{currentTab == 2}}" style="font-weight:600;padding-left:{{currentTab == 2?300:0}}rpx">结果</text>
+					<text wx:if="{{currentTab == 2}}">成功挑选完美的钻戒</text>
+					<image src="{{currentTab==2?'/images/dred.png':'/images/undr.png'}}"></image>
+				</view>
+			</view>
+		</block>
+	</scroll-view>
+	<!-- 页面内容 -->
+	<swiper class="tab-box" current="{{currentTab}}" duration="300" bindchange="switchTab">
+		<swiper-item class="tab-content">
+			<scroll-view scroll-y="true" style="height:100%" bindscrolltolower="onReachBottom">
+				<view class="banner">
+					<image mode="aspectFit" src="https://www.daogoujingling.com/Utility/pics/ringbanner.png"></image>
+				</view>
+				<view style="padding:5px 20rpx 0rpx 20rpx">
+					<view class="attributeitem">
+						<text>价格</text>
+					</view>
+					<view style="display:flex">
+						<view class="searchl" style="width:250rpx">
+							<input class="ptb16" type="number" bindinput="bindMinSalePriceInput" value="{{MinSalePrice}}"></input>
+						</view>
+						<view style="line-height:48rpx;padding:16rpx">—</view>
+						<view class="searchl" style="width:250rpx">
+							<input class="ptb16" type="number" bindinput="bindMaxSalePriceInput" value="{{MaxSalePrice}}"></input>
+						</view>
+					</view>
+
+					<view class="attributeitem">
+						<text>关键字</text>
+					</view>
+				</view>
+				<view class="searchk" style="border-bottom:none">
+					<view class="searchl width679">
+						<view class="iconfont icon__search font40 search_btn"></view>
+						<input bindblur="bindBlurInput" bindconfirm="onConfirmSearch" bindinput="bindKeyWordInput" class="ptb16" confirmType="search" placeholder="{{KeyWord==''?'搜索商品':KeyWord}}" value="{{KeyWord}}"></input>
+					</view>
+				</view>
+				<view class="filter-container" hidden="{{!ShowAllFilters}}">
+					<view wx:for="{{filters}}" wx:key="item" wx:for-item="item" wx:for-index="fidx">
+						<view wx:for="{{item}}" wx:key="attribute" wx:for-item="attribute" wx:for-index="aidx" wx:if="{{attribute.AttributeValues.length>0}}">
+							<view class="attributeitem">
+								<text>{{attribute.AttributeName}}</text>
+							</view>
+							<view class="valueitem">
+								<view class="{{value.IsCheck?'active':''}}" style="background:#{{value.IsCheck?DefaultColor:''}}" wx:for="{{attribute.AttributeValues}}" wx:for-item="value" wx:key="value.ValueId" data-valueid="{{value.ValueId}}" data-aidx="{{aidx}}" data-fidx="{{fidx}}" data-ischeck="{{value.IsCheck}}" bindtap="selectFilterValue">{{value.ValueStr}}</view>
+							</view>
+
+						</view>
+					</view>
+				</view>
+				<view class="searchcontainer">
+					<view class="filter-btn">
+						<view style="background:#eeeeed;border-top-left-radius:20rpx;border-bottom-left-radius: 20rpx;" bindtap="resetFilter">重置</view>
+						<view style="background:#{{DefaultColor}};border-top-right-radius:20rpx;border-bottom-right-radius: 20rpx;" bindtap="confimFilter">搜索</view>
+					</view>
+					<view class="showfilterbtn">
+						<view bindtap="bindShowAllFilters">{{ShowAllFilters?'收起筛选':'展开筛选'}}</view>
+					</view>
+				</view>
+				<view style="text-align: center;font-size:28rpx;padding:10rpx">---共搜索到(
+					<text style="color:red">{{ProductTotal}}</text>)个款式---</view>
+				<view >
+					<view class="coupontitle" hidden="{{ProductList==null||ProductList.length<=0}}">
+						<view class="coupontitlel">
+							<view bindtap="onSortClick" class="{{Num==0?'active':''}}" style="color:#{{Num==0?DefaultColor:''}}" data-num="0" data-sortby="ProductId">综合</view>
+						</view>
+						<view class="coupontitlel">
+							<view bindtap="onSortClick" class="jiages {{Num==1?'active'+' '+SortClass:''}}" style="color:#{{Num==1?DefaultColor:''}}" data-num="1" data-sortby="SaleCounts">销量</view>
+						</view>
+						<view class="coupontitlel">
+							<view bindtap="onSortClick" class="jiages {{Num==2?'active'+' '+SortClass:''}}" style="color:#{{Num==2?DefaultColor:''}}" data-num="2" data-sortby="SalePrice">价格</view>
+						</view>
+						<view class="coupontitlel">
+							<view bindtap="onSortClick" class="jiages1s jiages {{Num==3?'active'+' '+SortClass:''}}" data-num="3" style="color:#{{Num==3?DefaultColor:''}}" data-sortby="VistiCounts">浏览量</view>
+						</view>
+					</view>
+				</view>
+				<view class="prodcut-list search-list">
+					<view class="prodcut-comm">
+						<view class="prodcut {{index==ProductList.length-1&&ProductList.length%2>0?'noborder':''}}" wx:for="{{ProductList}}" wx:key="ProductId">
+							<view class="product-info">
+								<view catchtap="goToProductDetail" class="product-pic" data-activeid="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-productid="{{item.ProductId}}">
+									<image class="image" src="{{item.Pic}}" style="width:320rpx;height:320rpx"></image>
+								</view>
+								<view class="product-des">
+									<view atchtap="goToProductDetail" class="product-name" data-activeid="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-productid="{{item.ProductId}}">{{item.ProductName}}</view>
+									<view class="product-into">
+										<view class="product-price">￥
+											<text>{{item.SalePrice}}</text>
+										</view>
+										<view class="product-shop">
+											<view class='SaleCounts'>销量:{{item.SaleCounts}}</view>
+										</view>
+									</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</scroll-view>
+		</swiper-item>
+		<swiper-item class="tab-content">
+      <view hidden="{{!menuFixed}}" class="storesticky" >
+					<view style="text-align: center;font-size:28rpx;padding:10rpx">---共搜索到(
+						<text style="color:red">{{ProductTotal2}}</text>)颗钻石---</view>
+					<view class="coupontitle" hidden="{{ProductList2==null||ProductList2.length<=0}}">
+						<!-- <view class="coupontitlel" >
+            <view class="{{Num2==0?'active':''}}" style="color:#{{Num2==0?DefaultColor:''}};" data-num="0">形状</view>
+          </view> -->
+						<view class="coupontitlel">
+							<view bindtap="onSortClick2" class="jiages {{Num2==1?'active'+' '+SortClass2:''}}" style="color:#{{Num2==1?DefaultColor:''}};" data-num="1" data-sortby="Weight">钻重</view>
+						</view>
+						<view class="coupontitlel">
+							<view bindtap="onSortClick2" class="jiages {{Num2==2?'active'+' '+SortClass2:''}}" style="color:#{{Num2==2?DefaultColor:''}};" data-num="2" data-sortby="SkuAttribute1">颜色</view>
+						</view>
+						<view class="coupontitlel">
+							<view bindtap="onSortClick2" class="jiages1s jiages {{Num2==3?'active'+' '+SortClass2:''}}" data-num="3" style="color:#{{Num2==3?DefaultColor:''}};" data-sortby="SkuAttribute2">净度</view>
+						</view>
+						<view class="coupontitlel">
+							<view class="jiages1s" data-sortby="SkuAttribute2">切工</view>
+						</view>
+						<view class="coupontitlel">
+							<view class="jiages1s" data-sortby="SkuAttribute2">抛光</view>
+						</view>
+						<view class="coupontitlel">
+							<view class="jiages1s" data-sortby="SkuAttribute2">对称</view>
+						</view>
+						<view class="coupontitlel">
+							<view class="jiages1s" data-sortby="SkuAttribute2">荧光</view>
+						</view>
+						<!-- <view class="coupontitlel">
+            <view  class="jiages1s jiages {{Num2==4?'active'+' '+SortClass2:''}}" data-num="4" style="color:#{{Num2==4?DefaultColor:''}};width:130rpx" data-sortby="SalePrice">价格</view>
+          </view> -->
+					</view>
+			</view>
+			<scroll-view scroll-y="true" style="height:100%" bindscrolltolower="onReachBottom2"  bindscroll="storeScroll">
+				<view class="banner">
+					<image mode="aspectFill" src="https://www.daogoujingling.com/Utility/pics/storebanner.png"></image>
+				</view>
+				<view style="padding:5px 20rpx 0rpx 20rpx">
+					<view class="attributeitem">
+						<text>价格</text>
+					</view>
+					<view style="display:flex">
+						<view class="searchl" style="width:250rpx">
+							<input class="ptb16" type="number" bindinput="bindMinSalePriceInput2" value="{{MinSalePrice2}}"></input>
+						</view>
+						<view style="line-height:48rpx;padding:16rpx">—</view>
+						<view class="searchl" style="width:250rpx">
+							<input class="ptb16" type="number" bindinput="bindMaxSalePriceInput2" value="{{MaxSalePrice2}}"></input>
+						</view>
+						<view bindtap="openprice" style="line-height: 40px;">{{openprice?'+':'-'}}</view>
+					</view>
+					<!-- 默认可选值 -->
+					<view style="height:220rpx" hidden="{{openprice}}">
+						<view wx:for="{{selectprice}}" bindtap="selectprice" data-value="{{item}}" class="selectprice">{{item}}</view>
+					</view>
+					<view class="attributeitem">
+						<text>钻重(单位ct)</text>
+					</view>
+					<view style="display:flex">
+						<view class="searchl" style="width:250rpx">
+							<input class="ptb16"  bindinput="bindMinWeightInput" value="{{MinWeight}}"></input>
+						</view>
+						<view style="line-height:48rpx;padding:16rpx">—</view>
+						<view class="searchl" style="width:250rpx">
+							<input class="ptb16"  bindinput="bindMaxWeightInput" value="{{MaxWeight}}"></input>
+						</view>
+						<view bindtap="openweight" style="line-height: 40px;">{{openweight?'+':'-'}}</view>
+					</view>
+					<view style="height:320rpx" hidden="{{openweight}}">
+						<view wx:for="{{selectweight}}" bindtap="selectweight" data-value="{{item}}" class="selectprice">{{item}}</view>
+					</view>
+					<view class="attributeitem">
+						<text>关键字</text>
+					</view>
+				</view>
+				<view class="searchk" style="border-bottom:none">
+					<view class="searchl width679">
+						<view class="iconfont icon__search font40 search_btn"></view>
+						<input bindblur="bindBlurInput" bindconfirm="onConfirmSearch" bindinput="bindKeyWordInput2" class="ptb16" confirmType="search" placeholder="{{KeyWord2==''?'搜索商品':KeyWord2}}" value="{{KeyWord2}}"></input>
+					</view>
+				</view>
+				<view class="filter-container" hidden="{{!ShowAllFilters2}}">
+					<view wx:for="{{filters2}}" wx:key="item" wx:for-item="item" wx:for-index="fidx">
+						<view wx:for="{{item}}" wx:key="attribute" wx:for-item="attribute" wx:for-index="aidx" wx:if="{{attribute.AttributeValues.length>0}}">
+							<view class="attributeitem">
+								<text>{{attribute.AttributeName}}</text>
+							</view>
+							<view class="valueitem">
+								<view class="{{value.IsCheck?'active':''}}" style="background:#{{value.IsCheck?DefaultColor:''}}" wx:for="{{attribute.AttributeValues}}" wx:for-item="value" wx:key="value.ValueId" data-valueid="{{value.ValueId}}" data-aidx="{{aidx}}" data-fidx="{{fidx}}" data-ischeck="{{value.IsCheck}}" bindtap="selectFilterValue2">{{value.ValueStr}}</view>
+							</view>
+
+						</view>
+					</view>
+				</view>
+				<view class="searchcontainer">
+					<view class="{{ShowAllFilters2?'filter-btn-fixed':'filter-btn'}}" style="{{ShowAllFilters2?('bottom:'+(SystemBottom)+'px'):''}}">
+						<view style="background:#eeeeed;border-top-left-radius:20rpx;border-bottom-left-radius: 20rpx;" bindtap="resetFilter2">重置</view>
+						<view style="background:#{{DefaultColor}};border-top-right-radius:20rpx;border-bottom-right-radius: 20rpx;" bindtap="confimFilter2">搜索</view>
+					</view>
+					<view wx:if="{{ShowAllFilters2}}" style="position:fixed;width:100%;left:0;color:#{{DefaultColor}};bottom:{{SystemBottom+50}}px;text-align:center">
+						<view bindtap="bindShowAllFilters2">{{ShowAllFilters2?'收起筛选':'展开筛选'}}</view>
+					</view>
+					<view class="showfilterbtn" id="affix">
+						<view bindtap="bindShowAllFilters2">{{ShowAllFilters2?'收起筛选':'展开筛选'}}</view>
+					</view>
+				</view>
+				<view  >
+					<view style="text-align: center;font-size:28rpx;padding:10rpx">---共搜索到(
+						<text style="color:red">{{ProductTotal2}}</text>)颗钻石---</view>
+					<view class="coupontitle" hidden="{{ProductList2==null||ProductList2.length<=0}}">
+						<!-- <view class="coupontitlel" >
+            <view class="{{Num2==0?'active':''}}" style="color:#{{Num2==0?DefaultColor:''}};" data-num="0">形状</view>
+          </view> -->
+						<view class="coupontitlel">
+							<view bindtap="onSortClick2" class="jiages {{Num2==1?'active'+' '+SortClass2:''}}" style="color:#{{Num2==1?DefaultColor:''}};" data-num="1" data-sortby="Weight">钻重</view>
+						</view>
+						<view class="coupontitlel">
+							<view bindtap="onSortClick2" class="jiages {{Num2==2?'active'+' '+SortClass2:''}}" style="color:#{{Num2==2?DefaultColor:''}};" data-num="2" data-sortby="SkuAttribute1">颜色</view>
+						</view>
+						<view class="coupontitlel">
+							<view bindtap="onSortClick2" class="jiages1s jiages {{Num2==3?'active'+' '+SortClass2:''}}" data-num="3" style="color:#{{Num2==3?DefaultColor:''}};" data-sortby="SkuAttribute2">净度</view>
+						</view>
+						<view class="coupontitlel">
+							<view class="jiages1s" data-sortby="SkuAttribute2">切工</view>
+						</view>
+						<view class="coupontitlel">
+							<view class="jiages1s" data-sortby="SkuAttribute2">抛光</view>
+						</view>
+						<view class="coupontitlel">
+							<view class="jiages1s" data-sortby="SkuAttribute2">对称</view>
+						</view>
+						<view class="coupontitlel">
+							<view class="jiages1s" data-sortby="SkuAttribute2">荧光</view>
+						</view>
+						<!-- <view class="coupontitlel">
+            <view  class="jiages1s jiages {{Num2==4?'active'+' '+SortClass2:''}}" data-num="4" style="color:#{{Num2==4?DefaultColor:''}};width:130rpx" data-sortby="SalePrice">价格</view>
+          </view> -->
+					</view>
+				</view>
+				<view class="prodcut-list search-list">
+					<view class="prodcut-comm">
+						<view class="customproducts" wx:for="{{ProductList2}}" wx:key="ProductId">
+							<view catchtap="goToProductDetail" class="custominfo" data-activeid="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-productid="{{item.ProductId}}">
+								<view class="attrs">
+									<view>{{item.Weight}}ct</view>
+									<view>{{item.SkuAttribute1}}</view>
+									<view>{{item.SkuAttribute2}}</view>
+									<view>{{item.qg}}</view>
+									<view>{{item.pg}}</view>
+									<view>{{item.dc}}</view>
+									<view>{{item.yg}}</view>
+								</view>
+								<view class="attrs" style="justify-content: space-between;">
+									<view style="width:auto;display: flex;">
+									  <view style="width:100rpx">
+                      	<image src="{{'https://www.daogoujingling.com/'+item.ImageUrl}}" style="width:100rpx;height:100rpx;margin:auto"></image>
+                    </view>
+                    <view style="width:100rpx">{{item.zslx}}</view>
+										<view>{{item.ProductCode}}</view>
+									</view>
+									<view style="color:red;width:200rpx;float:right">￥{{item.SalePrice}}</view>
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+			</scroll-view>
+		</swiper-item>
+		<swiper-item class="tab-content">
+			<scroll-view scroll-y="false" style="height:100%;background:#f5f5f5">
+				<view class="CartMain" wx:if="{{CartInfo.LineItems.length>0}}">
+					<view class="CartItem" wx:for="{{CartInfo.LineItems}}">
+						<view class="CartImage">
+							<image src="{{item.ImageUrl?item.ImageUrl:'https://www.daogoujingling.com/Storage/master/product/images/202002221612058186680.png'}}"></image>
+						</view>
+						<view class="CartContent">
+							<view>{{item.SkuContent}}</view>
+							<view style="color:red">￥{{item.SalePrice}}</view>
+						</view>
+						<view class="ResetCustom" data-productline="{{item.ProductLine}}" bindtap="bindResetCustom">重选</view>
+					</view>
+					<view class="CustomMsg">
+						<view>定制元素</view>
+						<view class="searchl" style="border-radius:10rpx;width:500rpx">
+							<input class="ptb16" bindinput="bindRemark" value="{{Remark}}"></input>
+						</view>
+					</view>
+				</view>
+				<view class="CartTotal">
+					<view class="CartTotalAmount">合计:<text style="color:red">￥{{CartInfo.TotalAmount}}</text></view>
+					<view class="AddCart" style="background:#305c5a" wx:if="{{selectTab!=-1}}" bindtap="selectTab">{{selectTab==0?'去选款':'去选钻'}}</view>
+					<view class="AddCart" style="background:#{{DefaultColor}}" bindtap="bindAddCart">加入购物车</view>				
+				</view>
+			</scroll-view>
+		</swiper-item>
+	</swiper>
+</view>
+
+
+<view class="kong" hidden="true">
+	<image src="/images/null_search.png"></image>
+</view>
+<view class="mask" hidden="{{!isShowSkuSelectBox}}">
+	<view class="comm-stand">
+		<view class="comm-stand-con">
+			<view class="comm-name">
+				<view class="comm-txt">{{CurrentProduct.ProductName}}</view>
+				<view bindtap="hideSkuDOM" class="comm-icon">
+					<image src="/images/colse_03.jpg"></image>
+				</view>
+			</view>
+			<view class="comm-bd">
+				<view class="comm-item" wx:for="{{CurrentProduct.SkuItems}}" wx:for-index="i" wx:key="AttributeId">
+					<view class="comm-title">{{item.AttributeName}}</view>
+					<view class="comm-attr">
+						<text catchtap="onSkuClick" class="{{sku.Enable==0?'disable':''}} {{sku.UseAttributeImage=='selected'?'active':''}}" data-attributeid="{{item.AttributeId}}" data-enablevalue="{{sku.Enable}}" data-indexcount="{{i}}" data-skuvalue="{{sku.Value}}" id="{{sku.ValueId}}"
+              wx:for="{{item.AttributeValue}}" wx:for-item="sku" wx:key="ValueId">{{sku.Value}}</text>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="comm-stand-shop">
+			<view class="product-into">
+				<view class="product-price">￥
+					<text>{{CurrentSku.SalePrice}}</text>
+				</view>
+				<view class="product-shop">
+					<view catchtap="catchAddCart" class="iconfont icon__plus" data-opensku="false" data-operator="+" data-productid="{{CurrentProduct.ProductId}}" data-sku="{{CurrentSku.SkuId}}" hidden="{{CurrentSku&&CurrentSku.CartQuantity>0}}">
+						<view hidden="{{!CurrentSku||CurrentSku.CartQuantity<=0}}">{{CurrentSku.CartQuantity}}</view>
+					</view>
+					<view class="product-buy" hidden="{{!CurrentSku||CurrentSku.CartQuantity<=0}}">
+						<view catchtap="catchAddCart" class="l" data-opensku="false" data-operator="-" data-productid="{{CurrentProduct.ProductId}}" data-sku="{{CurrentSku.SkuId}}">
+							<text class="iconfont icon__minus_L font36"></text>
+						</view>
+						<text class="m">{{CurrentSku.CartQuantity}}</text>
+						<view catchtap="catchAddCart" class="r" data-opensku="false" data-operator="+" data-productid="{{CurrentProduct.ProductId}}" data-sku="{{CurrentSku.SkuId}}">
+							<text class="iconfont icon__plus_L font36"></text>
+						</view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+<view class="shop_box" hidden="{{TotalNum<=0||!ShowCartIcon}}">
+	<navigator openType="switchTab" url="../shopcart/shopcart">
+		<view class="shop_icon iconfont icon__cart font48"></view>
+		<text class="shop_num font28">{{TotalNum}}</text>
+	</navigator>
+</view>

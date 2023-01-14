@@ -1,0 +1,72 @@
+<view class="fx_header" style=" background: url({{headerbg}}) left top no-repeat; background-size: 100% auto; ">
+    <view class="fxInfoBox">
+        <view class="fx_Info" wx:if="{{userInfo.MemberType==1}}">
+            <view class="fx_userInfo">
+                <view class="fx_hd">
+                    <view class="fx_name">{{DistributionInfo.NickName}}业务中心</view>
+                    <view class="btn" hidden="{{!ReferralGradeName}}">{{DistributionInfo.ReferralGradeName}}</view>
+                </view>
+                <view class="name_desc">分享链接关联我的下级客户
+                </view>
+            </view>
+            <view bindtap="RefferStore" class="Distribution">关联下级</view>
+        </view>
+        <view class="drawalsBox pd24">
+            <view class="drawals fl">
+                <view class="drawals_width">
+                    <!-- <view class="yuan">¥</view> -->
+                    <text>{{DistributionInfo.WaitBuyerPay}}</text>
+                </view>
+                <text>待分润</text>
+            </view>
+            <view class="drawals fl" bindtap="bindxiaji">
+                <view class="drawals_width">
+                    <!-- <view class="yuan">¥</view> -->
+                    <text>{{DistributionInfo.MySubUsers}}</text>
+                </view>
+                <text>我的下级</text>
+            </view>
+            <view class="drawals fr">
+                <view class="drawals_width">
+                    <!-- <view class="yuan">¥</view> -->
+                    <text>{{DistributionInfo.WaitComfirm}}</text>
+                </view>
+                <text>待确认</text>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="fx_common">
+    <view bindtap="bindordersettle" class="fx_li">
+        <view class="iconfont fx_icon icon__list"></view>
+        <text>下级订单</text>
+        <view class="iconfont fr angle-right right_size"></view>
+    </view>
+    <view  bindtap="bindyongjin" class="fx_li">
+        <view class="iconfont fx_icon icon_ "></view>
+        <text>我的佣金</text>
+        <view class="iconfont fr angle-right right_size"></view>
+    </view>
+    <view bindtap="bindxiaji" class="fx_li">
+        <view class="iconfont fx_icon icon_5"></view>
+        <text>我的下级</text>
+        <view class="iconfont fr angle-right right_size"></view>
+    </view>
+    <view bindtap="bindaddSub" wx:if="{{userInfo.MemberType==2}}" class="fx_li">
+        <view class="iconfont fx_icon icon_5"></view>
+        <text>添加子账号</text>
+        <view class="iconfont fr angle-right right_size"></view>
+    </view>
+    <view hidden="true" bindtap="bindstoreinfo" class="fx_li">
+        <view class="iconfont fx_icon icon_2"></view>
+        <text>店铺信息</text>
+        <view class="iconfont fr angle-right right_size"></view>
+    </view>
+</view>
+<view class="titleTag mt15">我的服务
+</view>
+<view class="service">
+    <view wx:for="{{moreIcon}}" class='serviceitem' bindtap="showWebMenu" data-link="{{item.MenuLink}}">
+    <image src="{{item.MenuIcon}}"></image><text>{{item.MenuName}}</text>
+  </view>
+</view>

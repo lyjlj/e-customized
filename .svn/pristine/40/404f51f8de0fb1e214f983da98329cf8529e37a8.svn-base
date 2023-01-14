@@ -1,0 +1,166 @@
+page{
+  padding-bottom: 100rpx;
+}
+.share-body{
+  padding: 0 25rpx;
+  padding-bottom: 110rpx;
+}
+.share-user{
+  float: left;
+  width: 100rpx;
+  height: 100rpx;
+  overflow: hidden;
+}
+.share-user image{
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 10rpx;
+}
+.share-news{
+  float: right;
+  width: 600rpx;
+}
+.share-item{
+  padding:50rpx 0;
+  border-bottom: 1rpx solid #e6e6e6;
+  overflow: hidden;
+}
+.share-sitename{
+  font-size: 30rpx;
+  color: #677089;
+  font-weight: bolder;
+}
+.imgitem{
+width: 180rpx;
+height: 180rpx;
+float: left;
+margin: 5rpx;
+}
+.godetail{
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  right: 10rpx;
+  bottom: 10rpx;
+  padding: 5rpx;
+  z-index: 100;
+  background:rgba(0, 0, 0, 0.5);
+  border-radius: 50rpx;
+}
+.godetail image{
+  width: 40rpx;
+  height: 40rpx;
+}
+.share-text{
+  line-height: 50rpx;
+  letter-spacing: 3rpx;
+font-size: 30rpx;
+margin: 5rpx 0;
+color: #333333;
+}
+.showall{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+.showdetails{
+  color: #677089;
+  margin: 5rpx 0;
+  font-size: 25rpx;
+}
+.share-news-img{
+  overflow: hidden;
+}
+.share-footer{
+  color: #999999;
+  font-size: 25rpx;
+  margin-top: 25rpx;
+  margin-bottom: 25rpx;
+  position: relative;
+}
+.review_text{
+  position: absolute;
+  left: 0;
+  top: 36rpx;
+  width: 100%;
+  background: #f7f7f7 ;
+  padding: 10rpx 0;  
+}
+.review_text input{
+  background: white;
+  width: 95%;
+  margin: 0 auto;
+  line-height: 11rpx;
+  height: 6rpx;
+  padding: 5rpx;
+  border-radius: 10rpx;  
+  color: #333333;
+}
+.share-like{
+  float: right; 
+  line-height: 25rpx;
+}
+.like-t{
+  display: inline-flex;
+}
+.share-like image{
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: 15rpx;
+  margin-right: 5rpx;
+  
+}
+.input-text{
+  width: 100%; 
+  background: #f7f7f7;
+  height: 85rpx;
+  position: fixed;
+  bottom: 0;
+}
+.input-text input{
+  background: white;
+width: 690rpx;
+line-height: 40rpx;
+height: 40rpx;
+padding: 10rpx;
+border-radius: 10rpx;
+margin-top: 14rpx;
+position: absolute;
+margin-left: 20rpx;
+}
+.share-video video{
+  max-width: 100%;
+}
+.like-list{
+  background: #f7f7f7;
+  color: #677089;
+  line-height: 50rpx;
+  font-size: 25rpx;
+  padding: 0 10rpx;
+}
+.like-list image{
+  width: 30rpx;
+  height: 30rpx;
+  float: left;
+  margin-right: 10rpx;
+margin-top: 10rpx;
+}
+.review-list{
+  background: #f7f7f7;
+  line-height: 50rpx;
+  font-size: 25rpx;
+  color: #677089;
+  padding: 0 10rpx;
+}
+.review-list text{
+  color:#333333;
+}
+.hr{
+  width: 100%;
+  height: 1rpx;
+  border-bottom: 1rpx solid #e6e6e6;
+}
+.hoverclass{
+  background: #e6e6e6;
+}

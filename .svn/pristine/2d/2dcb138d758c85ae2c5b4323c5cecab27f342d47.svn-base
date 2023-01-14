@@ -1,0 +1,25 @@
+<movable-area wx:if="{{showView}}" class="livemovable-area" style="height:{{windowHeight}}rpx">
+  <movable-view wx:if="{{showView}}" style="height:{{windowHeight*0.35}}rpx;width:{{750*0.35}}rpx" x="{{x}}" y="{{y}}" direction="all">
+    <live-player wx:if="{{showView}}" bindtap="toLiveRoom" id="player" src="{{playerUrl}}" mode="live" style="height:466.9rpx;width:262.5rpx" bindstatechange="statechange" autoplay binderror="error">
+    </live-player>
+    <view class="closeLive" bindtap="closeLive">
+      <icon type="clear" size="20" />
+    </view>
+  </movable-view>
+</movable-area>
+
+<movable-area wx:if="{{!hideTip&&!showView&&liveTip}}" class="livemovable-area" style="height:{{windowHeight}}rpx">
+  <movable-view wx:if="{{!hideTip&&!showView&&liveTip}}" style="height:180rpx;width:180rpx;" x="{{x2}}" y="{{y2}}" direction="all">
+    <view class="liveTip" bindtap="gotoLiveRecord">
+      <image class="poster" src="{{liveTip.Image}}">
+        <view class="playing">
+          <image mode="widthFix" class="playingicon" src="/images/playing.gif"></image>
+          <text>直播中</text>
+        </view>
+      </image>
+    </view>
+    <view class="closeLive" style="margin-top:-15rpx;right:-20rpx" bindtap="closeLive2">
+      <icon type="clear" size="20" />
+    </view>
+  </movable-view>
+</movable-area>

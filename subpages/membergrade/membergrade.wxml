@@ -1,0 +1,22 @@
+<view class="userinfo">
+  <view><image src="{{userInfo.picture}}"></image></view>
+  <view>会员名称：{{userInfo.realName}}</view>
+<view>当前等级：{{userInfo.gradeName}}</view>
+<view>手机号：{{userInfo.CellPhone}}</view>
+<view>可用积分：{{userInfo.points}}</view>
+</view>
+<view>
+  <view class="grade-item">
+    <view class="grade-p">等级</view>
+    <view class="grade-p">所需积分</view>
+    <view class="grade-p">使用积分升级</view>
+  </view>
+  <block wx:for="{{siteInfo.MemberGrades}}" wx:for-item="item">
+    <view class="grade-item">
+      <view class="grade-p">{{item.Name}}</view>
+      <view class="grade-p">{{item.Points}}分</view>
+     <view class="grade-p" bindtap="updateUser" style="color:red" data-points="{{item.Points}}" data-name="{{item.Name}}" data-gradeid="{{item.GradeId}}" wx:if="{{userInfo.gradeId!=item.GradeId&&userInfo.points>=item.Points&&item.Points>0}}">升级</view>
+     <view class="grade-p" wx:if="{{userInfo.gradeId==item.GradeId}}">当前等级</view>
+    </view>
+  </block>
+</view>

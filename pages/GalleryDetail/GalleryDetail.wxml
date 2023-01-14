@@ -1,0 +1,48 @@
+<view class="main" style="height:{{windowHeight}}rpx">
+	<swiper class="tab-box" current="{{tagTab}}" style="height:{{windowHeight}}rpx" duration="300" bindchange="switchTab">
+		<swiper-item class="tab-content" wx:for="{{Points}}" wx:for-item="item" wx:for-index="index">
+			<view class="imageMain" wx:if="{{index==tagTab}}">
+				<view class="imageContain" style="width:{{item.imageWidth}}rpx;height:{{item.imageHeight}}rpx;">
+					<image mode="aspectFit" src="{{item.Image+'?x-oss-process=image/resize,w_750'}}" ></image>
+				</view>
+				<view class="pointsArea" style="width:{{item.imageWidth}}rpx;height:{{item.imageHeight}}rpx;top:{{(windowHeight-item.imageHeight)/2}}rpx;left:{{(750-item.imageWidth)/2}}rpx">
+					<view class='pointitem' style="top:{{point.movey}}rpx;left:{{point.movex}}rpx" wx:for="{{item.Points}}" wx:for-item="point" wx:for-index='sindex' wx:if="{{item.imageWidth}}" >
+						<view class="circle-container" >
+							<view class="circle"></view>
+						</view>
+						<view class="pointDetail" wx:if="{{point.name!=''}}">
+							<text class="pointName" bindtap="selectSku" data-pid="{{point.pid}}">{{point.name}}</text>
+							<Icon type="enter" size="15" bindtap="godetail"  data-pid="{{point.pid}}" data-index="{{point.index}}" data-ind="{{item.index}}"/>
+						</view>
+						<view class="pointExtattr" wx:for="{{point.ExtAttr}}" bindtap="selectSku" data-pid="{{point.pid}}" wx:if="{{point.showExAttr}}">
+							<text >{{item}}</text>
+						</view>
+					</view>
+					<view wx:if="{{point.reverse}}" class='pointitem2' bindtap="selectSku" data-pid="{{point.pid}}" style="top:{{point.movey}}rpx;left:{{point.movex+50}}rpx" wx:for="{{item.Points}}" wx:for-item="point" >
+						<view class="circle-container">
+							<view class="circle"></view>
+						</view>
+						<div class="pointDetail">
+							<Icon type="return" size="15" />
+							<view class="pointName" wx:if="{{point.name!=''}}">{{point.name}}</view>
+							<view class="pointExtattr" bindtap="selectSku" data-pid="{{point.pid}}">
+								<view wx:for="{{point.ExtAttr}}">{{item}}</view>
+							</view>
+						</div>
+					</view>
+				</view>
+			</view>
+			<view class="edit" bindtap="edit" data-id="{{item.GalleryItemId}}" wx:if="{{userInfo.MemberType==1}}">
+				编辑
+			</view>
+		</swiper-item>
+	</swiper>
+</view>
+<view class="return" bindtap="backList">
+	<Icon type="return" color="#fff" size="26" />
+</view>
+<view class="return2" wx:if="{{Points.length>1}}">
+	<image src="https://www.daogoujingling.com/Templates/xcxshop/images/jiantou.gif" style="width: 50px;height: 50px;"></image>
+</view>
+
+<SelectSku id="selectSku" productid="{{ProductId}}"></SelectSku>

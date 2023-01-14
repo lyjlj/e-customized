@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "询价清单",
+    "usingComponents": {      
+        "LiveWindow": "/components/LiveWindow/LiveWindow"
+      }
+}

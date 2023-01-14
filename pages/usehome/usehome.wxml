@@ -1,0 +1,229 @@
+<view class="uselogos">
+  <view class="logobg"></view>
+  <view class="qrcode" hidden="true" bindtap="showqrcode">邀请码</view>
+  <view class="usetitle">
+    <button open-type="getUserInfo" bindgetuserinfo="getuserinfo" class="uselogo" bindtap="UserProfile">
+      <image class="uselogo" src="{{userInfo.picture}}"></image>
+    </button>
+    <view class="userinfo">
+      <view class="username userinfo-b" bindtap="UserProfile">{{userInfo.realName}}</view>
+      <view class="userinfo-b">
+        <button class='bindphone' style="background:#{{DefaultColor}};border:1px solid #{{DefaultColor}};" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" wx:if='{{!userInfo.CellPhone}}'>注册会员</button>
+        <view wx:if='{{userInfo.CellPhone}}' class="user-grade" style="background:#{{DefaultColor}};border:1px solid #{{DefaultColor}};">{{userInfo.gradeName}} </view>
+        <view class="updategrade" bindtap="updategrade">升级</view>
+        <view bindtap="bindPointTap" class="user-score" hidden='true'>
+          <image src="/images/score.png"></image>
+          <view>
+            <text>{{userInfo.points}}</text>分
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+</view>
+<view class="user_custom">
+  <view class="custom_title">
+    <view class="title_name" bindtap="bindProject" data-status="0" data-index="0">
+      <text>定制项目</text>
+      <view class="transition {{1?'name_active':''}}"></view>
+    </view>
+    <!-- <view class="title_name">
+      <text class="title_text" style="color: #616161;">一</text>
+      <view  class="transition {{0?'name_active':''}}"></view>
+    </view> -->
+  </view>
+  <view class="custom_body">
+    <view class='body_waiting' bindtap="bindProject" data-status="50" data-index="1">
+      <image src="/images/waiting(2).png"></image><text style="margin-top: 15rpx;">待处理 <text style="color: {{statusSum[50] > 0 ? 'red' : '#555555'}};">{{statusSum[50]}}</text></text>
+    </view>
+    <view class='body_waiting' bindtap="bindProject" data-status="51" data-index="2">
+      <image src="/images/price.png"></image>
+      <text style="margin-top: 15rpx;">待确认 <text style="color: {{statusSum[51] > 0 ? 'red' : '#555555'}};">{{statusSum[51]}}</text>
+      </text>
+    </view>
+    <view class='body_waiting' bindtap="bindProject" data-status="52" data-index="3">
+      <image src="/images/confirm.png"></image><text style="margin-top: 15rpx;">已确认 <text style="color: {{statusSum[52] > 0 ? 'red' : '#555555'}};">{{statusSum[52]}}</text></text>
+    </view>
+  </view>
+</view>
+<view class="user_order">
+  <view class='order_item' bindtap="bindProject" data-status="54" data-index="5">
+    <image src="/images/production.png"></image><text style="margin-top: 15rpx;">生产中 <text style="color: {{statusSum[54] > 0 ? 'red' : '#555555'}};">{{statusSum[54]}}</text></text>
+  </view>
+  <view class='order_item' bindtap="bindProject" data-status="55" data-index="6">
+    <image src="/images/shipments.png"></image><text style="margin-top: 15rpx;">待发货 <text style="color: {{statusSum[55] > 0 ? 'red' : '#555555'}};">{{statusSum[55]}}</text></text>
+  </view>
+  <view class='order_item' bindtap="bindProject" data-status="56" data-index="7">
+    <image src="/images/Receiving.png"></image><text style="margin-top: 15rpx;">待收货 <text style="color: {{statusSum[56] > 0 ? 'red' : '#555555'}};">{{statusSum[56]}}</text></text>
+  </view>
+  <!-- <view class='order_item' bindtap="bindStatue" data-key="0">
+    <image src="/images/all-orders.png"></image><text style="margin-top: 15rpx;">全部订单</text>
+  </view> -->
+</view>
+<!-- <view bindtap="bindOrderList" class="hdonglist" style="margin-top:0">我的订单
+  <text bindtap="bindStatue" data-key="0">全部订单</text>
+</view>
+<view class="usecd">
+  <view bindtap="bindStatue" class="usecdlist" data-key="1">
+    <view class="iconfont icon__wallet"></view>
+    <text>待结算</text>
+    <view class="order_num" hidden="{{userInfo.waitPayCount==0}}">
+      <text>{{userInfo.waitPayCount}}</text>
+    </view>
+  </view>
+  <view bindtap="bindStatue" data-key="35" class="usecdlist" >
+    <view class="iconfont icon__package"></view>
+    <text>待确认</text>
+    <view class="order_num" hidden="{{userInfo.waitSendCount==0}}">
+      <text>{{userInfo.waitSendCount}}</text>
+    </view>
+  </view>
+  <view bindtap="bindStatue" data-key="36" class="usecdlist" >
+    <view class="iconfont icon__shipping"></view>
+    <text>已结算</text>
+    <view class="order_num" hidden="{{userInfo.waitFinishCount==0}}">
+      <text>{{userInfo.waitFinishCount}}</text>
+    </view>
+  </view>
+  <view bindtap="bindStatue" class="usecdlist" data-key="21">
+    <view class="iconfont icon__comment"></view>
+    <text>待评论</text>
+    <view class="order_num" hidden="{{userInfo.waitReviewCount==0}}">
+      <text>{{userInfo.waitReviewCount}}</text>
+    </view>
+  </view>
+</view> -->
+<view class="titleTag mt15">工具与服务</view>
+<view class="service">
+  <view class='serviceitem' bindtap="bindGuidelines">
+    <image src="/images/guide.png"></image><text>新手指引</text>
+  </view>
+  <view class='serviceitem' bindtap="bindMyCouponsTap">
+    <image src="/images/custom.png"></image><text>定制清单</text>
+    <view class="service_tip" hidden="true">
+      <text class='service_tip_text'>{{userInfo.couponsCount}}</text>
+    </view>
+  </view>
+  <view class='serviceitem' bindtap="bindFavorites">
+    <image src="/images/favorites.png"></image><text>收藏管理</text>
+  </view>
+  <!-- <view class='serviceitem' bindtap="bindMyAddressTap">
+    <image src="/images/site.png"></image><text>地址管理</text>
+  </view> -->
+  <view class='serviceitem' bindtap='bindShare'>
+    <image src="/images/share-1.png"></image><text>分享定制</text>
+  </view>
+  <view class='serviceitem' bindtap="bindOnlineServer">
+    <image src="/images/exclusive.png"></image><text>客服</text>
+  </view>
+  <!-- <view class='serviceitem' bindtap="bindMessage">
+    <image src="/images/message.png"></image><text>客服消息</text>
+  </view> -->
+</view>
+<!-- <view class="service">
+  <view wx-if="{{userInfo.IsClientAdmin}}" class='serviceitem' bindtap="bindProductUpdate">
+    <image src="/images/spgl.png"></image><text>商品管理</text>
+  </view>
+  <view class='serviceitem' bindtap="bindPointTap">
+    <image src="/images/jf.png"></image><text>积分</text>
+  </view>
+  <view class='serviceitem' bindtap="bindMyCouponsTap">
+    <image src="/images/yhq.png"></image>
+    <text>优惠券</text>
+    <view class="service_tip" hidden="true">
+      <text class='service_tip_text'>{{userInfo.couponsCount}}</text>
+    </view>
+  </view>
+  <view class='serviceitem' bindtap="bindFavorites">
+    <image src="/images/favorites.png"></image><text>收藏管理</text>
+  </view>
+  <view class='serviceitem' bindtap='bindVipTap'>
+    <image src="/images/vip.png"></image><text>会员政策</text>
+  </view>
+  <view class='serviceitem' bindtap="bindMyAddressTap">
+    <image src="/images/shdz.png"></image><text>收货地址</text>
+  </view>
+  <view class='serviceitem' bindtap="bindMsg">
+    <image src="/images/tzgl.png"></image><text>通知管理</text>
+  </view>
+  <view class='serviceitem' bindtap="UserProfile">
+    <image src="{{host}}/Templates/xcxshop/images/member_peple.png"></image><text>个人资料</text>
+  </view>
+  <view class='serviceitem' bindtap="showBarcode">
+    <image src="{{host}}/templates/common/images/barcode.png"></image><text>会员条码</text>
+  </view>
+  <view class='serviceitem' bindtap="popup" wx-if="{{!IsQuickLogin}}">
+    <image src="/images/zhgl.png"></image><text>账号管理</text>
+  </view>
+  <view class='serviceitem' bindtap="bindDistribution" wx-if="{{userInfo.ShowManage}}">
+    <image src="/images/ywzx.png"></image><text>业务中心</text>
+  </view>
+  <view class='serviceitem' bindtap='bindConfirmCode'>
+    <image src="/images/hx.png"></image><text>核销</text>
+  </view>
+  <view class='serviceitem' bindtap='bindPointMall'>
+    <image src="/images/kong.jpg"></image><text>积分商城</text>
+  </view>
+  <view class='serviceitem' bindtap='bindStoreList'>
+    <image src="/images/storelist.png"></image><text>附近门店</text>
+  </view>
+  <view class='serviceitem' bindtap='bindGiftTap'>
+    <image src="/images/lpzx.png"></image><text>礼品中心</text>
+  </view>
+  <view class='serviceitem' bindtap='bindOutlineOrders'>
+    <image src="{{host}}/Templates/xcxshop/images/sales.png"></image><text>消费记录</text>
+  </view>
+  <view class='serviceitem' bindtap='bindBookTap'>
+    <image src="{{host}}/Templates/xcxshop/images/bookking.png"></image><text>预约</text>
+  </view>
+  <view class='serviceitem' bindtap='bindMyAccount'>
+    <image src="{{host}}/templates/common/images/MyAccount.png"></image><text>我的帐号</text>
+  </view>
+  <view class='serviceitem' bindtap='bindMyQuestion'>
+    <image src="{{host}}templates/common/images/icon/member_question.png"></image><text>问卷调查</text>
+  </view>
+  <view class='serviceitem'><image src="/images/tsjy.png"></image><text>投诉建议</text></view>
+</view> -->
+
+<!-- <view bindtap="showonlineserver" wx:if="{{userInfo.ReferralUserId}}" bindtap="showonlineserver" data-name="我的导购" data-id="{{userInfo.ReferralCellPhone}}" class="hdonglist" data-tel="{{userInfo.ServicePhone}}">联系导购
+  <text class="msgcount" wx:if="{{MsgCount>0}}" style="color:white">{{MsgCount}}</text>
+</view> -->
+<view class="version">版本号:{{version}}</view>
+<view style="background-color: #fff;padding-bottom: 10px;">
+  <image src="/images/sup.png" style="width:200px;height:45px;margin:0 auto;"></image>
+</view>
+<view style="width:100%;height:120rpx;"></view>
+
+
+<view class="producthd" hidden="true">
+  <view bindtap="bindMyAddressTap" class="hdonglist">我的收货地址</view>
+  <view bindtap="bindMyCouponsTap" class="hdonglist">我的优惠券
+    <text wx:if="{{userInfo.couponsCount>0}}">{{userInfo.couponsCount}}张未使用</text>
+  </view>
+  <view class="border-bottom" hidden="true">
+    <view bindtap="bindExtension" class="hdonglist" hidden="{{userInfo.IsReferral}}">我要分销</view>
+    <view bindtap="bindDistribution" class="hdonglist" hidden="{{!userInfo.IsReferral}}">分销中心</view>
+  </view>
+
+  <view bindtap="ExitLoginout" class="hdonglist outlogin">
+    退出登录
+  </view>
+</view>
+
+<bottomFrame id="exitLoginFrame" frameTitle="">
+  <view style="background:#eeeeed">
+    <view bindtap="ExitLoginout" class="hdonglist outlogin">
+      退出登录
+    </view>
+    <view class='cancel' bindtap="hidepup">取消</view>
+  </view>
+</bottomFrame>
+<!-- 在线客服
+<onlineserver  id="onlineserver" username="{{username}}"  /> -->
+
+<!-- 飘屏的组件 -->
+<visitWindow id="visitWindow" productid="0" />
+
+<!-- 会员编码 -->
+<dialog id="dialog" productid="0" />

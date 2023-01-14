@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "限时抢购详情",
+  "usingComponents": {
+    "bottomFrame": "/components/bottomFrame/bottomFrame",
+    "LiveWindow": "/components/LiveWindow/LiveWindow"
+  }
+}

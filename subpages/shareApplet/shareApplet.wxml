@@ -1,0 +1,11 @@
+<!--subpages/shareApplet/shareApplet.wxml-->
+<view class="shareApplet">
+  <view class="code_box">
+    <image src="{{imgSrc}}"></image>
+  </view>
+  <canvas canvas-id="shareCanvas" style="width: 540px;height:800px;position: fixed;top: -10000px;"></canvas>
+  <view class="btn_box">
+    <button class="btn_save" bindtap="download">保存图片分享</button>
+    <button class="btn_share" openType="share">分享给好友</button>
+  </view>
+</view>

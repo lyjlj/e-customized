@@ -1,0 +1,65 @@
+<view class="container mt32 font32" wx-if="{{ShowLogin}}">
+  <view class="loginpassword ">
+      <input bindinput="bindUserNameInput" value="{{userName}}" maxlength="20" name="username" placeholder="账号" placeholderStyle="color:#bdbdbd" type="text"></input>
+  </view>
+  <view class="loginpassword">
+      <input password bindinput="bindPwdInput" value="{{password}}" maxlength="20" name="password" placeholder="密码" placeholderStyle="color:#bdbdbd"></input>
+    </view>
+    <view class="remp">
+       <icon bindtap="rememberPass" color="#{{DefaultColor}}"  type="success" wx:if="{{isRememberPass}}"></icon>
+      <icon bindtap="rememberPass"  type="circle" wx:else></icon>
+       <view style="margin-left:10rpx">记住密码</view>
+       <view wx:if="{{showReg}}" bindtap="bindRegister" style="margin-left:15rpx;color:blue">注册</view>
+    </view>
+</view>
+<view class="loginbtn" style="text-align:center" hidden="{{IsQuickLogin}}">
+  <button  bindtap="loginbyUser" open-type="getUserInfo" class="other-button-hover font36 pt24 pb24 line_height40" style="background:#{{DefaultColor}}"> 登录 </button>
+</view>
+
+<view class="mask" wx-if="{{ShowQuickLogin}}">
+  <view class="comm-stand">
+    <view>
+      <image src='{{Logo}}' class="loginBg"> </image>
+    </view>
+    <view class="tjiaoname">
+      <view class="welcome">欢迎来到{{SiteName}}</view>
+      <view class="welcome2">享受会员权益</view>
+      <button  bindtap="cancelLogin" class="font32 pd17 pb17 line_height40" style='background:#{{DefaultColor}};margin-left:20rpx;margin-right:20rpx' >
+        取消 </button>
+        <button  bindtap="quickLogin" class="font32 pd17 pb17 line_height40" style='background:#{{DefaultColor}};display:inline-block' >
+        微信授权 </button>
+    </view>
+  </view>
+</view>
+
+<view class="mask" wx-if="{{ShowCellPhone}}">
+  <view class="comm-stand">
+    <view>
+      <image src='{{Logo}}' class="loginBg"> </image>
+    </view>
+    <view class="tjiaoname">
+      <view class="welcome">为了沟通方便,系统需要获取您的手机号码</view>
+      <view class="welcome2">点击授权获取手机号码</view>
+      <button  bindtap="cancelLogin" class="font32 pd17 pb17 line_height40" style='background:#{{DefaultColor}};margin-left:20rpx;margin-right:20rpx' >
+        取消 </button>
+        <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class="font32 pd17 pb17 line_height40" style='background:#{{DefaultColor}};display:inline-block' >
+        微信授权 </button>
+    </view>
+  </view>
+</view>
+
+<view class="mask" wx-if="{{ShowGrant}}">
+  <view class="comm-stand">
+    <view>
+      <image src='{{Logo}}' class="loginBg"> </image>
+    </view>
+    <view class="tjiaoname">
+      <view class="welcome">业务员尚未授权</view>
+      <view class="welcome2">点击授权通知业务员授权</view>
+      <button  bindtap="cancelLogin" class="font32 pd17 pb17 line_height40" style='background:#{{DefaultColor}};margin-left:20rpx;margin-right:20rpx' >
+        返回 </button>
+        <button  bindtap="grantLogin" class="font32 pd17 pb17 line_height40 {{Grant=='SendGrant'?'disable':''}}" style='background:#{{DefaultColor}};display:inline-block' >
+        {{Grant=='SendGrant'?'等待授权中':'业务员授权'}} </button>
+    </view>
+  </view>
+</view>

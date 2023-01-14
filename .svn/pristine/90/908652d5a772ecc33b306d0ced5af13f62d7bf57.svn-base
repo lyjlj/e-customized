@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "bottomFrame": "/components/bottomFrame/bottomFrame",
+    "Icon":"../../dist/icon/index"
+  },
+  "navigationBarTextStyle": "white",
+  "navigationStyle":"custom"
+}

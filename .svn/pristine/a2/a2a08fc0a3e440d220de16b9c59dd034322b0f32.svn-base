@@ -1,0 +1,53 @@
+.container{
+  max-height: 1050rpx;
+  height: 1000rpx;
+  overflow-y:scroll;
+  background: #fff;
+  border-top-left-radius: 15rpx;
+  border-top-right-radius: 15rpx;
+}
+.upitem{
+  color:#333333;
+  display: flex;
+border-bottom: 1px solid #efefef;
+padding: 25rpx 10rpx;
+min-height: 125rpx;
+}
+.ucontent{
+  flex: 8;
+display: flex;
+flex-wrap: wrap;
+}
+.uitem{
+  padding:10rpx;
+  font-size: 30rpx;
+}
+.uitem .n{
+  color:#a2a2a2;
+  padding-right:5rpx;
+}
+.uitem .v{
+color:#333333;
+}
+.u-shop{
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.u-shop text{
+  color:red;
+  font-size:33rpx;
+}
+.u-shop view{
+  border-radius: 10rpx;
+  font-size: 27rpx;
+  padding:10rpx 25rpx;
+}
+.cart-active{
+  color:#fff;
+}
+.cart-disable{
+  background: #e7e7e7;
+  color:#777;
+}

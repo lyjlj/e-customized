@@ -1,0 +1,15 @@
+{
+    "navigationBarTitleText": "商品搜索",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 50,
+    "usingComponents": {
+      "i-toast": "../../dist/toast/index",
+      "i-button": "../../dist/button/index",
+      "bottomFrame": "/components/bottomFrame/bottomFrame",
+      "SelectSku": "/components/SelectSku/SelectSku",
+      "i-drawer": "../../dist/drawer/index",
+      "i-modal": "../../dist/modal/index",
+      "i-load-more": "../../dist/load-more/index",
+      "LiveWindow": "/components/LiveWindow/LiveWindow"
+    }
+}

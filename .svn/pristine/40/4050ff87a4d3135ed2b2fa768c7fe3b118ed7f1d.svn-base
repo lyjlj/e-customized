@@ -1,0 +1,28 @@
+<view class="main">
+   <view class="records">
+       <view class="record" wx:for="{{Records}}">
+          <view class="prizeimage">
+              <image src="{{item.AwardPic}}"></image>
+          </view>
+          <view class="prizename">
+              <view>{{item.AwardName}}</view>
+              <view>×1</view>
+          </view>
+          <view class="action">
+              <view style="color: #666;font-size:25rpx">{{item.CreateDate}}</view>
+              <view class="hx" bindtap="ShowBarCode" data-recordid="{{item.RecordId}}">核销</view>
+          </view>
+       </view>
+   </view>
+<view class="noneAward" wx:if="{{ShowTip}}">暂无奖品</view>
+
+</view>
+<bottomFrame id="showCode" frameTitle="">
+   <view class="awardcode">
+      <view class="awardcodetitle">券号:</view>
+      <view class="close"  bindtap="closeCode"><icon class="icon-small" color="#666" type="cancel" size="25"></icon></view>
+      <view>
+         <image src="data:image/png;base64,{{ImgCode}}"></image>
+      </view>
+   </view>
+</bottomFrame>

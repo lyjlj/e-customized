@@ -1,0 +1,19 @@
+<!--pages/signature/signature.wxml-->
+<view class="sign">
+	<view class="m line_height40" style="border-left:8rpx solid #{{DefaultColor}}">电子签名</view>
+	<view class='container1'>
+		<!-- 签名画布 -->
+		<canvas class="canvas" id="canvas" canvas-id="canvas" disable-scroll="true" bindtouchstart="canvasStart" bindtouchmove="canvasMove" bindtouchend="canvasEnd" touchcancel="canvasEnd" binderror="canvasIdErrorCallback">
+		</canvas>
+		<!-- <view class='buttonBox'>
+			<button bindtap='clickMe' class='addbutton' open-type="getuserinfo">点击我生成图片保存相册</button>
+			<button type="default" class='delbutton' bindtap="cleardraw">清除</button>
+		</view> -->
+	</view>
+</view>
+<view bindtap='clickMe' class="page__hd" style="position:fixed; bottom:0;width: 340rpx;background:#{{DefaultColor}};color:#fff;right: 0;">
+  确认
+</view>
+<view bindtap='cleardraw' class="page__hd" style="position:fixed; bottom:0;width: 340rpx;background:#{{DefaultColor}};color:#fff;">
+  清除
+</view>

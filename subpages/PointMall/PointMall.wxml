@@ -1,0 +1,53 @@
+<view class="point-body">
+  <view class="point-top" style="background:#{{siteinfo.DefaultColor}}">
+    <view style="width:30%">
+      <image src="{{userinfo.picture}}"></image>
+    </view>
+    <view style="width:70%">
+      <view>{{userinfo.realName}}</view>
+      <view>可用积分：<text style="color:red">{{userinfo.points}}积分</text></view>
+    </view>
+  </view>
+  <view class="point-panel" >
+    <view class="{{type==0?'select-panel':''}}" data-type="0" bindtap="selectpanel">可兑换礼品</view>
+    <view class="{{type==1?'select-panel':''}}" data-type="1" bindtap="selectpanel">可兑换优惠券</view>
+  </view>
+  <view class="nopoint" wx:if="{{list.length==0}}">
+    暂无数据
+  </view>
+</view>
+<view class="box-wrapper">
+  <block wx:for="{{list}}" wx:key="item" wx:if="{{type==0}}" wx:for-index="idx">
+    <view class="box" style="{{idx==0?'margin-top:0px':''}}" bindtap="PointInfo" data-id="{{item.GiftId}}">
+      <image src="{{RequestUrl}}{{item.ThumbnailUrl410}}" style="width:250rpx;height:250rpx;margin:0 auto"></image>
+      <view class="space-text">{{item.Name}}</view>
+      <view>所需积分:<text style="color:red">{{item.NeedPoint}}</text> 积分</view>
+      <view class="space-text-2">{{item.ShortDescription}}</view>
+    </view>
+  </block>
+</view>
+<view class="point-detail">
+  <block wx:for="{{list}}" wx:key="item" wx:if="{{type==1}}">
+      <view class="point-item" style="background: url('https://www.daogoujingling.com/templates/common/images/coupon_point_bg.png');background-repeat: no-repeat;background-size: 100%;">
+      <view class="point-title" style="color: white;">
+        {{item.CouponName}}  ￥{{item.Price}}
+      </view>
+        <view class="point-title">所需积分: <text style="color:red">{{item.NeedPoint}}</text> 积分
+        </view>
+        <text>
+        {{item.StartTime}}到{{item.ClosingTime}}
+        </text>
+        <text>
+        {{item.Remark}}
+        </text>
+        <view class="pointbuy" wx:if="{{item.showbuy}}" data-couponid="{{item.CouponId}}" data-needpoint="{{item.NeedPoint}}" bindtap="pointbuy">兑换</view>
+      </view>
+    </block>
+</view>
+
+<view class="nopoint" style="font-size:24rpx" wx:if="{{list.length==totalCount}}">
+  共{{totalCount}}款
+</view>
+<view class="cart" bindtap="giftcart">
+  <image src="/images/cart.png"></image>
+</view>

@@ -1,0 +1,9 @@
+{
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "商品分类",
+  "usingComponents": {
+    "CheckPhone": "/components/CheckPhone/index",
+    "LiveWindow": "/components/LiveWindow/LiveWindow",
+    "visitWindow": "/components/visitWindow/visitWindow"
+  }
+}

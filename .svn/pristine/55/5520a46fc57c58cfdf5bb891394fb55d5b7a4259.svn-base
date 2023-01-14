@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "bottomFrame": "/components/bottomFrame/bottomFrame",
+    "SelectSku": "/components/SelectSku/SelectSku"
+  },
+  "navigationBarTitleText": "收藏中心"
+}

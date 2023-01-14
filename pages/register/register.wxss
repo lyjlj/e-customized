@@ -1,0 +1,60 @@
+.uinfo{
+  height:100%;
+  padding: 20rpx;
+}
+.uImage{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 140rpx;
+  border-bottom: 1rpx solid #9999;
+  color:#333333
+}
+.uImage image{
+  width:90rpx;
+  height: 90rpx;
+  border-radius: 110rpx;
+}
+.uItem{
+  height: 140rpx;
+  border-bottom: 1rpx solid #9999;
+}
+.item-t{
+  width: 100%;
+line-height: 70rpx;
+font-size: 26rpx;
+color: #999;
+}
+.item-i{
+  width: 100%;
+  color:#333333
+}
+button{
+  background: #fff;
+  height: 60rpx;
+  border: none !important;
+  bottom: 15rpx;
+text-align: left;
+padding-left: 0;
+color:#333333;
+font-size: 29rpx;
+}
+button::after{
+  border: none!important;
+}
+.loginlabel{
+  font-size: 30rpx;
+  line-height: 80rpx;
+  text-align: center;
+  margin-top: 20rpx;
+}
+.savebtn{
+  width:500rpx;
+  margin: auto;
+  color:#fff;
+  font-size: 34rpx;
+  border-radius: 100rpx;
+  line-height: 80rpx;
+  text-align: center;
+  margin-top: 20rpx;
+}

@@ -1,0 +1,95 @@
+
+.vip-info{
+  padding: 30rpx;
+  font-size:26rpx;
+}
+.vip-info view{
+  display: flex;
+  line-height: 100rpx;
+  align-items: center;
+  border-bottom: 1rpx solid #f7f7f7;
+}
+.vip-img{
+  width: 90%;
+  margin: 10rpx auto;
+}
+.swiper-item{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  color:white;
+  font-size: 25rpx;
+}
+.userinfo{
+  position: absolute;
+  top: 30rpx;
+  left: 50rpx;
+  display: flex;
+  align-items: center; 
+}
+.user-img{
+  width:50rpx;
+  height:50rpx;
+  border-radius: 100%;
+}
+.vip-username{
+  position: absolute;
+  bottom: 75rpx;
+  left: 50rpx;
+}
+.points{
+  position: absolute;
+  right: 50rpx;
+  top: 30rpx;
+}
+.showvip{
+  position: absolute;
+  right: 50rpx;
+  bottom: 75rpx;
+}
+.userfile{
+  justify-content: center;
+  display: flex;
+}
+.userfile view{
+  background: black;
+  padding: 20rpx 150rpx;
+  color: white;
+  border-radius: 10rpx;
+}
+.progress-box{
+  padding: 20rpx;
+  font-size: 25rpx;
+}
+.vip-tag{
+  background:#8ccecc;
+  padding: 5rpx;
+  color:white;
+  font-size: 24rpx;
+  border-radius: 5rpx;
+  margin-right: 20rpx;
+}
+.progress-box-title{
+  display: flex;
+  align-items: center;
+}
+.pointgrade{
+  display: flex;
+  justify-content: space-between;
+}
+.bindphone
+{
+  background:#8ccecc;
+border-radius:25rpx;
+border:1px solid #8ccecc;
+text-align:center;
+height:40rpx;
+line-height:37rpx;
+padding:0rpx 15rpx;
+float:left;
+font-size: 30rpx;
+color:#fff;
+}
+.title{
+  width: 40%;
+}

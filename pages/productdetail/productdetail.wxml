@@ -1,0 +1,302 @@
+<import src="../wxParse/wxParse.wxml"></import>
+<view class="imgview">
+  <view class="taglist">
+    <block wx:for="{{TagList}}" wx:key="tag" wx:for-item="i">
+      <view class="tag-i" style="background:{{i.TagColor}};color:{{i.TextColor}}">{{i.TagName}}</view>
+    </block>
+  </view>
+  <swiper autoplay indicatorDots class="swiper-box" interval='2000'>
+    <swiper-item wx:for="{{ProductImgs}}" wx:key="*this">
+      <image class="slide-image" bindtap="preview" data-src="{{item}}" mode="aspectFit" src="{{item}}"></image>
+    </swiper-item>
+  </swiper>
+</view>
+<view class="productcont">
+  <view class="productjs pl24 pr24">
+    <view class="pricel pb24 mt24" style="color:#{{DefaultColor}}">
+      <view class="product-dz" bindtap='customProduct' wx-if="{{CustomProductIds.length>0}}">
+        <image src="https://www.daogoujingling.com//Templates/xcxshop/images/cp.png"></image>
+      </view>
+      <view class="favo_box">
+        <view class="product-favo" bindtap='AddFavorite' data-productid="{{ProductId}}" data-isfa="{{IsFavorite}}">
+          <image class="favo_img" src="/images/plun_{{IsFavorite?'06':'12'}}.jpg"></image>
+        </view>
+        <text>收藏</text>
+      </view>
+    </view>
+  </view>
+  <!-- 商品名称 -->
+  <view class="product_name">
+    <view class="name_share">
+      <view class="name">{{ProductName}}</view>
+      <!-- <button bindtap='popup' class="share-icon" style="background:url({{sharebtn}}) center center; background-size:48rpx 48rpx"></button>
+      <text bindtap='popup' class="share_text" style="color:#{{DefaultColor}}">分享</text> -->
+    </view>
+    <view>
+      <view class="jjname" wx-if="{{ShortDescription}}">{{ShortDescription}}</view>
+      <view class="mt16 line_height32" style="display:flex;overflow:hidden; color:#757575">
+        <view class="yunfei">
+          款号：
+          <text>{{ProductCode}}</text>
+        </view>
+        <view class="yunfei">
+          销量：
+          <text>{{ShowSaleCounts}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 详情描述 -->
+  <view class="product_describe">
+    <view class="describe_title">
+      <view class="horizontalLine"></view>
+      <view style="margin: 0 10rpx;">详情描述</view>
+      <view class="horizontalLine"></view>
+    </view>
+    <view class="xqcont">
+      <view class="wxParse" wx:if="{{TempMetaDescription.length>0}}">
+        <rich-text nodes="{{TempMetaDescription}}"></rich-text>
+      </view>
+      <view wx:else class="descempty">暂无详情描述</view>
+    </view>
+  </view>
+  <!-- 产品参数 -->
+  <view class="product_param">
+    <view class="param_title">产品参数</view>
+    <view class="xqattr" bindlongtap="copyAttr">
+      <view class="attrItem" wx:for="{{ExtendAttribute}}" wx:key="index">
+        <view class="aname">{{item.ExtAttrName+'：'}}</view>
+        <view class="avalue">{{item.ExtAttrValue}}{{item.name=='工费'||item.name=='附加工费'?'元/克':''}}</view>
+      </view>
+    </view>
+  </view>
+  <!-- 规格选择 -->
+  <view class="product_specification">
+    <view class="specification_title" bindtap="bindSpecification">
+      <view style="font-size: 32rpx;font-weight: 600;">规格</view>
+      <!-- <view class="iconfont {{isUnfold}} font28"></view> -->
+    </view>
+    <view class="specification_list" hidden="{{!showSpecification}}">
+      <view class="comm-item" wx:for="{{SkuItemList}}" wx:for-index="i" wx:key="AttributeId" style="background: white;padding:10px 0;">
+        <view>选择您想要的{{item.AttributeName}}</view>
+        <view class="skuitem_box">
+          <view catchtap="onSkuClick" class="skuitem {{sku.Enable==0?'disable':''}} {{sku.UseAttributeImage=='selected'?'skuactive':''}}" data-attributeid="{{item.AttributeId}}" data-enablevalue="{{sku.Enable}}" data-indexcount="{{i}}" data-ImageUrl="{{sku.ImageUrl}}" data-skuvalue="{{sku.Value}}" id="{{sku.ValueId}}" wx:for="{{item.AttributeValue}}" wx:for-item="sku" wx:key="ValueId">{{sku.Value}}</view>
+          <view wx:if="{{item.AttributeName=='金重范围'}}" class="skuitem {{sku.Enable==0?'':'disable'}} {{remark.weight?'skuactive':''}}" bindtap="selectWeight">{{weightWords}}<text wx:if="{{weightWords != '我有更好的选择'}}">g</text></view>
+
+
+          <!--屏幕背景变暗的背景  -->
+          <view class="custom_screen" bindtap="hideSelect" wx:if="{{showModalStatus}}"></view>
+          <!--弹出框  -->
+          <view animation="{{animationData}}" class="custom_attr_box" wx:if="{{showModalStatus}}">
+            <!--自定义弹窗内容-->
+            <view class="custom_head">
+              <view class="head_title">自定义</view>
+              <view class="iconfont icon__close font30" bindtap="closeCustom"></view>
+            </view>
+            <view class="custom_body">
+              <view class="body_title">克重</view>
+              <input class="body_input" type="number" placeholder="请输入1-99999的数值" bindblur="customblur" bindinput="custominput" value="{{weightNumber}}" />
+            </view>
+            <view class="custom_foot">
+              <view class="foot_cancel" bindtap="closeCustom">取消</view>
+              <view class="foot_confirm" bindtap="confirmCustom">确认</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="comm-item" style="background: white;padding:10px 0;">
+        <view>是否需要添加刻字服务</view>
+        <view class="skuitem_box">
+          <view class="skuitem {{remark.text?'':'skuactive'}}" bindtap="clearRemarkText">无</view>
+          <view class="skuitem {{remark.text?'skuactive':''}}">
+            <input class="remarkInput" bindinput="inputText" value="{{remark.text}}" placeholder="输入你想要刻的字" placeholder-style="color:#c3c3c3"></input>
+          </view>
+        </view>
+      </view>
+      <view class="comm-item" style="background: white;padding:10px 0;">
+        <view>是否需要添加图案服务</view>
+        <view class="skuitem_box">
+          <view class="skuitem {{remark.img?'':'skuactive'}}" bindtap="clearRemarkImg">无</view>
+          <view class="skuitem {{remark.img?'skuactive':''}}" wx:if="{{!remark.img}}" bindtap="chooseimage">输入你想要的图案</view>
+          <view class="skuactive image_box" wx:else="" style="position: relative;">
+            <image style="width: 100%;" mode="widthFix" src="{{remark.img}}"></image>
+            <view bindtap="DeleteImg" class="iconfont trush- delete"></view>
+          </view>
+        </view>
+      </view>
+      <view class="comm-item" style="background: white;padding:10px 0;">
+        <view>输入您需要的数量</view>
+        <view>
+          <view class="skuitem skuactive"><input class="remarkInput" type="number" bindinput="inputNumber" placeholder="1"></input></view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 备注 -->
+  <!-- <view class="productxq">
+    <view class="xqtitle font32">
+      <view class="coupontitle">
+        <view class="coupontitlel" wx:if="{{ExtendAttribute.length>0}}">
+          <view bindtap="onTabClick" class="{{AttributeStatus}}" data-status="1">产品参数</view>
+        </view>
+        <view class="coupontitlel">
+          <view bindtap="onTabClick" class="{{DetailStatus}}" data-status="0">详情描述</view>
+        </view>
+        <view class="coupontitlel" wx:if="{{PackageList.length>0}}">
+          <view bindtap="onTabClick" class="{{PackingStatus}}" data-status="2">套系推荐</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="xqcont" wx:if="{{PackingStatus=='active'}}">
+      <block wx:if="{{PackageList.length>0}}" wx:for="{{PackageList}}" wx:for-item="item">
+        <view class="pack_item" bindtap="ToPackDetail" data-id="{{item.PackagingId}}">
+          <image src="{{host}}{{item.ImageUrl1}}"></image>
+          <view style="text-align:center">{{item.PackageName}}</view>
+        </view>
+      </block>
+      <view wx:if="{{PackageList.length==0}}" class="descempty">暂无推荐套系</view>
+    </view>
+    产品参数
+    <view class="xqattr" wx:if="{{AttributeStatus=='active'}}" bindlongtap="copyAttr">
+      <view class="attrItem" wx:for="{{ExtendAttribute}}" wx:key="index">
+        <view class="aname">{{item.ExtAttrName+'：'}}</view>
+        <view class="avalue">{{item.ExtAttrValue}}{{item.name=='工费'||item.name=='附加工费'?'元/克':''}}</view>
+      </view>
+    </view>
+    详情描述
+    <view class="xqcont" wx:if="{{DetailStatus=='active'}}">
+      <view class="wxParse" wx:if="{{TempMetaDescription.length>0}}">
+        <rich-text nodes="{{TempMetaDescription}}"></rich-text>
+      </view>
+      <view wx:else class="descempty">暂无详情描述</view>
+    </view>
+  </view> -->
+</view>
+<view class="btn-area">
+  <navigator class="icon-item" hoverClass="navigator-hover" openType="switchTab" bindtap="popup" url="">
+    <view class="icon">
+      <image src="../../images/share-1.png"></image>
+    </view>
+    <text>分享</text>
+  </navigator>
+  <navigator class="icon-item" hoverClass="navigator-hover" openType="navigateTo" url="../../components/OnlineServiceNew/OnlineServiceNew">
+    <view class="icon">
+      <image src="../../images/exclusive.png"></image>
+    </view>
+    <text>客服</text>
+  </navigator>
+  <navigator class="icon-item" hoverClass="navigator-hover" openType="navigateTo" url="../InquiryList/InquiryList">
+    <view class="icon">
+      <image src="../../images/custom.png"></image>
+      <text wx:if="{{EnquiryNum > 0}}" class="cart_num font28">{{EnquiryNum}}</text>
+    </view>
+    <text>询价单</text>
+  </navigator>
+  <navigator hoverClass="navigator-hover" bindtap='popup' wx:if='{{ReferralMoney!=0}}' class="goumai222 shop font36" style='background:red'>
+    分享得{{ReferralMoney}}
+  </navigator>
+  <block wx:if="{{IsOnSale&&ActiveType<3}}">
+    <navigator bindtap="addToCart" class="{{ReferralMoney==0?'goumai':'goumai222'}} shop font36" style='background:#{{DefaultColor}};' hoverClass="other-navigator-hover" openType="navigate" url="">
+      加入询价单
+    </navigator>
+    <navigator bindtap="SettlementShopCart" class="{{ReferralMoney==0?'goumai':'goumai222'}} shop font36" style='background:#c2981e;' hoverClass="other-navigator-hover" openType="navigate" url="">
+      立即询价
+    </navigator>
+  </block>
+  <view class="xiajia font36" wx:else>{{ActiveText}}</view>
+</view>
+
+<bottomFrame id="couponFrame" frameTitle="">
+  <view class="lqyhq" style="background: #f5f5f5;">
+    <view class="lqyhqtitle">
+      <text>领取优惠券</text>
+      <view bindtap="onCouponHide" class="guigecha">
+        <view class="iconfont icon__close1 font40"></view>
+      </view>
+    </view>
+    <view class="gouwqnr">
+      <view class="youhuiquan" wx:for="{{Coupons}}" wx:key="CouponId">
+        <view class="nrong">
+          <view class="nrje">
+            ￥
+            <text>{{item.Price}}</text>
+          </view>
+          <view class="nrtimelist">{{item.CanUseProduct}}</view>
+        </view>
+        <view class="nrtimelqan">
+          <view class="nrtimelist-con">
+            <view class="nrtimelist">
+              <view class="dian">■</view>
+              <view>{{item.LimitText}}</view>
+            </view>
+            <view class="nrtimelist">
+              <view class="dian">■</view>
+              <view>{{item.StartTimeText}}-{{item.ClosingTimeText}}</view>
+            </view>
+          </view>
+          <button bindtap="getCoupon" id="{{item.CouponId}}">领取</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</bottomFrame>
+<bottomFrame id="promoteFrame" frameTitle="">
+  <view class="lqyhq">
+    <view class="lqyhqtitle">
+      <text>优惠活动</text>
+      <view bindtap="onPromoteHide" class="guigecha">
+        <view class="iconfont icon__close1 font40"></view>
+      </view>
+    </view>
+    <view class="promote_con">
+      <view class="promote_item" wx:for="{{Promotes.FullAmountSentFreightList}}" wx:key="ActivityId">
+        <view class="promote_item1">
+          <view class="houhui_name font24">满额包邮</view>
+        </view>
+        <text>{{item.ActivityName}}</text>
+      </view>
+      <view class="promote_item" wx:for="{{Promotes.FullAmountReduceList}}" wx:key="ActivityId">
+        <view class="promote_item1">
+          <view class="houhui_name font24">满额减</view>
+        </view>
+        <text>{{item.ActivityName}}</text>
+      </view>
+      <view class="promote_item" wx:for="{{Promotes.FullAmountSentGiftList}}" wx:key="ActivityId">
+        <view class="promote_item1">
+          <view class="houhui_name font24">满额送</view>
+        </view>
+        <text>{{item.ActivityName}}</text>
+      </view>
+    </view>
+  </view>
+</bottomFrame>
+
+
+<bottomFrame id="bottomFrame" frameTitle="">
+  <view style="background:#eeeeed">
+    <button openType="share" class='text' style="border-bottom: 0.2px solid #d7d7d7!important">分享给朋友</button>
+    <view class='text' style="margin-bottom:5px" bindtap="showPosterModel">分享朋友圈</view>
+    <view class='text' bindtap="hidepup">取消</view>
+  </view>
+</bottomFrame>
+
+<!--生成海报  -->
+<view class='imagePathBox' hidden="{{maskHidden == false}}">
+  <image src="{{imagePath}}" class='shengcheng'></image>
+  <button class='baocun' bindtap='baocun' style="left:53%;background:#{{DefaultColor}}">保存相册</button>
+  <button class='baocun' bindtap='hideMask' style='background:#{{DefaultColor}}'>关闭</button>
+</view>
+<view hidden="{{maskHidden == false}}" class="mask" bindtap='hideMask'></view>
+<view class="canvas-box">
+  <canvas style="width: 750px;height:1334px;position:fixed;top:9999px" canvas-id="mycanvas" />
+</view>
+<i-modal title="分享标题" visible="{{ShowPosterModel}}" actions="{{TitleActions}}" bind:click="formSubmit">
+  <input value="{{ posterTitle }}" hidden="{{!ShowPosterModel}}" bindblur="posterTitleChange" placeholder="自定义分享标题" />
+</i-modal>
+<SelectSku id="selectSku" productid="{{ProductId}}" bindCartQuantity="setProductCartQuantity"></SelectSku>
+<LiveWindow id="liveWindow" productid="{{ProductId}}"></LiveWindow>
+
+
+<!-- 飘屏的组件 -->
+<visitWindow id="visitWindow" productid="{{ProductId}}" source="1" />

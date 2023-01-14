@@ -1,0 +1,141 @@
+<view style="display: flex;text-align: center;height: 100rpx;line-height: 100rpx;background: white;">
+  <view style="flex: 1;" bindtap="changeTab" data-index="0">
+    <view class="tab_name {{tab==0?'tab_selected':''}}">快速定制</view>
+  </view>
+  <view style="flex: 1;" bindtap="changeTab" data-index="1">
+    <view class="tab_name {{tab==1?'tab_selected':''}}">详细需求</view>
+  </view>
+</view>
+<!-- 快速定制 -->
+<view wx:if="{{tab==0}}">
+  <view style="background: white;padding: 10px;">
+    <image mode="aspectFill" src="https://uat-saas.oss-cn-shenzhen.aliyuncs.com/img/fangan.png" style="width: 710rpx;border-radius: 10px;"></image>
+  </view>
+  <view style="margin: 20rpx;background: white;border-radius: 8px;padding: 25rpx 20rpx;">
+    <view class="form_item">
+      <view class="title">
+        定制需求
+      </view>
+      <view class="boxbor">
+        <textarea bindinput="quickInput" placeholde="请输入您的定制要求，如定制用途、产品品类、克重、数量、定制内文字、期望交货日期等" name="" id="" cols="30" rows="10" style="padding: 10rpx;"></textarea>
+      </view>
+    </view>
+    <view class="form_item">
+      <view class="title" style="padding-bottom: 10rpx;">
+        添加附件
+      </view>
+      <view style="font-size: 12px;color: #ACACAC;margin-bottom: 10rpx;">
+        <text>可上传公司LOGO、定制图案、参考产品图片、标书等 \n 附件，支持上传多个文件</text>
+      </view>
+      <view style="display: flex;flex-flow: wrap;">
+        <view wx:for="{{formDataQuick.attachment}}" style="margin: 10px;position: relative;width: 100px;height: 100px;">
+          <image style="width: 100px;height:100px" src="{{item}}"></image>
+          <view bindtap="DeleteImg" data-type="quickneed" data-index="{{index}}" class="iconfont trush- deleteq"></view>
+        </view>
+        <view>
+          <image src="../../images/return-img_03.jpg" bindtap="chooseimage" data-type="quickneed" style="width: 100px;height:100px;"></image>
+        </view>
+      </view>
+    </view>
+    <view><button class="submitBut" bindtap="submitData">一键提交</button></view>
+  </view>
+</view>
+<!-- 详细需求 -->
+<view wx:if="{{tab==1}}" style="padding: 10px;">
+  <view style="margin: 10px 0;">
+    <image style="width: 100%;" mode="widthFix" src="https://uat-saas.oss-cn-shenzhen.aliyuncs.com/img/flow.png"></image>
+  </view>
+  <view style="height: 100rpx;border: 1px solid;background: white;margin: 10px 0;" hidden="true">
+    关联方案
+  </view>
+  <!-- 定制需求 -->
+  <view class="needBox">
+    <view class="coltitle" style="border-left: 3px solid #C59904;">定制需求</view>
+    <view class="needbody">
+      <view class="formItem">
+        <view class="item_name">定制品类<text>*</text></view>
+        <view class="item_value">
+          <picker bindchange="bindPickerChange" value="{{index}}" range="{{varietyList}}">
+            <view class="picker" style="text-align: right;">
+              <text decode="true">{{formData.variety?formData.variety:'请选择品类&nbsp;&nbsp;&nbsp;>'}}</text>
+            </view>
+          </picker>
+        </view>
+      </view>
+      <view style="display: block;">
+        <view class="item_name" style="height: 80rpx;line-height: 80rpx;">项目主体<text>*</text></view>
+        <view style="display: flex;" class="select_item">
+          <view wx:for="{{projBody}}" data-param="projBody" bindtap="selectProj" data-name="{{item.name}}" class="{{item.selected?'selected':''}}">{{item.name}}</view>
+        </view>
+      </view>
+      <view class="formItem">
+        <view class="item_name">数量(个)<text>*</text></view>
+        <view class="item_value"><input bindinput="inputdata" data-type="count" type="number"></input></view>
+      </view>
+      <view class="formItem">
+        <view class="item_name">总预算(元)<text>*</text></view>
+        <view class="item_value"><input bindinput="inputdata" data-type="budget" type="digit"></input></view>
+      </view>
+      <view class="formItem">
+        <view class="item_name">企业名称<text>*</text></view>
+        <view class="item_value"><input bindinput="inputdata" data-type="company" type="text"></input></view>
+      </view>
+      <view>
+        <view class="item_name" style="height: 80rpx;line-height: 80rpx;">企业logo</view>
+        <view class="logoimg">
+          <image bindtap="chooseimage" data-type="logo" mode="aspectFit" src="{{UserCredentials}}"></image>
+          <view bindtap="DeleteImg" data-type="logo" class="iconfont trush- delete"></view>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{!showMore}}">
+      <view class="morebutton" bindtap="showMore">展开更多</view>
+    </view>
+  </view>
+  <view wx:if="{{showMore}}" style="background: white;margin: 20px 0;padding: 10px;border-radius: 10px;">
+    <view class="title">其他信息</view>
+    <view style="line-height: 100rpx;border-bottom: 1px solid #BFBFBF;">
+      <view class="item_name">定制要求</view>
+      <view class="item_value">
+        <textarea style="height:100rpx;line-height:50rpx" placeholder="请输入您的定制要求，如：刻字、规格、形状、证书要求等" bindinput="inputdata" data-type="needStr" type="text"></textarea>
+      </view>
+    </view>
+    <view style="display: block;">
+      <view class="item_name" style="height: 80rpx;line-height: 80rpx;">用途</view>
+      <view style="display: flex;" class="select_item">
+        <view wx:for="{{uses}}" bindtap="selectProj" data-param="uses" data-name="{{item.name}}" class="{{item.selected?'selected':''}}">{{item.name}}</view>
+      </view>
+    </view>
+    <view style="display: block;">
+      <view class="item_name" style="height: 80rpx;line-height: 80rpx;">材质</view>
+      <view style="display: flex;" class="select_item">
+        <view wx:for="{{materials}}" data-param="materials" bindtap="selectProj" data-name="{{item.name}}" class="{{item.selected?'selected':''}}">{{item.name}}</view>
+      </view>
+    </view>
+    <view style="display: block;">
+      <view class="item_name" style="height: 80rpx;line-height: 80rpx;">克重</view>
+      <view style="display: flex;" class="select_item">
+        <view wx:for="{{weights}}" data-param="weights" bindtap="selectProj" data-name="{{item.name}}" class="{{item.selected?'selected':''}}">{{item.name}}</view>
+      </view>
+    </view>
+    <view style="display: block;">
+      <view class="item_name" style="height: 80rpx;line-height: 80rpx;">常规包装</view>
+      <view style="display: flex;" class="select_item">
+        <view wx:for="{{packs}}" data-param="packs" bindtap="selectProj" data-name="{{item.name}}" class="{{item.selected?'selected':''}}">{{item.name}}</view>
+      </view>
+    </view>
+    <view>
+      <view class="item_name" style="height: 80rpx;line-height: 80rpx;">参考图片</view>
+      <view class="logoimg">
+        <image bindtap="chooseimage" data-type="refer" mode="aspectFit" src="{{UserCredentials1}}"></image>
+        <view bindtap="DeleteImg" data-type="refer" class="iconfont trush- delete"></view>
+      </view>
+    </view>
+    <view wx:if="{{showMore}}">
+      <view class="morebutton" bindtap="closeshowMore">收起更多</view>
+    </view>
+  </view>
+  <view>
+    <button class="submitBut" bindtap="submitData">提交定制</button>
+  </view>
+</view>

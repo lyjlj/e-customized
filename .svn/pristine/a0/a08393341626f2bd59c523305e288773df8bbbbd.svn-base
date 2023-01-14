@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "我的",
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#DEAB00",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "bottomFrame": "/components/bottomFrame/bottomFrame",
+    "onlineserver": "/components/OnlineService/OnlineService",
+    "visitWindow": "/components/visitWindow/visitWindow",
+    "dialog": "/components/dialog/dialog"
+  }
+}

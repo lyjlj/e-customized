@@ -1,0 +1,280 @@
+{
+  "projectname": "wx-%E6%8B%9B%E9%87%91",
+  "setting": {
+    "compileHotReLoad": true
+  },
+  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/shopcart/shopcart",
+          "pathName": "pages/shopcart/shopcart",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/iview/index",
+          "pathName": "pages/iview/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/productcategory/productcategory",
+          "pathName": "pages/productcategory/productcategory",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/searchresult/searchresult",
+          "pathName": "pages/searchresult/searchresult",
+          "query": "cid=454",
+          "scene": null
+        },
+        {
+          "name": "pages/productdetail/productdetail",
+          "pathName": "pages/productdetail/productdetail",
+          "query": "id=464127",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/ProductCustom/ProductCustom",
+          "pathName": "pages/ProductCustom/ProductCustom",
+          "query": "index=3",
+          "scene": null
+        },
+        {
+          "name": "pages/Articles/index",
+          "pathName": "pages/Articles/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/ProductCustomDetail/ProductCustomDetail",
+          "pathName": "pages/ProductCustomDetail/ProductCustomDetail",
+          "query": "id=100874&selectedRing=&selectedStore=",
+          "scene": null
+        },
+        {
+          "name": "pages/ProductCustom/ProductCustom",
+          "pathName": "pages/ProductCustom/ProductCustom",
+          "query": "selectedRing= 14256_12790_12792_12794&selectedStore=33447_0",
+          "scene": null
+        },
+        {
+          "name": "pages/shopcart/shopcart",
+          "pathName": "pages/shopcart/shopcart",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/productdetail/productdetail",
+          "pathName": "pages/productdetail/productdetail",
+          "query": "id=52506",
+          "scene": null
+        },
+        {
+          "name": "pages/searchresult/searchresult",
+          "pathName": "pages/searchresult/searchresult",
+          "query": "cid= 450",
+          "scene": null
+        },
+        {
+          "name": "pages/live/live",
+          "pathName": "pages/live/live",
+          "query": "id= 89A866F0-0A85-4350-9303-379BF8A8AC48",
+          "scene": 1011
+        },
+        {
+          "name": "pages/LiveRecord/LiveRecord",
+          "pathName": "pages/LiveRecord/LiveRecord",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/LiveDetail/LiveDetail",
+          "pathName": "pages/LiveDetail/LiveDetail",
+          "query": "prefix=record%2F2020-04-02%2Fdaogoujingling%2Ff92e8f22-e8fd-48b5-bd59-8a5667d3caeb&id=f92e8f22-e8fd-48b5-bd59-8a5667d3caeb",
+          "scene": null
+        },
+        {
+          "name": "pages/iview/index",
+          "pathName": "pages/iview/index",
+          "query": "id= 89A866F0-0A85-4350-9303-379BF8A8AC48",
+          "scene": null
+        },
+        {
+          "name": "pages/productdetail/productdetail",
+          "pathName": "pages/productdetail/productdetail",
+          "query": "id=86863",
+          "scene": null
+        },
+        {
+          "name": "pages/login/login",
+          "pathName": "pages/login/login",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/orderlist/orderlist",
+          "pathName": "pages/orderlist/orderlist",
+          "query": "id=66145",
+          "scene": null
+        },
+        {
+          "name": "pages/live/live",
+          "pathName": "pages/live/live",
+          "query": "id=89a866f0-0a85-4350-9303-379bf8a8ac48",
+          "scene": null
+        },
+        {
+          "name": "pages/requestpromotionset/requestpromotionset",
+          "pathName": "pages/requestpromotionset/requestpromotionset",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/applicationResult/applicationResult",
+          "pathName": "pages/applicationResult/applicationResult",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/Distribution/Distribution",
+          "pathName": "pages/Distribution/Distribution",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/SettleDetail/SettleDetail",
+          "pathName": "pages/SettleDetail/SettleDetail",
+          "query": "id=202002158239822",
+          "scene": null
+        },
+        {
+          "name": "pages/OrderSettle/OrderSettle",
+          "pathName": "pages/OrderSettle/OrderSettle",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/home/home",
+          "pathName": "pages/home/home",
+          "query": "ReferralUserId=132",
+          "scene": null
+        },
+        {
+          "name": "pages/ProductCustomDetail/ProductCustomDetail",
+          "pathName": "pages/ProductCustomDetail/ProductCustomDetail",
+          "query": "id=14257&selectedRing=&selectedStore=",
+          "scene": null
+        },
+        {
+          "name": "pages/submitorder/submitorder",
+          "pathName": "pages/submitorder/submitorder",
+          "query": "productsku=98806_55228|",
+          "scene": null
+        },
+        {
+          "name": "pages/luckdraw/luckdraw",
+          "pathName": "pages/luckdraw/luckdraw",
+          "query": "id=15",
+          "scene": null
+        },
+        {
+          "name": "pages/MyPrize/MyPrize",
+          "pathName": "pages/MyPrize/MyPrize",
+          "query": "id=13",
+          "scene": null
+        },
+        {
+          "name": "pages/Distribution/Distribution",
+          "pathName": "pages/Distribution/Distribution",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/login/login",
+          "pathName": "pages/login/login",
+          "query": "ReferralUserId=123",
+          "scene": null
+        },
+        {
+          "name": "pages/Gallery/Gallery",
+          "pathName": "pages/Gallery/Gallery",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/GalleryList/GalleryList",
+          "pathName": "pages/GalleryList/GalleryList",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "pages/GalleryDetail/GalleryDetail",
+          "pathName": "pages/GalleryDetail/GalleryDetail",
+          "query": "point= point={\"GalleryItemId\":15,\"GalleryId\":1,\"Points\":[{\"reverse\":false,\"rate\":1.975476839237057,\"movex\":177.5,\"movey\":372.8,\"w\":0,\"name\":\"K金镯悦手镯\",\"pid\":127543,\"index\":0}],\"Image\":\"https://uat-jewelry.oss-cn-shenzhen.aliyuncs.com//1027/Storage/master/ProductGallery/images/9403ceb43a304a688a233687d323ca0c.jpg\",\"RowNumber\":2}",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "subpages/needList/needList",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "subpages/needSubmit/needSubmit",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "subpages/confirmScheme/confirmScheme",
+          "query": "type=快速定制&attachment=&needStr=",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/usehome/usehome",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/InquiryList/InquiryList",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "subpages/shareApplet/shareApplet",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/demandDetail/demandDetail",
+          "query": "ReferralUserId=132",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/coupon/coupon",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  }
+}

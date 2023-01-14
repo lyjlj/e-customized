@@ -1,0 +1,86 @@
+<bottomFrame id='showFrame' frameTitle="" bindhideevent="hideSkuDOM">
+  <view class="SkuMain">
+    <view class="comm-stand-con">
+      <view class="comm-name" hidden="true" style="background:#{{DefaultColor}}">
+        <view class="comm-txt">{{CurrentProduct.ProductName}}</view>
+        <Icon bindtap="goProductDetail" data-id="{{CurrentProduct.ProductId}}" type="enter" size="25" color="#ccc" />
+      </view>
+      <view class="comm-img"  style="background:#{{DefaultColor}}">      
+      <image src="{{showImage}}" style="width: 150rpx;height: 150rpx;"></image>
+      <view class="comm-title-pro">
+        <view class="comm-txt" style="color: white;font-weight: bolder;">{{CurrentProduct.ProductName}}</view>
+        <Icon bindtap="goProductDetail" data-id="{{CurrentProduct.ProductId}}" type="enter" size="25" color="white" />
+      </view>
+      </view>
+      <view class="comm-bd">
+        <view class="comm-item" wx:for="{{CurrentProduct.SkuItems}}" wx:for-index="i" wx:key="AttributeId">
+          <view class="comm-title">{{item.AttributeName}}</view>
+          <view class="comm-attr">
+            <text catchtap="onSkuClick" class="{{sku.Enable==0?'disable':''}} {{sku.UseAttributeImage=='selected'?'active':''}}" style="background:#{{sku.UseAttributeImage=='selected'?DefaultColor:''}}" data-attributeid="{{item.AttributeId}}" data-enablevalue="{{sku.Enable}}"
+              data-indexcount="{{i}}" data-ImageUrl="{{sku.ImageUrl}}" data-skuvalue="{{sku.Value}}" id="{{sku.ValueId}}" wx:for="{{item.AttributeValue}}" wx:for-item="sku" wx:key="ValueId"><view><image src="{{sku.ImageUrl}}" style="width: 30rpx;height: 30rpx;"></image></view> {{sku.Value}}</text>
+          </view>
+        </view>
+        <view class="cart-item" wx:if="{{CurrentSku.SalePrice>0}}">
+          <view class="cart-item-price">{{CurrentSku.IsCustomPrice?'预估价':'销售价'}}</view>
+          <view>￥
+            <text style="font-size:38rpx;color:#{{DefaultColor}}">{{CurrentSku.SalePrice}}</text>
+          </view>
+        </view>
+        <view class="cart-item" wx:if="{{!siteInfo.IsShopToC}}">
+          <view>标准重</view>
+          <view>{{CurrentSku.Weight}}g</view>
+        </view>
+        <view class="cart-item">
+          <view>材质名称</view>
+          <view>{{CurrentSku.MaterialName}}</view>
+        </view>
+        <view class="cart-item" wx-if="{{CurrentSku.IsCustomPrice&&CurrentSku.GoldPrice>0}}">
+          <view>材质金价</view>
+          <view>{{CurrentSku.GoldPrice==0?'材质金价没有维护':CurrentSku.GoldPrice+'元/克'}}</view>
+        </view>
+        <view class="cart-item" wx:if="{{showAttrs}}" wx:for="{{Attrs}}" wx:key="index">
+            <view>{{item.name}}</view>
+            <view>{{item.value}}{{item.name=='工费'||item.name=='附加工费'?'元/克':''}}</view>
+        </view>
+        <view class="showmore"  bindtap="showAttr" style="color:#{{DefaultColor}}">{{showAttrs?"收起":"更多属性..."}}</view>
+        <view class="cart-item" style="line-height:70rpx">
+          <view style="display:flex">已加件数：<view>{{CurrentSku.CartQuantity}}</view></view>
+          <view class="product-opt" wx:if="{{!HasUnique}}">
+                <!-- <view  hidden="{{!CurrentSku||CurrentSku.CartQuantity<=0}}" catchtap="catchAddCart" class="l" style="color:#{{DefaultColor}}" data-opensku="false" data-operator="-" data-productid="{{CurrentProduct.ProductId}}" data-sku="{{CurrentSku.SkuId}}">-</view>
+                <text class="m">{{CurrentSku.CartQuantity}}</text>
+                <view hidden="{{!CurrentSku||CurrentSku.CartQuantity<=0}}" catchtap="catchAddCart" class="r" style="color:#{{DefaultColor}}" data-opensku="false" data-operator="+" data-productid="{{CurrentProduct.ProductId}}" data-sku="{{CurrentSku.SkuId}}">
+                  +
+                </view> -->
+                <view class="goumkuang">
+                  <view>数量：</view>
+                    <view bindtap="catchAddCart" data-operator="-" class="jian" data-sku="{{CurrentSku.SkuId}}" 
+                    data-productid="{{CurrentProduct.ProductId}}"  catchtap="catchAddCart">
+                        <view class="iconfont icon__minus_L  font24"></view>
+                    </view>
+                    <input  bindblur="changeAmount" placeholder="{{TotalNum}}" type="number" data-cartc="{{TotalNum}}" value="{{TotalNum}}"></input>
+                    <view catchtap="catchAddCart" data-operator="+" data-productid="{{CurrentProduct.ProductId}}" data-sku="{{CurrentSku.SkuId}}" class="jia">
+                        <view class="iconfont icon__plus_L  font24"></view>
+                    </view>
+                </view>
+                <view class="guigeconkc" wx:if="{{CurrentProduct.ProductLine!=3}}">库存 {{CurrentSku.Stock}}</view>
+          </view>
+          <view wx:else>{{CurrentSku.CartQuantity}}</view>
+        </view>
+        <view class="cart-item" wx:if="{{!HasUnique}}" style="line-height:60rpx">
+            <view>备注</view>
+            <view class="remark-item"><input value="{{CurrentSku.ProductRemark}}" bindblur="bindRemark"></input></view>
+        </view>
+      </view>
+      <view style="margin-top:15rpx;">
+        
+      </view>
+    </view>
+    <view style="padding-bottom:20rpx">
+      <view class="addcart-btn {{HasUnique||CurrentSku?'':'disable'}}" wx:if="{{!siteInfo.AllSiteInfo.ShowBuyButton}}" style="background:#{{DefaultColor}}" catchtap="{{HasUnique?'catchAddCart':'addToCart'}}" data-opensku="false" data-operator="+" data-productid="{{CurrentProduct.ProductId}}" data-sku="{{CurrentSku.SkuId}}" data-uqcount="{{CurrentSku.UniqueItemCount}}">{{HasUnique?'选单件( 库存'+CurrentSku.UniqueItemCount+') ':'加购物车'}}</view>
+      <view class="addcart-btn {{HasUnique||CurrentSku?'':'disable'}}" wx:if="{{siteInfo.AllSiteInfo.ShowBuyButton}}" style="background:#{{DefaultColor}}" catchtap="{{HasUnique?'catchAddCart':'addToCart'}}" data-opensku="false" data-operator="+" data-productid="{{CurrentProduct.ProductId}}" data-sku="{{CurrentSku.SkuId}}" data-uqcount="{{CurrentSku.UniqueItemCount}}">立即购买</view>
+    </view>
+  </view>
+</bottomFrame>
+<bottomFrame id="uniqueFrame" frameTitle="" >
+  <SelectUnique id="selectUnique" productid="{{CurrentProduct.ProductId}}" skuid="{{SkuValueIds}}" bindcallbackfun="setUniqueCartQuantity"></SelectUnique>
+</bottomFrame>

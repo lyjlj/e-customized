@@ -1,0 +1,131 @@
+
+
+/* pages/PointMall/PointMall.wxss */
+
+page{
+  background:#f7f7f7;
+}
+.point-top{
+  display: flex;
+  justify-content: space-evenly;
+  height: 200rpx;
+  align-items: center;
+  font-size: 25rpx;
+  color:white;
+}
+.point-top image{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 100%;
+  margin: 0 auto;
+}
+.point-panel{
+  display: flex;
+  line-height: 100rpx;
+  justify-content: space-around;
+}
+.select-panel{
+  border-bottom:5rpx solid red;
+  color:red;
+}
+.nopoint{
+  line-height: 200rpx;
+  text-align: center;
+  color: #ddd;
+}
+.point-item-body{
+  padding-left: 15rpx;
+  overflow: hidden;
+  margin-top: 15rpx;
+}
+.point-item image{
+width: 250rpx;
+height: 250rpx;
+margin:0 auto;
+border-radius: 30rpx;
+}
+.point-item{  
+  position: relative;
+  border-radius: 10rpx;
+  font-size: 26rpx;
+  padding: 15rpx;
+  width: 90%;
+  color: #616161;
+  margin: 20rpx auto;
+  box-shadow: 0 0 8px #ccc;
+}
+.point-title{
+  line-height: 100rpx;
+  font-size: 30rpx;
+  float: right;
+  width: 100%;
+}
+.pointbuy{
+  padding: 10rpx;
+  border: 1rpx solid;
+  border-radius: 10rpx;
+  width: 60rpx;
+  text-align: center;
+  color: white;
+  position: absolute;
+  right: 50rpx;
+  top: 40rpx;
+}
+.space-text{
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+font-weight: bolder;
+}
+.space-text-2{
+  overflow:hidden;  
+  text-overflow:ellipsis;  
+  display:-webkit-box; 
+  -webkit-box-orient:vertical; 
+  -webkit-line-clamp:2;  
+}
+
+
+
+.box {  
+  margin-top: 15rpx;
+  padding: 15rpx;
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid;
+  background: white;
+  border-radius: 10rpx;
+  font-size: 26rpx;
+  color:#616161;
+}
+
+
+
+.box-wrapper {
+  -moz-column-count: 2;
+  -webkit-column-count: 2;
+  column-count: 2;
+  -moz-column-gap: 1em;
+  -webkit-column-gap: 1em;
+  column-gap: 15rpx;
+  padding: 15rpx;
+}
+.cart{
+  position: fixed;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 100%;
+  box-shadow: 0 0 10rpx #ccc;
+  bottom: 100rpx;
+  right: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+.cart image{
+  width: 75%;
+  height: 75%;
+}
+.point-detail{
+  overflow: auto;
+}

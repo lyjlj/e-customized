@@ -1,0 +1,410 @@
+function swipeDirection(x1, x2, y1, y2) {
+  return Math.abs(x1 - x2) >=
+    Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
+}
+var ws,
+  e = getApp();
+Component({
+  data: {
+    flag: false,
+    wrapAnimate: 'wrapAnimate',
+    Index: 1,
+    AppPushAppKey: '',
+    UserName: '',
+    host: e.getRequestUrl,
+    userinfo: null,
+    bgOpacity: 0,
+    frameAnimate: 'frameAnimate',
+    //touch start position
+    tStart: {
+      pageX: 0,
+      pageY: 0
+    },
+    //限制滑动距离
+    limitMove: 20,
+    limitClose: 80,
+    //element move position
+    position: {
+      pageX: 0,
+      pageY: 0
+    },
+    zindex: 1010,
+    top: 0,
+    msginfo: '',
+    msglist: [],
+    servername:null,
+    msgtype:'SYSTEXT'
+  },
+  properties: {
+    username: {
+      type: String,
+      value: '在线客服',
+    },
+    appkey: {
+      type: String,
+      value: '100'
+    }
+  },
+  pageLifetimes: {
+    // 组件所在页面的生命周期函数
+    show: function () {
+
+    },
+    hide: function () {},
+    resize: function () {},
+  },
+
+  methods: {
+    showFrame(toid,name) {
+      var that = this;
+      e.getSiteInfo(function (s) {
+        that.setData({
+          AppPushAppKey: s.AppPushAppKey,
+          toClientId:toid,
+          servername:name,
+          DefaultColor:s.DefaultColor
+        })
+      })
+      e.getUserInfo(function (u) {
+        that.setData({
+          UserName: u.UserName,
+          userinfo: u
+        })
+        that.onlineserver(); //连接客服websocket
+      })
+
+      e.globalData.MsgCount = 0; //清空未读消息列表
+
+      this.selectComponent("#showFrame").showFrame();
+    },
+    hideFrame() {
+      wx.closeSocket();
+      this.selectComponent("#showFrame").hideFrame();
+    },
+    send: function () {
+      var t = this;
+      if (t.data.msginfo == '') return false;
+
+      var appKey = t.data.AppPushAppKey;   
+      var UserName =t.data.servername||("Applet_" +t.data.userinfo.UserId);
+      wx.request({
+        url: "https://im.zhuanyegou.com/api/sendmsg",
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+          clientId: t.data.userinfo.UserId,
+          data: t.data.msginfo,
+          alert: t.data.msginfo,
+          name: UserName,
+          appKey: appKey,
+          type: t.data.msgtype,
+          toClientId:t.data.toClientId||'',
+          UserName:t.data.userinfo.UserName,
+          IsClient:true,
+        },
+        success(res) {
+          t.setData({
+            msginfo: '',
+            Index: 1
+          })
+          t.LoadMessage();
+          t.goToBottom();
+          if (res.data.Code == 0) {           
+
+          } else {
+            wx.showToast({
+              title: res.data.Msg,
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        }
+      })
+    },
+    inputmsg: function (e) {
+      this.setData({
+        msginfo: e.detail.value
+      })
+    },
+    // 容器滚动到底部
+    goToBottom() {
+      var t=this;
+      setTimeout(function(){
+        t.setData({
+          top: 100000
+        });
+      },500)
+     
+    },
+    onlineserver: function () {
+      
+      this.LoadMessage();
+      this.goToBottom();
+      var t = this;
+      var id=t.data.userinfo.UserId;
+      var url = 'wss://im.zhuanyegou.com/api/WebSocketApi/GetWebSocketApi' + '?id='+id ;//+t.data.userinfo.UserId;// appKey + '_Applet_' + UserName;
+      
+      //连接socket
+      ws = wx.connectSocket({
+        url: url,
+        success: function (res) {}
+      })
+      ws.onOpen(res => {
+        console.info('连接打开成功');
+      });
+      ws.onError(res => {
+        console.info('连接错误');
+
+      });
+      ws.onMessage(res => {
+      
+        var data = res.data;
+        if (!this.data.flag) {
+          e.globalData.MsgCount = e.globalData.MsgCount + 1;
+        } else {
+          e.globalData.MsgCount = 0;
+        }
+          this.setData({
+              msginfo: '',
+              Index: 1
+            })        
+        this.LoadMessage();
+        this.goToBottom();
+      });
+      ws.onClose(() => {
+        console.info('连接关闭');
+      });
+    },
+    loadmore: function () {   
+      wx.showNavigationBarLoading();
+      var t = this;
+      if(t.data.msglist.length>0)
+      {
+        this.setData({
+          Index: t.data.Index + 1
+        })      
+        this.LoadMessage();
+      }
+    
+    },
+    bindfocus:function(){
+      this.goToBottom();
+    },
+    //加载消息记录
+    LoadMessage: function () {
+      var t = this;
+      var appKey = t.data.AppPushAppKey;
+      var UserName =t.data.servername||("Applet_" + t.data.userinfo.UserId);
+      var Index = t.data.Index;
+      var url = 'https://im.zhuanyegou.com/api/servicemsg/ServiceMsgRecord?&index=' + Index + "&appKey=" + appKey + "&username="+ UserName;
+      wx.request({
+        url: url,
+        success(res) {
+          wx.hideNavigationBarLoading();
+          var list = t.data.msglist;
+          var n = res.data.Data;
+          if (list.length > 0&&Index>1) {
+            n.push.apply(n, list);
+          }
+          n.forEach(p => {
+            if(p.type=='PRODUCT'){
+              p.name=p.alert.split('|')[2],
+              p.id=p.alert.split('|')[0],
+              p.img=p.alert.split('|')[1]
+            }else if(p.type=='COUPON')
+            p.name=p.alert.split('|')[1],
+            p.id=p.alert.split('|')[0]
+          });
+          t.setData({
+            msglist: n
+          })
+        }
+      })
+    },
+    goProductDetail:function(e){
+      var id=e.currentTarget.dataset.id;
+      wx.navigateTo({
+        url: '/pages/productdetail/productdetail?id='+id,
+      })
+    },
+    goCouponDetail:function(e){
+      var id=e.currentTarget.dataset.id;
+      wx.navigateTo({
+        url: '/pages/coupondetail/coupondetail?CouponId='+id,
+      })
+    },
+    PreViewPhoto:function(e){
+      var img=e.currentTarget.dataset.img;
+      var list=[img];
+      wx.previewImage({
+        urls: list,
+        current:img
+      })
+    },
+    add() {
+      var that=this;
+      this.setData({
+        show:that.data.show==1?0:1
+      })
+      this.goToBottom();
+      //this.selectComponent('#selectWindow').showFrame();
+    },
+    showWindows(e) {
+      var that=this;
+      var type=e.currentTarget.dataset.type
+      that.setData({
+        show:type,
+        PageIndex:1,
+        coupon:null,
+        productlist:null
+      })
+      if(type==2){
+        that.loadcoupon();
+      }else if(type==3){
+        that.loadproducts();
+      }   
+      that.selectComponent('#selectWindow').showFrame();
+    },
+    loadcoupon:function(){
+      var that=this;
+      wx.showToast({
+        title: '加载中...',
+        icon:'none'
+      })
+      wx.request({
+        url: e.getUrl('LoadSiteCoupon'),
+        data:{
+          obtainWay:0,
+          pageIndex:that.data.PageIndex,
+          pageSize:100
+        },
+        success(res){        
+          wx.hideToast();
+          if(res.data.Status=='OK')
+          var u = that.data.coupon;
+          var r = res.data.Data;
+          if(u&&u.length>0){
+            u.push.apply(u,r);
+            that.setData({
+              coupon:u
+            })
+          }else
+          that.setData({
+            coupon:r
+          })
+        }
+      })
+  
+    },
+    morecoupon:function(){
+      var that=this;
+      that.setData({
+        PageIndex:that.data.PageIndex+1
+      })
+      that.loadcoupon();
+    },
+    moreproducts:function(){
+      var that=this;
+      that.setData({
+        PageIndex:that.data.PageIndex+1
+      })
+      that.loadproducts();    
+    },
+    loadproducts:function(){
+      var that=this;
+      wx.showToast({
+        title: '加载中...',
+        icon:'none'
+      })
+      wx.request({
+        url: e.getUrl("GetProducts"),
+        data: {
+          pageIndex: that.data.PageIndex,
+          pageSize: 10,
+        },
+        success: function(t) {
+          if ("OK" == t.data.Status) {
+            var r = t.data.Data;
+            var u = that.data.productlist;         
+            if(u&&u.length>0){
+              u.push.apply(u,r)
+              that.setData({
+                productlist:u
+              });
+            }else
+            that.setData({
+              productlist:r
+            });
+            wx.hideToast();
+          } else "NOUser" == t.data.Message || wx.showModal({
+            title: "提示",
+            content: t.data.Message,
+            showCancel: !1,
+            success: function(t) {
+              t.confirm && wx.navigateBack({
+                delta: 1
+              });
+            }
+          });
+        },
+        complete: function() {}
+      });
+  
+    },
+    SendPhoto:function(){
+      wx.showLoading({
+        title: '发送中...',
+      })
+      var that=this;
+      e.getOpenId(function(o){
+        wx.chooseImage({
+          success(res){
+            const tempFilePaths = res.tempFilePaths;
+            wx.uploadFile({
+              url: e.getUrl("UploadAppletImage"),
+              filePath: tempFilePaths[0],
+              name: "file",
+              formData: {
+                openId:o
+              },
+              success: function (e) {          
+               var j=JSON.parse(e.data);
+               var url='';
+               if(j.Status=='OK')
+               {
+                url=j.Data[0].ImageUrl;
+                that.setData({
+                  msginfo: url,
+                  msgtype:'PHOTO'
+                })
+                that.send();
+                that.add();
+                wx.hideLoading();
+               }
+              
+              },
+              complete: function () {
+               
+              }
+            });
+          }
+        })
+      }) 
+   
+    },
+    sendproduct:function(e){
+      var productid = e.currentTarget.dataset.productid;
+      var img = e.currentTarget.dataset.img;
+      var name = e.currentTarget.dataset.name;
+      this.setData({
+        msginfo: productid+'|'+img+'|'+name,
+        msgtype:'PRODUCT'
+      })
+      this.send();
+      this.selectComponent('#selectWindow').hideFrame();
+    },
+  }
+ 
+})

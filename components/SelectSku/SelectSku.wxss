@@ -1,0 +1,256 @@
+@import "/app.wxss";
+.cart-item{
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10rpx;
+  color:#333333;
+  font-size: 28rpx;
+}
+.comm-name{
+  line-height: 65rpx;
+}
+.comm-stand {
+    margin: 55rpx;
+    background: #fff;
+    border-radius: 12rpx;
+    box-shadow: 0rpx 0rpx 15rpx #ccc;
+    position: fixed;
+    top: 15%;
+    left: 0rpx;
+    right: 0rpx;
+}
+
+.comm-stand-con {
+    position: relative;
+    overflow: hidden;
+}
+
+ .comm-bd {
+    max-height: 750rpx;
+    overflow-y: auto;
+    padding: 10rpx 32rpx;
+}
+
+ .comm-item {
+    overflow: hidden;
+    margin-bottom: 12rpx;
+    line-height: 40rpx;
+    clear: both;
+}
+
+.comm-attr {
+    overflow: hidden;
+}
+
+ .comm-name {
+    font-size: 32rpx;
+    line-height: 40rpx;
+    padding-bottom: 24rpx;
+    margin-bottom: 24rpx;
+    border-bottom: 1rpx solid #e0e0e0;
+    padding:32rpx;
+    display: flex;
+    justify-content: space-between;
+}
+
+ .comm-name .comm-txt {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 453rpx;
+}
+
+ .comm-icon {
+    position: absolute;
+    width: 40rpx;
+    height: 40rpx;
+    top: 24rpx;
+    right: 28rpx;
+}
+
+ .comm-icon image {
+    width: 40rpx;
+    height: 40rpx;
+}
+
+.comm-item .comm-title {
+    font-size: 28rpx;
+    line-height: 44rpx;
+}
+
+.comm-item .comm-attr text {
+    border: 1rpx solid #fff;
+    padding: 0 24rpx;
+    line-height: 56rpx;
+    display: block;
+    float: left;
+    margin-top: 12rpx;
+    margin-bottom: 12rpx;
+    margin-right: 24rpx;
+    white-space: nowrap;
+    border-radius: 5px;
+    background: #f5f5f5;
+    font-size: 24rpx;
+}
+
+.comm-item .comm-attr text.active {
+    /* border: 1rpx solid #ff5722;
+    background: #ff5722; */
+    color: #fff;
+}
+
+.comm-stand-shop {
+    background: #f5f5f5;
+    overflow: hidden;
+    border-bottom-left-radius: 12rpx;
+    border-bottom-right-radius: 12rpx;
+}
+
+.comm-stand-shop .product-into {
+    margin: 24rpx 32rpx;
+    height: 72rpx;
+    line-height: 72rpx;
+    /* color: #ff8a65; */
+}
+
+.comm-stand-shop .product-into .product-price {
+    /* color: #ff5722; */
+    font-weight: bold;
+    font-size: 36rpx;
+    width: 200rpx;
+    float: left;
+}
+
+.product-shop {
+    float: right;
+}
+
+.product-shop .icon__plus {
+    font-size: 72rpx;
+}
+.addcart-btn{
+  width: 660rpx;
+text-align: center;
+color: #fff;
+padding: 20rpx;
+margin-top:20rpx;
+margin: auto;
+border-radius: 15rpx;
+}
+.product-shop .font48 {
+    font-size: 48rpx!important;
+}
+
+.product-opt{
+  display: flex;
+  line-height: 70rpx;
+}
+.l{
+  font-size:55rpx;
+  padding: 10rpx;
+  font-weight: 600;
+}
+.r{
+  padding: 10rpx;
+  font-size:55rpx;
+  font-weight: 600;
+}
+.m{
+  padding: 10rpx;
+  font-size: 40rpx;
+}
+.disable{
+  background: #e7e7e7!important;
+  color:#777!important;
+}
+.cart-item-price{
+  line-height: 50rpx;
+}
+.SkuMain{
+  border-top-left-radius: 15rpx;
+  border-top-right-radius: 15rpx;
+  background: #fff;
+}
+.goumkuang {
+    display: flex;
+    margin-left: 30rpx;
+}
+
+.goumaisl {
+    display: flex;
+    line-height: 60rpx;
+}
+
+.jian,.jia {
+    width: 70rpx;
+    height: 62rpx;
+    border: 1rpx solid #e0e0e0;
+    text-align: center;
+    line-height: 62rpx;
+    font-size: 28rpx;
+    color: #cecece;
+    background: #eeeeee;
+    border-top-left-radius: 8rpx;
+    border-bottom-left-radius: 8rpx;
+}
+
+.jia {
+    color: #9e9e9e;
+    border-top-right-radius: 8rpx;
+    border-bottom-right-radius: 8rpx;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    background: #eee;
+}
+
+.goumaisl text {
+    font-size: 28rpx;
+}
+
+.goumkuang input {
+    width: 96rpx;
+    height: 62rpx;
+    text-align: center;
+    line-height: 62rpx;
+    border-top: 1rpx solid #e0e0e0;
+    border-bottom: 1rpx solid #e0e0e0;
+}
+.guigeconkc {
+    margin-top: 5rpx;
+    margin-left: 24rpx;
+    color: #424242;
+    line-height: 60rpx;
+}
+
+.guigeyxhs {
+    margin-top: 10rpx;
+    color: #424242;
+    line-height: 44rpx;
+}
+.showmore{
+    font-size: 28rpx;
+}
+.remark-item{
+    border-bottom: 0.5px solid #e0e0e0;
+line-height: 25px;
+flex: auto;
+margin-left: 20rpx;
+
+}
+.remark-item input{
+    height: 60rpx;
+    color:#C0C4CC;
+}
+.comm-img{
+    background: #f7f7f7;
+    padding: 20rpx;
+    display: flex;
+    justify-content: space-around;
+}
+.comm-title-pro{
+    display: flex;
+    justify-items: center;
+    line-height: 70rpx;
+}

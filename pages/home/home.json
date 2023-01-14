@@ -1,0 +1,10 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "temp-page": "/components/TempPage/index",
+    "nav-bar":"/components/navbar/index",
+    "bottomFrame": "/components/bottomFrame/bottomFrame",
+    "LiveWindow": "/components/LiveWindow/LiveWindow",
+        "onlineserver": "/components/OnlineService/OnlineService"
+  }
+}

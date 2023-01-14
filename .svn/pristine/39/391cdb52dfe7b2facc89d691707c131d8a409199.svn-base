@@ -1,0 +1,10 @@
+{
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "套系详情",
+  "usingComponents": {
+    "bottomFrame": "/components/bottomFrame/bottomFrame",
+    "i-modal": "../../dist/modal/index",
+    "SelectSku": "/components/SelectSku/SelectSku",
+    "LiveWindow": "/components/LiveWindow/LiveWindow"
+  }
+}

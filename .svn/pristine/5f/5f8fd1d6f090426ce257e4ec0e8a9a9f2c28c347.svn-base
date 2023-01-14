@@ -1,0 +1,162 @@
+<!--pages/Gallery/Gallery.wxml-->
+
+<view class="foot-nav" wx-if="{{showImage}}">
+	<view wx:for="{{foot}}" data-path="{{item.url}}" bindtap="bindtap" open-type="reLaunch" wx:key="index" data-index="{{index}}" class="tab-bar-item" style="width:{{750/foot.length}}rpx">
+		<view class="img-box">
+			<view hidden="{{selected!=index}}">
+				<image class="barimage" src="{{item.selectedIconPath}}"></image>
+			</view>
+			<view hidden="{{selected==index}}">
+				<image class="barimage" src="{{item.iconPath}}"></image>
+			</view>
+		</view>
+		<text style="color:#{{selected === index ? item.selectedColor:item.color}}">{{item.text}}</text>
+	</view>
+</view>
+<view class="imageMain" style="height:{{windowHeight}}rpx">
+	<view wx:if="{{selected==0}}" class="uploadimage" style="background:#{{DefaultColor}}" bindtap="uploadImage">{{imageUrl?'重新上传图片':'点击上传图片'}}</view>
+	<view wx-if="{{selected!=1}}" class="imageContain" bindtap="{{selected==2?'clickImage':''}}" style="height:{{imageHeight}}rpx;width:{{imageWidth}}rpx">
+		<image mode="aspectFit" src="{{imageUrl}}"></image>
+	</view>
+</view>
+
+<view wx:if="{{showTag}}" class="tagMain" style="height:{{windowHeight+110}}rpx">
+	<view class="searchMain">
+		<view class="searchk ">
+			<!-- <view class="closeTab" bindtap="showTab"><Icon type="close" color="#fff" size="25"></Icon></view> -->
+			<view class="searchl">
+				<Icon type="search" color="#CECDCD" size="25" />
+				<input bindconfirm="onConfirmSearch" bindinput="onInputKeyword" confirmType="search" placeholder="搜索商品"></input>
+				<Icon type="scan" bindtap="scanCode" color="#CECDCD" size="25" />
+			</view>
+			<view bindtap="bindShowFilter" class="searchr pl24">筛选</view>
+			<view bindtap="showTab" class="searchr pl24">取消</view>
+		</view>
+	</view>
+	<scroll-view scroll-x="true" class="nav" scroll-left="{{tagScrollLeft}}" scroll-with-animation="{{true}}">
+		<view class="nav-item" data-current="0" bindtap="switchNav">
+			<view class="itemtext {{tagTab == 0 ?'active':''}}">商品</view>
+		</view>
+		<view class="nav-item" data-current="1" bindtap="switchNav">
+			<view class="itemtext {{tagTab == 1 ?'active':''}}">套系</view>
+		</view>
+		<view class="nav-item" data-current="2" bindtap="switchNav">
+			<view class="itemtext {{tagTab == 2 ?'active':''}}">筛选</view>
+		</view>
+	</scroll-view>
+	<swiper class="tab-box" current="{{tagTab}}" duration="300" bindchange="switchTab">
+		<swiper-item class="tab-content">
+			<view wx:for='{{ProductList}}' wx:for-item="product" wx:for-index="index">
+				<view class="tagItem">
+					<view class="tagImage">
+						<image src="{{product.ThumbnailUrl410}}" />
+					</view>
+					<view class="tagDetail">
+						<view class="tagName">{{product.ProductName}}</view>
+						<view class="tagDec">款号:{{product.ProductCode}}</view>
+					</view>
+					<view class="tagDetail" style="margin-left: 60rpx;">
+						<view class="checkit ext" bindtap="openEx" data-index="{{index}}">选属性</view>
+						<view class="checkit ms" bindtap="choseProduct" data-id="{{product.ProductId}}" data-name="{{product.ProductCode}}" data-index="{{index}}">确认</view>
+					</view>
+				</view>
+				<view class="tagExt" wx:if='{{openEx==index}}'>
+					<checkbox-group bindchange="fxcheckbox" style="padding: 10rpx;" data-index="{{index}}">
+						<label>
+							<checkbox wx:for="{{product.ExtendAttributes}}" wx:key="value" class="fx-check" value="{{item.name}}:{{item.value}}">
+								{{item.name}}:{{item.value}}
+							</checkbox>
+						</label>
+					</checkbox-group>
+				</view>
+			</view>
+		</swiper-item>
+		<swiper-item class="tab-content">
+			<view wx:for='{{ProductList}}' wx:for-item="product" wx:for-index="index">
+			</view>
+		</swiper-item>
+		<swiper-item class="tab-content">
+				<view class="filter-container">
+		<view wx:for="{{filters}}" wx:key="item" wx:for-item="item" wx:for-index="fidx">
+			<view wx:for="{{item}}" wx:key="attribute" wx:for-item="attribute" wx:for-index="aidx" wx:if="{{attribute.AttributeValues.length>0}}">
+				<view class="attributeitem">{{attribute.AttributeName}}</view>
+				<view class="valueitems" wx:if="{{attribute.ParamType!='NumSearch'}}">
+					<view class="valueitem {{value.IsCheck?'active':''}}" style="background:#{{value.IsCheck?DefaultColor:''}}" wx:for="{{attribute.AttributeValues}}" wx:for-item="value" wx:for-index="vidx" wx:key="ValueId" data-valueid="{{value.ValueId}}" data-aidx="{{aidx}}" data-fidx="{{fidx}}" data-ischeck="{{value.IsCheck}}" bindtap="selectFilterValue" hidden="{{!attribute.ShowAll&&attribute.AttributeValues.length>6&&vidx>=5}}">{{value.ValueStr}}</view>
+					<view class="moreitem" bindtap="bindmoreitem" data-aidx="{{aidx}}" data-fidx="{{fidx}}" hidden="{{attribute.AttributeValues.length<7}}">{{attribute.ShowAll?'<收起':'更多>'}}</view>
+				</view>
+				<view class="searchitem" style="display:flex" wx:if="{{attribute.ParamType=='NumSearch'}}">
+					<view class="searchl" style="width:200rpx">
+						<input type="number" bindblur="bindExtendInput" data-valueindex="0" data-aidx="{{aidx}}" data-fidx="{{fidx}}" value="{{attribute.AttributeValues[0].ValueId}}"></input>
+					</view>
+					<view style="line-height:25rpx;padding:16rpx">—</view>
+					<view class="searchl" style="width:200rpx">
+						<input type="number" bindblur="bindExtendInput" data-valueindex="1" data-aidx="{{aidx}}" data-fidx="{{fidx}}" value="{{attribute.AttributeValues[1].ValueId}}"></input>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="filter-btn">
+		<view style="background:#{{SecondColor}}" bindtap="resetFilter">重置</view>
+		<view style="background:#{{DefaultColor}}" bindtap="bindConfirmFilter">确认</view>
+	</view>
+		</swiper-item>
+	</swiper>
+</view>
+<view wx:if="{{selected==1}}" class="galleryMain" style="height:{{windowHeight+110}}rpx">
+	<view class="galleryTabName">名称</view>
+	<view class="galleryContain">
+		<view class="iLabel">
+			<view>填写名称</view>
+			<input class="iname" focus="{{selected==1}}" bindinput="onInputGalleryName" value="{{GalleryName}}" />
+
+			<view class="next" bindtap="bindtap" data-index="2">下一步</view>
+		</view>
+
+	</view>
+
+</view>
+<view class="pointMain" style="hight:{{windowHeight}}rpx">
+	<movable-area class="pointsArea" style="width:{{imageWidth}}rpx;height:{{imageHeight}}rpx;top:{{(windowHeight-imageHeight)/2}}rpx;left:{{(750-imageWidth)/2}}rpx" wx-if="{{selected==2}}">
+		<movable-view bindchange="changePoint" data-index="{{index}}" direction="all" x="{{point.movex}}" y="{{point.movey}}" wx:for='{{movepoints}}' wx:for-item="point" wx:for-index="index">
+			<!-- 编辑 -->
+			<view wx-if="{{!point.reverse}}" id="point{{index}}" class='pointitem'>
+				<view bindtap="pointReverse" data-index="{{index}}" class="circle-container">
+					<view class="circle"></view>
+				</view>
+				<view class="pointDetail">
+					<view class="pointName">
+						<input value="{{point.name}}" data-index="{{index}}" bindinput="inputPoint" style="width:100px"></input>
+					</view>
+					<Icon type="enter" size="15" />
+				</view>
+				
+				<view class="pointExtattr" wx:for="{{point.ExtAttr}}">
+					<text>{{item}}</text>
+				</view>
+        <Icon data-index="{{index}}" bindtap="removePoint" type="close" color="#fff" size="20"></Icon>
+			</view>
+			<!-- 显示 -->
+			<view wx-if="{{point.reverse}}" id="point{{index}}" class='pointitem2'>
+				<view bindtap="pointReverse" data-index="{{index}}" class="circle-container">
+					<view class="circle"></view>
+				</view>
+				<view class="pointDetail" >
+					<Icon type="return" size="15" />
+					<view class="pointName">{{point.name}}</view>
+				</view>
+				<view class="pointExtattr">
+					<view wx:for="{{point.ExtAttr}}">{{item}}</view>
+				</view>
+				<Icon data-index="{{index}}" bindtap="removePoint" type="close" color="#fff" size="20"></Icon>
+			</view>
+		</movable-view>
+	</movable-area>
+</view>
+<view class="saveBtn" wx:if="{{selected==2&&imageUrl}}" bindtap="saveGallery" style="background:#{{DefaultColor}}">保存</view>
+<view class="return" bindtap="backList">
+	<Icon type="return" color="#fff" size="26" />
+</view>
+<i-drawer i-class="drawer-container" mode="right" visible="{{showfilter}}" bind:close="bindShowFilter">
+
+</i-drawer>

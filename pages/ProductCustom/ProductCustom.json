@@ -1,0 +1,13 @@
+{
+    "navigationBarTitleText": "钻石定制",
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+      "i-toast": "../../dist/toast/index",
+      "i-button": "../../dist/button/index",
+      "bottomFrame": "/components/bottomFrame/bottomFrame",
+      "i-drawer": "../../dist/drawer/index",
+      "i-modal": "../../dist/modal/index",
+      "i-sticky": "../../dist/sticky/index",
+      "i-sticky-item": "../../dist/sticky-item/index"
+    }
+}

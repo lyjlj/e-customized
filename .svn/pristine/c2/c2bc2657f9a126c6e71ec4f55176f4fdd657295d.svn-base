@@ -1,0 +1,146 @@
+<view class="cover-box" hidden="true">
+  <!-- <view class="live-user">
+          <view style='margin:5px 0px 0px 5px' wx:for='{{userHeadImages}}' wx:for-item="usericon" wx:for-index="index">
+            <image src="{{userHeadImages[userHeadImages.length-index-1]}}" catchtap="bindShowImage" data-info='{{userHeadImages[userHeadImages.length-index-1]}}' ></image>
+          </view>
+        </view> -->
+
+  <!-- 输入框 -->
+  <view class="live-input" hidden="{{!focus}}">
+    <view class='live-keyboard'>
+      <text class="cursor">{{inputValue}}</text>
+    </view>
+    <view class='sendBtn' style="color:#{{DefaultColor}};border-left: 1px solid #{{DefaultColor}};"
+      catchtap='sendMessage'>发送</view>
+  </view>
+
+  <!-- 评论列表 -->
+  <view class='live-comment'>
+    <view class="livetip" wx:for="{{livetips}}">
+      <view class="tipitem livetip-animation" style="background:#{{DefaultColor}}">{{item.tip}}</view>
+    </view>
+    <scroll-view scroll-y="true" style="max-height:400rpx;width:58%;" scroll-top="{{scrollTop}}">
+      <view class='comment-item' wx:for="{{comments}}" wx:for-item="item" wx:key="UserName" wx:for-index="index">
+        <view>
+          <text wx:if="{{item.UserName}}">{{item.UserName}}</text>{{item.Comment}}</view>
+      </view>
+    </scroll-view>
+  </view>
+  <!-- 点赞 -->
+  <view class='favorite-animation-container' wx:for='{{likes}}' wx:for-item="likeicon" wx:for-index="index">
+    <image style='width:2em;height:2em;' class='favorite-animation' src="{{likeicon.headImage}}"></image>
+  </view>
+
+</view>
+
+<!-- 标题 -->
+<view class="live-title">
+  <view class="liveinfo">
+    <view>
+      <image class="live-exit" catchtap="goBack" src="/images/icons/left.png" />
+    </view>
+  </view>
+</view>
+
+<!-- 当前商品 -->
+<view class="curproduct" wx-if="{{CurProduct}}">
+  <view class="productinfo">
+    <view bindtap="toProductDetail" data-productid="{{CurProduct.ProductId}}">
+      <image mode="aspectFill" src="{{CurProduct.ThumbnailUrl410}}"></image>
+    </view>
+    <view class="productdetail" bindtap="toSelectSku" data-productid="{{CurProduct.ProductId}}">
+      <view>{{CurProduct.ProductName}}</view>
+      <view style="display:flex;justify-content:space-between;">
+        <view style="color:red">￥{{CurProduct.SalePrice}}</view>
+        <view style="font-size:22rpx;color:#999999" wx:if="{{CurProduct.ProductLine!=3}}">库存:{{CurProduct.Stock}}
+        </view>
+      </view>
+    </view>
+    <view bindtap="closeCurrProduct" class="closecurp">
+      <icon type="clear" size="20" />
+    </view>
+
+  </view>
+</view>
+<!-- 底下按钮 -->
+<view class="live-footer" hidden='{{focus}}'>
+  <view wx:if="{{productData.length>0}}" catchtap="bindShowProduct" style="position:relative">
+    <text class="productcount">{{productData.length}}</text>
+    <image style="width:65rpx;height:78rpx" src="/images/icons/shopping.png">
+    </image>
+  </view>
+  <view>
+    <image class='HeadImage' src="{{liveRoomInfo.Image}}?x-oss-process=image/resize,m_fixed,h_100,w_100" />
+  </view>
+  <view catchtap="handleLike">
+    <text class="likecount">{{likeCountFormat}}</text>
+    <image src="{{clickLike?'/images/icons/hxin.png':'/images/icons/xin.png'}}" />
+  </view>
+  <view bindtap="showShare">
+    <image style="width:50rpx;height:50rpx" src="/images/icons/share.png" />
+  </view>
+  <view class="moreIcon" bindtap="moreinfo">
+    <image style="widht:50rpx" src="/images/icons/more.png" />
+  </view>
+</view>
+
+<video style="width:100%;height:{{windowHeight}}rpx" id="myVideo" src="{{videosrc}}" enable-danmu='false'
+  autoplay="true">
+
+</video>
+
+<input hidden="{{!focus}}" style='width:1rpx' value="{{inputValue}}" cursor-spacing='1rpx' bindinput='bindinput'
+  bindconfirm='bindConfirm' bindblur="bindblur" adjust-position="true" focus="{{focus}}" />
+
+
+<SelectSku id="selectSku" productid="{{CurProductId}}" bindCartQuantity="addShopTip"></SelectSku>
+
+<bottomFrame id="produtsFrame" zindex="50" frameTitle="">
+  <!-- 商品列表 -->
+  <view class="live-product">
+    <view class="frame-title">全部商品{{productData.length}}</view>
+    <view class="product-contain">
+      <view class='product_items2' data-info='{{result}}' wx:for="{{productData}}" wx:for-item="result"
+        wx:key="{{result.ProductId}}">
+        <!-- <image mode="aspectFill" src='{{result.ThumbnailUrl100}}?x-oss-process=style/preview'></image> -->
+        <view bindtap="toProductDetail" data-productid="{{result.ProductId}}">
+          <image mode="aspectFill" src="{{result.ThumbnailUrl410}}">
+            <view class="productTag" wx:if="{{result.ProductLine==3}}" style="background:#{{DefaultColor}}">期货</view>
+          </image>
+        </view>
+        <view class='product_items2_view1'>
+          <view bindtap="toProductDetail" data-productid="{{result.ProductId}}">
+            {{result.ProductName}}
+          </view>
+          <!-- <view class='font2'>销量： {{result.saleCount}}</view> -->
+          <view class='shopitem'>
+            <view style="display:flex;justify-content: space-between;width:55%">
+              <view class='price'>￥{{result.SalePrice}}</view>
+              <view style="font-size:26rpx" wx:if="{{result.ProductLine!=3}}">库存:{{result.Stock}}</view>
+
+            </view>
+            <view class="addshop" style="background:#{{DefaultColor}}" bindtap='toSelectSku'
+              data-productid="{{result.ProductId}}">加购物车</view>
+          </view>
+        </view>
+      </view>
+      <view style="text-align:center;margin-top:100rpx;" wx:if="{{productData.length==0}}">暂无商品</view>
+    </view>
+  </view>
+</bottomFrame>
+
+<bottomFrame id="shareFrame" frameTitle="">
+  <view style="background:#eeeeed">
+    <button openType="share" class='text' style="border-bottom: 0.2px solid #d7d7d7!important">分享给朋友</button>
+    <view class='text' hidden="true" style="margin-bottom:5px" bindtap="showPosterModel">分享朋友圈</view>
+    <view class='text' bindtap="hideShare">取消</view>
+  </view>
+</bottomFrame>
+<bottomFrame id="moreinfo" frameTitle="">
+  <scroll-view scroll-x="{{true}}" class="more-video" style="height:100rpx">
+    <block wx:for="{{videolist}}" wx:key="index" wx:for-item="item">
+      <view bindtap="showmoreVideo" data-endpoint="{{item.EndPoint}}" data-url="{{item.Key}}" data-index="{{index+1}}"
+        style="color:{{videoIndex==index+1?'red':'white'}}">片段{{index+1}}</view>
+    </block>
+  </scroll-view>
+</bottomFrame>

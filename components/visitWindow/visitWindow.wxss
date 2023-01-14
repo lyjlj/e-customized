@@ -1,0 +1,44 @@
+/* components/visitWindow/visitWindow.wxss */
+.visit-info{
+  position: fixed;
+  bottom: 200rpx;
+  color: white;
+  padding: 20rpx;
+  right: 0;
+  width: 400rpx;
+  height: 150rpx;
+}
+.visit-pro-info{
+  position: fixed;
+  top: 100rpx;
+  color: white;
+  padding: 20rpx;
+  left: 0;
+  width: 400rpx;
+  height: 150rpx;
+}
+.visit-item{
+  display: flex;
+  align-items: center;
+  background: rgba(0,0,0,0.4);
+  color: white;
+  padding: 10rpx;
+  margin: 10rpx;
+  border-radius: 10rpx;
+  justify-content: space-between;
+  font-size: 25rpx;
+}
+.visit-item image{
+  border-radius: 100%;
+}
+.visit-text{
+  width: 300rpx;
+  overflow: hidden;/*超出部分隐藏*/
+  white-space: nowrap;/*不换行*/
+  text-overflow:ellipsis;/*超出部分文字以...显示*/
+}
+::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+  color: transparent;
+}

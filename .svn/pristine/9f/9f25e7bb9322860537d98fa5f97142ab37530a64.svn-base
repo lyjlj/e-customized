@@ -1,0 +1,65 @@
+<view>
+	<image src="{{siteInfo.MemberBgImg}}" mode="widthFix" style="width:750rpx"></image>
+</view>
+<view class="share-body">
+	<block wx:for="{{sharelist}}" wx:for-item="item" wx:key="share">
+		<view class="share-item">
+			<view class="share-user">
+				<image src="{{siteInfo.Logo80}}" mode="aspectFill"></image>
+			</view>
+			<view class="share-news">
+				<view class="share-news-title">
+					<text class="share-sitename">{{siteInfo.SiteName}}官方</text>
+					<view><text class="share-text">{{item.ShareText}}</text></view>
+					<!-- <view class="showdetails" bindtap="showdetails" wx:if="{{item.ShowAll}}" data-id="{{item.ID}}">{{item.IsShow?'收起':'全文'}}</view> -->
+				</view>
+				<view class="share-news-img">
+					<block wx:for="{{item.MaterialList}}" wx:for-item="details" wx:if="{{item.ShareType==0}}" wx:key="share">
+					<view style="position:relative;width: 180rpx;height: 180rpx;float: left;margin: 5rpx;">
+					<image class="imgitem" mode="aspectFill" src="{{details.ImgUrl}}" data-id="{{item.ID}}" data-url="{{details.ImgUrl}}" bindtap="previewimg">
+							</image>
+							<view class="godetail" wx:if="{{details.LinkUrl!=''}}">
+								<image bindtap="godetail" data-url="{{details.LinkUrl}}"   src="/images/buy.png"></image>
+							</view>					
+					</view>			
+				
+
+					</block>
+					<view wx:if="{{item.ShareType==1}}" class="share-video">
+						<video src="{{item.Video}}" object-fit="contain" custom-cache="false"></video>
+					</view>
+				</view>
+				<view class="share-footer">
+				<view class="review_text"  wx:if="{{fasle}}"><input adjust-position="true" cursor-spacing="20" confirm-type="done" bindconfirm="submitreview" focus="true" bindblur="hidereview" placeholder="{{placeholder}}"></input></view>
+					<text>{{item.ShowTimeStr}}</text>
+					<view class="share-like">
+						<view class="like-t" bindtap="like" data-id="{{item.ID}}">
+							<image src="{{host}}/templates/xcxshop/images/{{item.GiveLike==1?'like_hover':'like'}}.png"></image>赞
+						</view>
+						<view class="like-t" bindtap="review" data-id="{{item.ID}}">
+							<image src="{{host}}/templates/xcxshop/images/review.png" ></image>评论
+						</view>
+					</view>
+				</view>			
+                <view class="like-list" wx:if="{{item.LikeList.length>0}}">
+                <image src="{{host}}/templates/xcxshop/images/like.png" ></image>
+                <block wx:for="{{item.LikeList}}" wx:for-item="details" wx:for-index="i" wx:key="share">
+                {{details.UserName}}{{(i+1)<item.LikeList.length?',':''}}
+                </block>
+                </view>
+                <view class="hr" wx:if="{{item.ReviewList.length>0&&item.LikeList.length>0}}"></view>
+                <view class="review-list" wx:if="{{item.ReviewList.length>0}}">
+                  <block wx:for="{{item.ReviewList}}" wx:for-item="details" wx:key="share">
+                  <view wx:if="{{!details.IsReply}}" id="{{details.ID}}" data-reviewid="{{details.ID}}" data-userid="{{details.UserId}}" data-id="{{item.ID}}" data-username="{{details.UserName}}" hover-class="hoverclass" bindtap="review">{{details.UserName}}：<text>{{details.ReviewText}}</text></view>      
+									 <view wx:if="{{details.IsReply}}" id="{{details.ID}}" data-reviewid="{{details.ID}}" data-userid="{{details.UserId}}" data-id="{{item.ID}}" data-username="{{details.UserName}}" hover-class="hoverclass" bindtap="review">{{details.UserName}}<text> 回复 </text>{{details.ReplyUserName}}<text>：{{details.ReplyText}}</text></view>      
+                </block>
+                </view>
+			</view>
+		</view>
+	</block>
+</view>
+<view class="input-text" wx:if="{{showreview}}">
+<view style="position:relative">
+	<input adjust-position="true"  fixed="true" focus="true" bindfocus="bindfocus" placeholder="{{placeholder}}" id="reviewtext" cursor-spacing="20" confirm-type="done" bindconfirm="submitreview" bindblur="hidereview"></input>
+</view>
+</view>

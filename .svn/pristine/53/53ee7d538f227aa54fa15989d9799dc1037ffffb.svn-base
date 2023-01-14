@@ -1,0 +1,11 @@
+{
+    "navigationBarTitleText": "商品列表",
+    "enablePullDownRefresh": true,
+    "usingComponents": {
+      "i-toast": "../../dist/toast/index",
+      "i-button": "../../dist/button/index",
+      "bottomFrame": "/components/bottomFrame/bottomFrame",
+      "i-drawer": "../../dist/drawer/index",
+      "i-modal": "../../dist/modal/index"
+    }
+}

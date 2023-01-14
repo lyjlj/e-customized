@@ -1,0 +1,105 @@
+<view class="cart-list" hidden="true">
+  <swiper style="height:{{swiperh}}px" class="swiper-info" indicator-dots current="{{userinfo.gradeId==1131?0:userinfo.gradeId==1132?1:2}}">
+    <block wx:for="{{viplist}}" wx:key="item">
+      <swiper-item>
+        <view class="swiper-item">
+          <image src="{{requesturl}}{{item.src}}" mode="widthFix" class="vip-img"></image>
+          <view class="userinfo" wx:if="{{userinfo.gradeId==item.gradeId}}">
+            <image src="{{userinfo.picture}}" class="user-img">
+            </image>
+            <text style="margin-left:20rpx;">{{userinfo.realName}}</text>
+          </view>
+          <view class="points" wx:if="{{userinfo.gradeId==item.gradeId}}">万帝积分：{{userinfo.points}}</view>
+          <view class="vip-username" wx:if="{{userinfo.gradeId==item.gradeId}}">
+            <view>
+              {{userinfo.gradeName}}
+            </view>
+            <view>
+              会员卡号: {{userinfo.KH}}
+            </view>
+          </view>
+          <view class="showvip" bindtap="showvip" data-id="{{item.id}}">
+            查看权益
+          </view>       
+        </view>
+      </swiper-item>
+    </block>     
+  </swiper>
+</view>
+<view class="progress-box" hidden="true">
+  <view class="progress-box-title">
+    <view class="vip-tag">会员卡</view> 
+    <view>当前类型： {{userinfo.gradeName}}</view>    
+  </view>
+ <view>当前积分：{{userinfo.points}}</view>
+ <!-- <view>消费金额：{{userinfo.XFJE}}</view> -->
+  <progress percent="{{(userinfo.XFJE/4000)*100}}" color="#8ccecc" style="margin: 20rpx 0;" active stroke-width="3" />
+  <view class="pointgrade">
+    <view>0</view>
+    <view>2000</view>
+    <view>4000</view>
+  </view>
+</view>
+<view>
+  <view class="vip-info" wx:if="{{canedit==1}}">
+    <view><view class="title">姓名：</view><input value="{{userinfo.realName}}" bindblur="bindValue" data-key="realName"></input></view>
+    <view><view class="title">性别：</view>
+      <label class="radio" bindtap="bindValue" data-sex="1" data-key="Gender">
+            <radio value="r1" color="#{{siteinfo.DefaultColor}}" checked="{{userinfo.Gender==1}}"/>男
+         </label>
+         <label class="radio" bindtap="bindValue" data-sex="2" data-key="Gender">
+            <radio value="r2" color="#{{siteinfo.DefaultColor}}" checked="{{userinfo.Gender==2}}"/>女
+         </label>
+    </view>
+    <view><view class="title">生日：</view>
+      <picker mode="date" value="{{userinfo.BirthDate}}" start="1900-01-01" end="2021-1-1" bindchange="bindValue"
+            data-key="BirthDate">
+            <view class="picker">
+             <view wx:if="{{!userinfo.BirthDate}}">请选择：</view>{{userinfo.BirthDate}}
+            </view>
+         </picker>
+     </view>
+     <view><view class="title">结婚纪念日：</view>
+      <picker mode="date" value="{{userinfo.WeddingDate}}" start="1900-01-01" end="2021-1-1" bindchange="bindValue"
+            data-key="WeddingDate">
+            <view class="picker">
+             <view wx:if="{{!userinfo.WeddingDate}}">请选择：</view>{{userinfo.WeddingDate}}
+            </view>
+         </picker>
+     </view>
+    <view><view class="title">电话：</view>
+    <button class='bindphone'
+          open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" wx:if='{{!userinfo.CellPhone}}'>获取手机</button> 
+           <input value="{{userinfo.CellPhone}}" disabled="disabled" wx:if='{{userinfo.CellPhone}}' bindblur="bindValue" data-key="CellPhone"></input>
+          </view>
+  </view>
+
+  <view class="vip-info" wx:if="{{canedit==0}}">
+    <view>姓名：<input value="{{userinfo.realName}}" disabled="disabled" bindblur="bindValue" data-key="realName"></input></view>
+    <view>性别：{{userinfo.Gender==0?'':userinfo.Gender==1?'男':'女'}}     
+    </view>
+    <view>生日：
+      <picker mode="date" value="{{userinfo.BirthDate}}" disabled="disabled" start="1900-01-01" end="2021-1-1" bindchange="bindValue"
+            data-key="BirthDate">
+            <view class="picker">
+             <view wx:if="{{!userinfo.BirthDate}}">请选择：</view>{{userinfo.BirthDate}}
+            </view>
+         </picker>
+     </view>
+     <view>结婚纪念日：
+      <picker mode="date" value="{{userinfo.WeddingDate}}" disabled="disabled" start="1900-01-01" end="2021-1-1" bindchange="bindValue"
+            data-key="WeddingDate">
+            <view class="picker">
+             <view wx:if="{{!userinfo.WeddingDate}}">请选择：</view>{{userinfo.WeddingDate}}
+            </view>
+         </picker>
+     </view>
+    <view>电话： <button class='bindphone'
+          open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" wx:if='{{!userinfo.CellPhone}}'>获取手机</button> 
+           <input value="{{userinfo.CellPhone}}" disabled="disabled" wx:if='{{userinfo.CellPhone}}' bindblur="bindValue" data-key="CellPhone"></input>
+          </view>
+  </view>
+</view>
+<view class="userfile" wx:if="{{canedit==1}}">
+  <view bindtap="savemember">保存资料</view>
+</view>

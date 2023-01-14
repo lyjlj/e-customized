@@ -1,0 +1,35 @@
+<view class="store-select">
+    <input placeholder="输入店名、地址进行搜索..." class="serach-input" bindinput="inputtext"></input>
+    <view class="seach" bindtap="bindRegionChange">搜索</view>
+  </view>
+<view hidden="{{AddressCount==0}}" style="margin-top:100rpx">
+  <radio-group bindchange="onAddressCheck" class="radio-group mt24">
+    <view class="addresslist" data-addressdata="{{item}}" wx:for="{{AddressList}}"  wx:key="ShippingId">
+      <view class="addressdetail pl24 pr24 mb24">
+        <view catchtap="bindEditAddressTap" class="addressname pt24 pb8" data-addressdata="{{item}}">
+          <view class="addressnamel">{{item.StoreName}}，{{item.Phone}}</view>
+        </view>
+        <view catchtap="bindEditAddressTap" class="addresscont" data-addressdata="{{item}}">{{item.Address}}</view>
+        <view class="addressmor pt24 pb24">
+          <view class="addressmorl">
+            <radio class="font28" color="#333333" value="{{item.StoreId}}">
+              选择地址
+            </radio>
+          </view>
+          <view catchtap="bindDeleteAddressTap"  class="addressmorr" data-shippingid="{{item.StoreId}}">
+            <view>距离你{{item.Distance}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </radio-group>
+
+  <view wx:if="{{AddressList.length==AddressCount&&AddressCount>0}}" class="no-store">
+      <view>
+        <text class="desc">所有数据加载完成,共{{AddressCount}}个门店</text>
+      </view>
+    </view>
+</view>
+<view class="xinzheng" hidden="true">
+  <button bindtap="onAddShippingAddress" hidden="{{AddressCount>=5}}">添加收货地址</button>
+</view>

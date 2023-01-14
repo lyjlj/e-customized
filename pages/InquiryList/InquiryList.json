@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "定制清单",
+  "usingComponents": {      
+    "LiveWindow": "/components/LiveWindow/LiveWindow"
+  }
+}

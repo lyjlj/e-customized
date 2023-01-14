@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "SelectSku": "/components/SelectSku/SelectSku",
+    "Icon":"../../dist/icon/index"
+  },
+  "navigationBarTextStyle": "white",
+  "navigationStyle":"custom"
+}

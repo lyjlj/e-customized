@@ -1,0 +1,23 @@
+<view class="uinfo">
+   <view class="uItem">
+      <view class="item-t">名称</view>
+      <view class="item-i"><input bindblur="bindValue" data-key="RealName" value="{{inputdata.RealName}}"></input></view>
+   </view>
+   <view class="uItem">
+      <view class="item-t">手机</view>
+      <view class="item-i"><input bindblur="bindValue" data-key="Phone" value="{{inputdata.Phone}}"></input></view>
+   </view>
+   <view class="uItem">
+      <view class="item-t">账号</view>
+      <view class="item-i"><input bindblur="bindValue" data-key="UserName" value="{{inputdata.UserName}}"></input></view>
+   </view>
+   <view class="uItem">
+      <view class="item-t">密码</view>
+      <view class="item-i"><input bindblur="bindValue" data-key="PassWord" type="password" value="{{inputdata.PassWord}}"></input></view>
+   </view>
+   <view class="uItem">
+      <view class="item-t">确认密码</view>
+      <view class="item-i"><input bindblur="bindValue" data-key="PassWord2" type="password" value="{{inputdata.PassWord2}}"></input></view>
+   </view>
+</view>
+<view class="savebtn" bindtap="bindSaveInfo" style="background:#{{DefaultColor}}">确认添加</view>

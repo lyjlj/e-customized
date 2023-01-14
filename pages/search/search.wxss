@@ -1,0 +1,173 @@
+.searchl input {
+    color: #212121;
+}
+
+.searls {
+    display: flex;
+    border-bottom: 1rpx #e0e0e0 solid;
+}
+
+.searlsr {
+    width: 540rpx;
+    text-align: right;
+}
+
+.searlsr image {
+    width: 40rpx;
+    height: 40rpx;
+}
+
+.searchlslist {
+    clear: both;
+    overflow: hidden;
+    border-bottom: 1rpx #e0e0e0 solid;
+}
+
+.searchlslist button::after {
+    border: none;
+}
+
+.searchlslist button {
+    float: left;
+    margin-right: 15rpx;
+    font-size: 28rpx;
+    line-height: 48rpx;
+    background: #fff;
+    width: 662rpx;
+    text-align: left;
+    padding-left: 0;
+    top: 0;
+    color: #212121;
+    min-height: 1rpx;
+}
+
+.search_btn {
+    color: #9E9E9E;
+    opacity: 0.8;
+    filter: alpha(opacity=80);
+    width: 44rpx;
+    height: 44rpx;
+    font-size: 44rpx;
+    padding-top: 23rpx;
+}
+
+.searchlslist text {
+    color: #BDBDBD;
+    width: 24rpx;
+    height: 24rpx;
+    line-height: 48rpx;
+    text-align: right;
+}
+
+.searclibut {
+    position: relative;
+    border-bottom: 1rpx #e0e0e0 solid;
+    overflow: hidden;
+}
+
+.searchlslist .searclibut:last-child {
+    border-bottom: none;
+}
+
+.searchlslistq {
+    clear: both;
+    overflow: hidden;
+    width: 330rpx;
+    margin: 0 auto;
+}
+
+.searchlslistq button.qkls {
+    margin: 0 auto;
+    border-radius: 8rpx;
+    color: #424242;
+    background: #FBFAFC;
+    float: none;
+    font-size: 28rpx;
+    line-height: 40rpx;
+    padding: 16rpx 32rpx;
+}
+
+.searlsl {
+    font-size: 28rpx;
+    line-height: 40rpx;
+    color: #747474;
+}
+.filter-container {
+    padding: 20rpx;
+    overflow-y: auto;
+    height: calc(100% - 135rpx);
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .filter {
+    width: 110rpx;
+    position: fixed;
+    top: 0;
+    right: 0;
+    line-height: 75rpx;
+    text-align: center;
+  }
+  
+  .attributeitem {
+    width: 100%;
+    padding: 20rpx 0rpx;
+    display: flex;
+  }
+  
+  .attributeitem:before {
+    content: "";
+    width: 8rpx;
+    height: 35rpx;
+    background: #000;
+    margin-right: 10rpx;
+    margin-top: 6rpx;
+  }
+  
+  .valueitems {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .valueitem {
+    width: 125rpx;
+    padding: 5rpx 20rpx;
+    background: #eeeeed;
+    border-radius: 10rpx;
+    margin-right: 12rpx;
+    margin-bottom: 12rpx;
+    line-height: 59rpx;
+    font-size: 27rpx;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .valueitems .active {
+    color: #fff;
+    background: #000;
+  }
+  
+  .filter-btn {
+    /* height: 100%; */
+    width: 100%;
+    color: #fff;
+    display: flex;
+    text-align: center;
+    line-height: 100rpx;
+    position: fixed;
+    bottom: 0px;
+  }
+  
+  .filter-btn view {
+    width: 100%;
+  }
+  
+  .showfilter {
+    position: fixed;
+    right: 30rpx;
+    top: 10rpx;
+    line-height: 70rpx;
+  }

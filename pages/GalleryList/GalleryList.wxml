@@ -1,0 +1,22 @@
+<view class="main">
+  <view class="colmn">
+    <view class="pointitem" wx:for="{{Points}}"  wx:for-index="idx" wx:if="{{idx%2==0}}">
+      <image mode="widthFix" src="{{item.Image+'?x-oss-process=image/resize,w_350'}}" bindtap="goGalleryDetail" data-point="{{item.GalleryItemId}}"></image>
+      <view class="name" wx-if="{{item.GalleryName}}">{{item.GalleryName}}</view>
+      <view>
+        <view class="but_g" bindtap="editGallery" data-id="{{item.GalleryItemId}}">编辑</view>
+        <view class="but_g" bindtap="deleteGallery" data-id="{{item.GalleryItemId}}">删除</view>
+      </view>
+   </view>
+  </view>
+  <view class="colmn">
+    <view class="pointitem" wx:for="{{Points}}"  wx:for-index="idx" wx:if="{{idx%2!=0}}">
+      <image mode="widthFix" src="{{item.Image+'?x-oss-process=image/resize,w_350'}}" bindtap="goGalleryDetail" data-point="{{item.GalleryItemId}}"></image>
+      <view class="name" wx-if="{{item.GalleryName}}">{{item.GalleryName}}</view>
+      <view>
+        <view class="but_g" bindtap="editGallery" data-id="{{item.GalleryItemId}}">编辑</view>
+        <view class="but_g" bindtap="deleteGallery" data-id="{{item.GalleryItemId}}">删除</view>
+      </view>
+   </view>
+  </view>
+</view>

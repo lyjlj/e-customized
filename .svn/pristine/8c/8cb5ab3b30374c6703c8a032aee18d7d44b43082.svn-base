@@ -1,0 +1,322 @@
+<view class="container1" wx:if="{{SplitCarts.length>0}}" style="height: calc(100% - {{bottom}}rpx);padding-bottom: {{bottom}}rpx;">
+  <scroll-view scroll-x="true" class="nav" scroll-left="{{navScrollLeft}}" scroll-with-animation="{{true}}">
+    <block wx:if="{{SplitCarts.length>1}}" wx:for="{{SplitCarts}}" wx:for-index="idx" wx:for-item="navItem" wx:key="idx">
+      <view class="nav-item" data-current="{{idx}}" bindtap="switchNav">
+        <view class="itemtext {{currentTab == idx ?'active':''}}">{{navItem.SplitItem}}</view>
+      </view>
+    </block>
+    <block wx:if="{{SplitCarts.length==1}}">
+      <view class="nav-item" data-current="0" bindtap="switchNav">
+        <view class=" {{currentTab==0?'active itemtext':''}}">询价单</view>
+      </view>
+      <view class="nav-item" style="float: right;font-size: 16px;">
+        <view bindtap="SwitchEdite" class="shopcart-edite">{{EditeText}}</view>
+      </view>
+    </block>
+  </scroll-view>
+  <!-- 页面内容 -->
+  <swiper class="tab-box" current="{{currentTab}}" duration="300" bindchange="switchTab">
+    <swiper-item wx:for="{{SplitCarts}}" wx:for-item="tabItem" wx:for-index="idx" wx:key="idx" class="tab-content">
+      <view class="page-section" wx-if="{{tabItem.SplitLine==0}}">
+        <view hidden="{{isEmpty}}" style="hight:100%;">
+          <view class="shopcart-t" hidden="true">
+            <view bindtap="SwitchEdite" class="shopcart-edite">{{EditeText}}</view>
+          </view>
+          <scroll-view scroll-y="true" style="height:{{windowHeight}}rpx">
+            <view class="cartlist">
+              <block wx:for="{{StockProducts}}" wx:key="item.SplitKey">
+                <view class="splititem">
+                  <view class="supplier" wx:if="{{item.CartItemInfo.length>0}}">
+                    <view class="supplier-icon" hidden="true">
+                      <view class="splititem-icon">
+                        <icon bindtap="selectSplit" color="#{{DefaultColor}}" data-splitkey="{{item.SplitKey}}" type="success" wx:if="{{item.selected}}"></icon>
+                        <icon bindtap="selectSplit" data-splitkey="{{item.SplitKey}}" type="circle" wx:else></icon>
+                      </view>
+                      <image class="mt8" hidden="true" mode="widthFix" src="/images/icon_platform_v.png" style="width:45rpx;"></image>
+                      <image class="mt8" hidden="true" mode="widthFix" src="/images/gongyingshang.png" style="width:45rpx;"></image>
+                      <text>{{item.SplitKey}}</text>
+                      <text>(件数:{{item.SplitCount}}<block wx:if="{{item.SplitTotal>0}}">,金额:￥{{item.SplitTotal}}</block> ,克重:{{item.SplitWeight}}g)</text>
+                    </view>
+                  </view>
+                  <view class="shopcart-m">
+                    <view wx:for="{{item.CartItemInfo}}" wx:for-item="items" wx:key="{{items.SplitKey}}">
+                      <view class="shopcart-m-item {{items.IsValid&&items.HasEnoughStock?'':'shopcart-invalid'}}">
+                        <view class="shopcart-ck {{items.IsValid&&items.HasEnoughStock?'':'ck-txt'}}">
+                          <view wx:if="{{items.IsValid&&items.HasEnoughStock}}">
+                            <icon bindtap="selectList" color="#{{DefaultColor}}" data-skuid="{{items.SkuID}}" type="success" wx:if="{{items.selected}}"></icon>
+                            <icon bindtap="selectList" data-skuid="{{items.SkuID}}" type="circle" wx:else></icon>
+                          </view>
+                          <view style="font-size:20rpx;margin-top:16rpx;" wx:else>{{!items.IsValid?'失效':'库存不足'}}</view>
+                        </view>
+                        <view bindtap="goToProductDetail" class="shopcart-item-pic " data-productid="{{items.ProductId}}">
+                          <image mode="aspectFill " src="{{items.ThumbnailUrl100}} "></image>
+                          <view class="minbuy" wx:if="{{items.MinBuyCount>0}}">起订量:{{items.MinBuyCount}}</view>
+                        </view>
+                        <view class="shpcart-item-txt ">
+                          <view class="shopcart-txt-t ">
+                            <view class="shopcart-txt-name ">{{items.Name}}</view>
+                          </view>
+                          <view class="shopcart-txt-b ">
+                            <view class="shpcart-item-skuname">{{items.SkuContent}}</view>
+                          </view>
+                          <view class="attribute-item">
+                            <!-- <view wx-if="{{items.ProductCode}}">款号:{{items.ProductCode}}</view> -->
+                            <view wx-if="{{items.Weight>0}}">标准金重:{{items.Weight}}</view>
+                            <view wx-if="{{items.MaterialName}}">材质:{{items.MaterialName}}</view>
+                          </view>
+                          <view class="shopcart-txt-saleprice">
+                            <text style="color:#{{DefaultColor}}" hidden="true">
+                              <block wx:if="{{items.MemberPrice>0}}">¥ {{items.MemberPrice}}</block>
+                              <block wx:if="{{items.MemberPrice<=0}}">{{items.Weight}}g</block>
+                            </text>
+                            <view class="shpcart-item-edite-num " wx:if="{{!items.UniqueProductCode}}">
+                              <text bindtap="MuseNum" class="iconfont minus_regular fl" data-index="{{index}}" data-supplierid="{{item.SplitKey}}"></text>
+                              <input bindblur="bindblurNum" class="m" data-index="{{index}}" data-supplierid="{{item.SplitKey}}" type="number" value="{{items.Quantity}}"></input>
+                              <text bindtap="AddNum" class="iconfont plus_regular fr" style="color:#fff;background:#{{DefaultColor}}" data-index="{{index}}" data-supplierid="{{item.SplitKey}}"></text>
+                            </view>
+                            <view style="color:#{{DefaultColor}}" wx:else>单件款</view>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="item-remark" hidden="true">
+                        <view>备注:</view>
+                        <input bindconfirm="bindRemark" bindblur="bindRemark" value="{{items.ProductRemark}}" data-skuid="{{items.SkuID}}"></input>
+                      </view>
+                    </view>
+                  </view>
+
+                </view>
+              </block>
+            </view>
+          </scroll-view>
+          <view class="shopcart-b bg-wihte ">
+            <view class="shopcart-ck" style="margin-top:0;padding-left:24rpx;width:125rpx">
+              <icon bindtap="selectAll" color="#{{DefaultColor}}" style="float:left;line-height:1; margin-top:26rpx;" type="success" wx:if="{{selectAllStatus}}"></icon>
+              <icon bindtap="selectAll" style="float:left; line-height:1; margin-top:26rpx;" type="circle" wx:else></icon>
+              <view style="padding-left:16rpx;float:left;font-size:30rpx;line-height: 100rpx;" bindtap="selectAll">全选</view>
+            </view>
+            <view class="shopcart-total " hidden="true">
+              <view class="shopcart-total-txt ">汇总: </view>
+              <view class="shopcart-total-p ">
+                <text class="saleprice" wx:if="{{TotalPrice>0}}">¥{{TotalPrice}} </text>
+              </view>
+              ({{TotalQuantity}}件,{{TotalWeight}}克)
+            </view>
+            <view bindtap="SettlementShopCart" class="shopcart-buy" data-value="{{SettlementText}}" style="background:#C59904;">
+              <text>{{SettlementText}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="shopcart-no" hidden="{{!isEmpty}}">
+          <view class="shopcart-no-item">
+            <view class="pic">
+              <image src="../../images/shopcart-empty.jpg"></image>
+            </view>
+            <view class="mt24 mb24 line_height48 font32">购物车空空如也~</view>
+            <view class="btn">
+              <navigator class="btn_go" openType="switchTab" url="../productcategory/productcategory">去逛逛</navigator>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="page-section" wx-if="{{tabItem.SplitLine==3&&CustomProducts.length>0}}">
+        <view style="hight:100%;">
+          <view class="shopcart-t">
+            <view bindtap="SwitchEdite3" class="shopcart-edite">{{EditeText3}}</view>
+          </view>
+          <scroll-view scroll-y="true" style="height:100%" style="height:{{windowHeight}}rpx">
+            <view class="cartlist">
+              <block wx:for="{{CustomProducts}}" wx:key="item.SplitKey">
+                <view class="splititem">
+                  <view class="supplier {{index==0?'':''}}">
+                    <view class="supplier-icon">
+                      <view class="splititem-icon">
+                        <icon bindtap="selectSplit3" color="#{{DefaultColor}}" data-splitkey="{{item.SplitKey}}" type="success" wx:if="{{item.selected}}"></icon>
+                        <icon bindtap="selectSplit3" data-splitkey="{{item.SplitKey}}" type="circle" wx:else></icon>
+                      </view>
+                      <image class="mt8" hidden="true" mode="widthFix" src="/images/icon_platform_v.png" style="width:45rpx;"></image>
+                      <image class="mt8" hidden="true" mode="widthFix" src="/images/gongyingshang.png" style="width:45rpx;"></image>
+                      <text>{{item.SplitKey}}</text>
+                      <text>(件数:{{item.SplitCount}}<block wx:if="{{item.SplitTotal>0}}">,金额:￥{{item.SplitTotal}}</block> ,克重:{{item.SplitWeight}}g)</text>
+                    </view>
+                  </view>
+                  <view class="shopcart-m">
+                    <view wx:for="{{item.CartItemInfo}}" wx:for-item="items" wx:key="{{items.SplitKey}}">
+                      <view class="shopcart-m-item {{items.IsValid&&items.HasEnoughStock?'':'shopcart-invalid'}}">
+                        <view class="shopcart-ck {{items.IsValid&&items.HasEnoughStock?'':'ck-txt'}}">
+                          <view wx:if="{{items.IsValid&&items.HasEnoughStock}}">
+                            <icon bindtap="selectList3" color="#{{DefaultColor}}" data-skuid="{{items.SkuID}}" type="success" wx:if="{{items.selected}}"></icon>
+                            <icon bindtap="selectList3" data-skuid="{{items.SkuID}}" type="circle" wx:else></icon>
+                          </view>
+                          <view style="font-size:20rpx;margin-top:16rpx;" wx:else>{{!items.IsValid?'失效':'库存不足'}}</view>
+                        </view>
+                        <view bindtap="goToProductDetail" class="shopcart-item-pic " data-productid="{{items.ProductId}}">
+                          <image mode="aspectFill " src="{{items.ThumbnailUrl100}} "></image>
+                          <view class="minbuy" wx:if="{{items.MinBuyCount>0}}">起订量:{{items.MinBuyCount}}</view>
+                        </view>
+                        <view class="shpcart-item-txt ">
+                          <view class="shopcart-txt-t ">
+                            <view class="shopcart-txt-name ">{{items.Name}}</view>
+                          </view>
+                          <view class="shopcart-txt-b " hidden="true">
+                            <view class="shpcart-item-skuname">{{items.SkuContent}}</view>
+                          </view>
+                          <view class="attribute-item">
+                            <view wx-if="{{items.Weight>0}}">标准金重:{{items.Weight}}</view>
+                            <view wx-if="{{items.MaterialName}}">材质:{{items.MaterialName}}</view>
+                          </view>
+                          <view class="shopcart-txt-saleprice">
+                            <text style="color:#{{DefaultColor}}">
+                              <block wx:if="{{items.MemberPrice>0}}">¥ {{items.MemberPrice}}</block>
+                              <block wx:if="{{items.MemberPrice<=0}}">{{items.Weight}}g</block>
+                            </text>
+                            <view class="shpcart-item-edite-num ">
+                              <text bindtap="MuseNum3" class="iconfont minus_regular fl" data-index="{{index}}" data-supplierid="{{item.SplitKey}}"></text>
+                              <input bindblur="bindblurNum3" class="m" data-index="{{index}}" data-supplierid="{{item.SplitKey}}" type="number" value="{{items.Quantity}}"></input>
+                              <text bindtap="AddNum3" class="iconfont plus_regular fr" style="color:#fff;background:#{{DefaultColor}}" data-index="{{index}}" data-supplierid="{{item.SplitKey}}"></text>
+                            </view>
+                          </view>
+                        </view>
+                      </view>
+                      <view class="item-remark" hidden="true">
+                        <view>备注:</view>
+                        <input bindconfirm="bindRemark" bindblur="bindRemark" value="{{items.ProductRemark}}" data-skuid="{{items.SkuID}}"></input>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </block>
+            </view>
+          </scroll-view>
+          <view class="shopcart-b bg-wihte ">
+            <view class="shopcart-ck" style="margin-top:0;padding-left:24rpx;width:110rpx">
+              <icon bindtap="selectAll3" color="#{{DefaultColor}}" style="float:left;line-height:1; margin-top:26rpx;" type="success" wx:if="{{selectAllStatus3}}"></icon>
+              <icon bindtap="selectAll3" style="float:left; line-height:1; margin-top:26rpx;" type="circle" wx:else></icon>
+              <view style="padding-left:16rpx;float:left;font-size:25rpx" bindtap="selectAll3">全选</view>
+            </view>
+            <view class="shopcart-total " hidden="true">
+              <view class="shopcart-total-txt ">汇总: </view>
+              <view class="shopcart-total-p ">
+                <text class="saleprice " hidden="true">¥{{TotalPrice3}} </text>
+              </view>
+              ({{TotalQuantity3}}件,{{TotalWeight3}}克)
+            </view>
+            <view bindtap="SettlementShopCart3" class="shopcart-buy" style="background:#{{DefaultColor}}">
+              <text>{{SettlementText3}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="shopcart-no" hidden="{{!isEmpty3}}">
+          <view class="shopcart-no-item">
+            <view class="pic">
+              <image src="../../images/shopcart-empty.jpg"></image>
+            </view>
+            <view class="mt24 mb24 line_height48 font32">购物车空空如也~</view>
+            <view class="btn">
+              <navigator class="btn_go" openType="switchTab" url="../productcategory/productcategory">去逛逛</navigator>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="page-section" wx-if="{{tabItem.SplitLine==1&&CustomRings.length>0}}">
+        <view hidden="{{isEmpty2}}">
+          <view class="shopcart-t bg-wihte">
+            <view bindtap="SwitchEdite2" class="shopcart-edite">{{EditeText2}}</view>
+          </view>
+          <scroll-view scroll-y="true" style="height:{{windowHeight}}rpx">
+            <view class="cartlist">
+              <block wx:for="{{CustomRings}}" wx:key="item.SplitKey">
+                <view class="CustomList">
+                  <view style="padding-left:24rpx" wx:if="{{CustomRings[index].HasEnoughStock||isEdite2}}">
+                    <icon bindtap="selectList2" color="#{{DefaultColor}}" data-bindcode="{{CustomRings[index].SplitKey}}" type="success" wx:if="{{CustomRings[index].selected}}"></icon>
+                    <icon bindtap="selectList2" data-bindcode="{{CustomRings[index].SplitKey}}" type="circle" wx:else></icon>
+                  </view>
+                  <view style="width:590rpx">
+                    <view wx:for="{{item.CartItemInfo}}" wx:for-item="items" wx:key="{{item.SkuID}}">
+                      <view class="shopcart-custom-item {{items.IsValid&&items.HasEnoughStock?'':'shopcart-invalid'}}">
+                        <view class="shopcart-ck {{items.IsValid&&items.HasEnoughStock?'':'ck-txt'}}" wx:if="{{!(items.IsValid&&items.HasEnoughStock)}}">
+                          <view style="font-size:20rpx;margin-top:16rpx;">{{!items.IsValid?'失效':'库存不足'}}</view>
+                        </view>
+                        <view bindtap="goToProductDetail" class="shopcart-item-pic " data-productid="{{items.ProductId}}">
+                          <image mode="aspectFill " src="{{items.ThumbnailUrl100}} "></image>
+                          <view class="minbuy" wx:if="{{items.MinBuyCount>0}}">起订量:{{items.MinBuyCount}}</view>
+                        </view>
+                        <view bindtap="goToProductDetail" class="shpcart-item-txt " data-productid="{{items.ProductId}}">
+                          <view class="shopcart-txt-t ">
+                            <view class="shopcart-txt-name " wx-if="{{items.Name}}">{{items.Name}}</view>
+
+                          </view>
+                          <view class="shopcart-txt-b " hidden="true">
+                            <view class="shpcart-item-skuname">{{items.SkuContent}}</view>
+                          </view>
+                          <view class="attribute-item">
+                            <view wx-if="{{items.Weight>0}}">标准金重:{{items.Weight}}</view>
+                            <view wx-if="{{items.MaterialName}}">材质:{{items.MaterialName}}</view>
+                          </view>
+                          <view class="shopcart-txt-saleprice">
+                            <text>
+                              <block wx:if="{{items.MemberPrice>0}}">¥ {{items.MemberPrice}}</block>
+                              <block wx:if="{{items.MemberPrice<=0}}">{{items.Weight}}g</block>
+                            </text>
+                          </view>
+                        </view>
+
+                      </view>
+                    </view>
+                  </view>
+
+                </view>
+                <view class="CustomRemark" wx-if="{{tabItem.SplitList[index].CartItemInfo[0].ProductRemark}}">
+                  <view>定制元素:</view>
+                  <text>{{tabItem.SplitList[index].CartItemInfo[0].ProductRemark}}</text>
+                </view>
+              </block>
+            </view>
+          </scroll-view>
+          <view class="shopcart-b bg-wihte ">
+            <view class="shopcart-ck" style="margin-top:0;padding-left:24rpx;width:110rpx">
+              <icon bindtap="selectAll2" color="#{{DefaultColor}}" style="float:left;line-height:1; margin-top:26rpx;" type="success" wx:if="{{selectAllStatus2}}"></icon>
+              <icon bindtap="selectAll2" style="float:left; line-height:1; margin-top:26rpx;" type="circle" wx:else></icon>
+              <view style="padding-left:16rpx;float:left;font-size:25rpx" bindtap="selectAll2">全选</view>
+            </view>
+            <view class="shopcart-total " hidden="true">
+              <view class="shopcart-total-txt ">汇总:</view>
+              <view class="shopcart-total-p ">
+                <text class="saleprice " wx:if="{{TotalPrice2>0}}">¥{{TotalPrice2}} </text>
+              </view>
+              ({{TotalQuantity2}}件,{{TotalWeight2}}克)
+            </view>
+            <view bindtap="SettlementShopCart2" class="shopcart-buy" style="background:#{{DefaultColor}}">
+              <text>{{SettlementText2}}</text>
+            </view>
+          </view>
+        </view>
+        <view class="shopcart-no" hidden="{{!isEmpty2}}">
+          <view class="shopcart-no-item">
+            <view class="pic">
+              <image src="../../images/shopcart-empty.jpg"></image>
+            </view>
+            <view class="mt24 mb24 line_height48 font32">购物车空空如也~</view>
+            <view class="btn">
+              <navigator class="btn_go" openType="switchTab" url="../productcategory/productcategory">去逛逛</navigator>
+            </view>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+</view>
+<block wx:if="{{!SplitCarts||SplitCarts.length==0}}">
+  <view class="shopcart-no">
+    <view class="shopcart-no-item">
+      <view class="pic">
+        <image src="../../images/shopcart-empty.jpg"></image>
+      </view>
+      <view class="mt24 mb24 line_height48 font32">购物车空空如也~</view>
+      <view class="btn">
+        <navigator class="btn_go" openType="switchTab" url="../productcategory/productcategory">去逛逛</navigator>
+      </view>
+    </view>
+  </view>
+</block>
+<LiveWindow id="liveWindow"></LiveWindow>

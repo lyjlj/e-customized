@@ -1,0 +1,8 @@
+<view style="height:100%">
+    <image src="{{RefferImg}}" style="width:100%;height:100%" mode="aspectFill" data-url="{{RefferImg}}"  bindlongpress="saveImage">
+    </image>
+    <view class="btn">
+    <view style="color:white;text-align:center">长按图片保存</view>
+        <button class="other-button-hover" style="background:#{{DefaultColor}}" openType="share">分享我的专属链接</button>
+    </view>
+</view>

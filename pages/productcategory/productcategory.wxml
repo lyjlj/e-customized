@@ -1,0 +1,70 @@
+<!-- 默认显示格式 -->
+<view class="page-section bg-white" wx:if="{{CategoryStyle==1}}">
+    <view class="bg-white search-titles">
+        <view class="search">
+            <view class="searchinput">
+                <input bindblur="bindBlurInput" bindconfirm="bindConfirmSearchInput" bindfocus="gotoKeyWordPage" bindinput="bindSearchInput" class="searchplaceholder" confirmType="search"  placeholder="搜索商品" type="text"></input>
+                <text class="iconfont icon__search_s"></text>
+            </view>
+        </view>
+        <view class="container-r-title">
+            <view bindtap="SwitchSubCategory" class="table-subcategory border-bottom" hidden="{{IsDown}}">
+                <view class="all">全部分类<text class="triangle-down triangle-down-sub"></text>
+                </view>
+            </view>
+            <view class="table-subcategory" hidden="{{!IsDown}}">
+                <view class="citem" bindtap="gotoProduct"  data-cid="{{item.cid}}" data-grade="2" data-index="{{idx+1}}" wx:for="{{CurrentCategory.subs}}" wx:for-index="idx">
+                <image src="{{item.icon}}"></image>
+                <view>{{item.name}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="search-container">
+        <view class="container-l" style="height:{{LHeight}}px">
+            <view bindtap="ChooseCategory" hidden="true" class="categroy  border-bottom {{idx==Css.FirstIndex?'active':''}}" data-cid="0" data-grade="1" >
+                <view class="m line_height40" bindtap="allProduct" style="border-left:4rpx solid #{{idx==Css.FirstIndex?DefaultColor:''}};color:#{{idx==Css.FirstIndex?DefaultColor:''}}" data-index="-1">全部商品</view>
+            </view>
+            <view bindtap="ChooseCategory" class="categroy  border-bottom {{idx==Css.FirstIndex?'active':''}}" data-cid="{{item.cid}}" data-grade="1" data-index="{{idx}}" wx:for="{{CategoryList}}" wx:for-index="idx">
+                <view class="m line_height40" style="border-left:10rpx solid #{{idx==Css.FirstIndex?DefaultColor:''}};color:#{{idx==Css.FirstIndex?'000':''}}">{{item.name}}</view>
+            </view>
+        </view>
+    </view>
+</view>
+<!-- 翠绿style -->
+<view class="page-section bg-white" wx:if="{{CategoryStyle==2}}">
+	<view class="bg-white search-titles">
+		<view class="search">
+			<view class="searchinput">
+				<input bindblur="bindBlurInput" bindconfirm="bindConfirmSearchInput" bindfocus="gotoKeyWordPage" bindinput="bindSearchInput" class="searchplaceholder" confirmType="search" placeholder="搜索商品" type="text"></input>
+				<text class="iconfont icon__search_s"></text>
+			</view>
+		</view>
+		<!-- 小米商城分类页效果：右 -->
+		<scroll-view scroll-y="{{true}}" class="container-r-title" style="height:{{winheight-65}}px">
+			<view class="table-subcategory" wx:for="{{CurrentCategory}}" wx:for-item="cate" wx:if="{{cate.data.length!=0&&cate.selected}}">
+				<view class="se_name">{{cate.name}}</view>
+				<view class="citem" bindtap="gotoProduct" data-cid="{{item.CategoryId}}" data-grade="2" data-index="{{idx+1}}" wx:for="{{cate.data}}" wx:for-index="idx">
+					<image src="{{item.Icon}}"></image>
+					<view>{{item.Name}}</view>
+				</view>
+			</view>
+		</scroll-view>
+	</view>
+	<view class="search-container">
+		<view class="container-l" style="height:{{LHeight}}px">
+			<view wx:for="{{CategoryList}}" wx:for-index="idx">
+				<view bindtap="{{idx==Css.FirstIndex?'':'ChooseCategory'}}" class="categroy  border-bottom {{idx==Css.FirstIndex?'active':''}}" data-cid="{{item.cid}}" data-grade="1" data-index="{{idx}}">
+					<view class="m line_height40" style="border-left:10rpx solid #{{idx==Css.FirstIndex?DefaultColor:''}};color:#{{idx==Css.FirstIndex?'000':''}}">{{item.name}}</view>
+				</view>
+				<view class="categroy active" wx:for="{{item.subs}}" wx:for-index="sidx" data-cid="{{item.cid}}" wx:if="{{idx==Css.FirstIndex}}" bindtap="selectCat" data-findex="{{idx}}" data-sindex="{{sidx}}">
+					<view class="m line_height40" style="border-right:10rpx solid #{{item.selected?DefaultColor:''}};color:#{{idx==Css.FirstIndex?'000':''}}">{{item.name}}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>
+
+<LiveWindow id="liveWindow"></LiveWindow>
+<!-- 飘屏的组件 -->
+<visitWindow  id="visitWindow"  />
