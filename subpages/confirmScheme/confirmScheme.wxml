@@ -21,5 +21,11 @@
 
 <view class="schemeFoot">
   <view class="scheme_query">若对方案有疑问,请联系业务员沟通方案</view>
-  <view class="scheme_btn" bindtap="onlineServices">沟通方案</view>
+  <view class="handle_box">
+    <view class="cancel_btn">取消订单</view>
+    <view class="confirm_btn">确认方案</view>
+     <!-- <view class="scheme_btn" bindtap="onlineServices">沟通方案</view> -->
+    <view class="scheme_btn" bindtap="adjustscheme">调整方案</view>
+  </view>
+  
 </view>

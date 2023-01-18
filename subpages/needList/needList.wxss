@@ -100,6 +100,18 @@ page{
   font-size: 14px;
   color:#83242a;
 }
+.receipt_btn{
+  border: 1px solid #83242a;
+  background-color:#83242a;
+  width: 70px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  float: right;
+  border-radius: 4px;
+  font-size: 14px;
+  color:#ffffff;
+}
 .body_msg {
   margin: 10px 0;
 }

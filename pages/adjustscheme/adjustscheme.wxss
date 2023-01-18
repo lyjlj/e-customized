@@ -1,0 +1,42 @@
+/* pages/adjustscheme/adjustscheme.wxss */
+  .container{
+    width:750rpx;
+    height:100vh
+  }
+  .content{
+    text-align:left;
+    margin:50rpx;
+    position:relative;
+    height:100%;
+  }
+  .defaultImg{
+    width:150rpx;
+    height:150rpx;
+  }
+  .uploadAdjust{
+    border:1px solid #702c2f;
+    margin:50rpx 0
+  }
+  .adjustArea{
+  }
+  .textarea{
+    border:1px solid #702c2f;
+    border-radius:10rpx;
+    padding:20rpx;   
+  }
+  .confirmSubmit{
+    background-color: #702c2f;
+    color: #fff;
+    /* width: 75%; */
+    width:100%;
+    height: 80rpx;
+    margin: 20rpx auto;
+    line-height: 80rpx;
+    text-align: center;
+    font-size: 36rpx;
+    border-radius: 6rpx;
+    position:absolute;
+    bottom:50rpx;
+    display: flex;
+    justify-content: center;
+  }

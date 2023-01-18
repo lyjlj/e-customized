@@ -76,7 +76,20 @@ page {
   height: 260rpx;
   background: #fff;
 }
-
+.handle_box{
+  display: flex;
+}
+.schemeFoot .cancel_btn{
+  background-color: #cccccc;
+  color: #fff;
+  width: 30%;
+  height: 80rpx;
+  margin: 20rpx auto;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 36rpx;
+  border-radius: 6rpx;
+}
 .schemeFoot .scheme_query {
   background-color: rgb(252, 200, 57, 0.2);
   color: #755e1c;
@@ -90,7 +103,20 @@ page {
 .schemeFoot .scheme_btn {
   background-color: #702c2f;
   color: #fff;
-  width: 75%;
+  /* width: 75%; */
+  width:30%;
+  height: 80rpx;
+  margin: 20rpx auto;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 36rpx;
+  border-radius: 6rpx;
+}
+.confirm_btn{
+  background-color: #702c2f;
+  color: #fff;
+  /* width: 75%; */
+  width:30%;
   height: 80rpx;
   margin: 20rpx auto;
   line-height: 80rpx;

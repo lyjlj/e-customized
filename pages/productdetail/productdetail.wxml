@@ -119,7 +119,7 @@
           <view class="skuitem {{remark.img?'':'skuactive'}}" bindtap="clearRemarkImg">无</view>
           <view class="skuitem {{remark.img?'skuactive':''}}" wx:if="{{!remark.img}}" bindtap="chooseimage">输入你想要的图案</view>
           <view class="skuactive image_box" wx:else="" style="position: relative;">
-            <image style="width: 100%;" mode="widthFix" src="{{remark.img}}"></image>
+            <image style="width: 100%;" mode="widthFix" src="{{remark.img}}" bindtap="previewImage" data-srcs="{{remark.img}}"></image>
             <view bindtap="DeleteImg" class="iconfont trush- delete"></view>
           </view>
         </view>

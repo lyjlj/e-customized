@@ -23,7 +23,8 @@ Component({
         return;       
         wx.request({
           url: app.getUrl('GetTopMenus'),
-          success(res){           
+          success(res){     
+            console.log("返回的结果",res)      
             var foot=[];
             res.data.data.forEach(function(v){
               if(v.Content.toLowerCase().indexOf('default')>-1)
@@ -47,6 +48,7 @@ Component({
                 selectedIconPath:app.getRequestUrl+v.ShopMenuPic2
               })
             });
+            console.log("foot",foot)
             that.setData({foot:foot})
           }
         })

@@ -273,6 +273,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "方案调整",
+          "pathName": "pages/adjustscheme/adjustscheme",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

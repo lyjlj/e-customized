@@ -906,7 +906,7 @@ Page({
     });
     wx.setClipboardData({
       data: content,
-      success: function () {}
+      success: function () {} 
     })
   },
   // 收藏商品

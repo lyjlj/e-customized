@@ -16,7 +16,13 @@
     <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==53?DefaultColor:''}};color:#{{Status==53?DefaultColor:''}};" data-status="53">签订合同 <text class="shop_num font28" wx:if="{{statusSum[53]!=0}}">{{statusSum[53]}}</text></view>
   </view>
   <view class="customtitlel">
-    <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==54?DefaultColor:''}};color:#{{Status==54?DefaultColor:''}};" data-status="54">生产中 <text class="shop_num font28" wx:if="{{statusSum[54]!=0}}">{{statusSum[54]}}</text></view>
+    <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==58?DefaultColor:''}};color:#{{Status==58?DefaultColor:''}};" data-status="58">确认样式 <text class="shop_num font28" wx:if="{{statusSum[58]!=0}}">{{statusSum[58]}}</text></view>
+  </view>
+  <!-- <view class="customtitlel">
+    <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==59?DefaultColor:''}};color:#{{Status==59?DefaultColor:''}};" data-status="59">模具制作中 <text class="shop_num font28" wx:if="{{statusSum[59]!=0}}">{{statusSum[59]}}</text></view>
+  </view> -->
+  <view class="customtitlel">
+    <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==54?DefaultColor:''}};color:#{{Status==54?DefaultColor:''}};" data-status="54">模具制作中 <text class="shop_num font28" wx:if="{{statusSum[54]!=0}}">{{statusSum[54]}}</text></view>
   </view>
   <view class="customtitlel">
     <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==55?DefaultColor:''}};color:#{{Status==55?DefaultColor:''}};" data-status="55">待发货 <text class="shop_num font28" wx:if="{{statusSum[55]!=0}}">{{statusSum[55]}}</text></view>
@@ -34,6 +40,7 @@
     <view class="statustext">{{statusObj[item.status]}}</view>
     <view class="item_head">
       <view style="flex:1;">订单编码 : {{item.id}}</view>
+      <view style="flex:1;">顺丰单号:{{item.id}}</view>
     </view>
     <view class="item_body" bindtap="ToDetail" data-id="{{item.id}}">
       <view class="body_img">
@@ -45,6 +52,7 @@
       </view>
     </view>
     <view class="item_foot">
+      <view class="receipt_btn" bindtap="checkReceipt" style="margin:0 5rpx">确认收货</view>
       <view id="{{item.id}}" bindtap="checkScheme" class="check" wx:if="{{item.status != 50}}">查看方案</view>
     </view>
   </view>

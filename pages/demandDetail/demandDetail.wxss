@@ -98,3 +98,23 @@ page {
   background: blue;
   color: #fff;
 }
+.detail_box{
+  margin-top:20rpx;
+  width: 650rpx;
+  line-height: 100rpx;
+  background: #fff;
+  padding: 0 30rpx;
+  border-radius: 12rpx;
+  font-size: 35rpx;
+}
+.detail_offer{
+  font-size:20rpx;
+  /* color:#cccccc */
+}
+.costPrice{
+  height:50rpx;
+  line-height:50rpx;
+}
+.totalPrice{
+  text-align:right;
+}

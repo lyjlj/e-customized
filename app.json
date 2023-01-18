@@ -89,25 +89,28 @@
     "pages/ImgSearch/ImgSearch",
     "pages/ServiceMessage/ServiceMessage",
     "pages/InquiryList/InquiryList",
-    "pages/demandDetail/demandDetail"
+    "pages/demandDetail/demandDetail",  
+    "pages/adjustscheme/adjustscheme"
   ],
-  "subpackages": [{
-    "root": "subpages/",
-    "pages": [
-      "PointMall/PointMall",
-      "PointInfo/PointInfo",
-      "giftshopcart/giftshopcart",
-      "choosestore/choosestore",
-      "membergrade/membergrade",
-      "userprofile/userprofile",
-      "usercode/usercode",
-      "needSubmit/needSubmit",
-      "needList/needList",
-      "needSucceed/needSucceed",
-      "confirmScheme/confirmScheme",
-      "shareApplet/shareApplet"
-    ]
-  }],
+  "subpackages": [
+    {
+      "root": "subpages/",
+      "pages": [
+        "PointMall/PointMall",
+        "PointInfo/PointInfo",
+        "giftshopcart/giftshopcart",
+        "choosestore/choosestore",
+        "membergrade/membergrade",
+        "userprofile/userprofile",
+        "usercode/usercode",
+        "needSubmit/needSubmit",
+        "needList/needList",
+        "needSucceed/needSucceed",
+        "confirmScheme/confirmScheme",
+        "shareApplet/shareApplet"
+      ]
+    }
+  ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
@@ -120,7 +123,8 @@
     "selectedColor": "#4c4c4c",
     "color": "#b2b2b2",
     "position": "bottom",
-    "list": [{
+    "list": [
+      {
         "pagePath": "pages/home/home",
         "text": "主页",
         "selectedColor": "#4c4c4c",
