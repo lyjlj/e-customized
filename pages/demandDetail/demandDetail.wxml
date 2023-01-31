@@ -28,7 +28,7 @@
       <text>调整方案</text>
     </view> -->
   </view>
-  <view class="detail_box">
+  <!-- <view class="detail_box">
       <view>报价信息</view>
       <view class="detail_offer">
         <view class="costPrice">原料费:12元/g</view>
@@ -40,5 +40,5 @@
       </view>
       <view class="totalPrice">原料款:100元</view>
       <view class="totalPrice">总报价:323元</view>
-    </view>
+    </view> -->
 </view>

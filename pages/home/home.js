@@ -1,8 +1,10 @@
 var t = require("../../utils/config.js"),
+ 
   e = getApp();
 var app = e;
 var WxParse = require("../wxParse/wxParse.js");
 var location = require("../../utils/qqmap-wx-jssdk.min.js");
+console.log("入参",t)
 Page({
   data: {
     pageIndex: 1,
@@ -202,6 +204,7 @@ Page({
       };
   },
   getHomeData: function (t) {
+    console.log("参数",t)
     var a = this;
     "NOUser" != t.Message ? ("OK" == t.Status ? (a.getHomeProductData(a.data.pageIndex, !0),
       a.setData({

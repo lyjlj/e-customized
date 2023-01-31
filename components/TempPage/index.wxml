@@ -20,6 +20,7 @@
         <!-- <view bindtap="ClickSwiper" class="hd-pic" data-link="{{content.dataset[0].link}}" data-showtype="{{content.dataset[0].linkType}}">
             <image class="image" mode="widthFix" src="{{content.dataset[0].pic}}" style="width:100%;"></image>
         </view> -->
+
         <view class="bd-list-pic">
             <view bindtap="ClickSwiper" class="bd-list-pro-pic" data-link="{{content.dataset[0].link}}" data-showtype="{{content.dataset[0].linkType}}">
                 <image class="border-right  border-bottom" src="{{content.dataset[0].pic}}" style="width:100%; height:180rpx">

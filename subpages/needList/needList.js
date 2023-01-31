@@ -8,7 +8,7 @@ Page({
   data: {
     DefaultColor: "83242a",
     Status: '',
-    orderCount: [0, 50, 51, 52, 53, 54, 55, 56, 57],
+    orderCount: [0, 50, 51, 52, 53, 54, 55, 56, 57,58,59],
     TotalNum: '0',
     pageSize: 100,
     current: 1,
@@ -17,12 +17,14 @@ Page({
       51: '待确认',
       52: '已确认',
       53: '签订合同',
-      54: '生产中',
+      // 54: '生产中',
+      54:'模具制作中',
       55: '待发货',
       56: '待收货',
       57: '已完成',
       58: '确认样式',
-      59: '模具制作中'
+      // 59: '模具制作中'
+      59: '已取消'
     },
     statusSum: {
       50: 0,
@@ -32,7 +34,9 @@ Page({
       54: 0,
       55: 0,
       56: 0,
-      57: 0
+      57: 0,
+      58: 0,
+      59: 0
     },
     isEmpty: false,
     statusAll: 0
@@ -115,6 +119,7 @@ Page({
   checkScheme(e) {
     var that = this;
     console.log(that.data.needData);
+    console.log("e的值",e)
     var needList = that.data.needData,
       res = needList.filter((v, i) => v.id == e.currentTarget.id),
       type = res[0].type,
@@ -124,10 +129,13 @@ Page({
       desc = res[0].customizationmark ? res[0].customizationmark.desc : '',
       url = res[0].customizationmark ? res[0].customizationmark.img[0].url : '',
       n = desc ? desc : needStr,
-      u = url ? url : attachment;
+      u = url ? url : attachment,
+      offerInfo = res[0].customizationmark ? res[0].customizationmark :''
+    console.log("res的值",res)
     wx.navigateTo({
-      url: '/subpages/confirmScheme/confirmScheme?type=' + type + '&needStr=' + n + '&quantity=' + quantity + '&attachment=' + u,
+      url: '/subpages/confirmScheme/confirmScheme?type=' + type + '&offerInfo='+JSON.stringify(offerInfo) +'&id=' + e.currentTarget.id + '&needStr=' + n + '&quantity=' + quantity + '&attachment=' + u ,
     })
+    
   },
   onTabClick: function (t) {
     var e = this,
@@ -227,7 +235,9 @@ Page({
                 54: 0,
                 55: 0,
                 56: 0,
-                57: 0
+                57: 0,
+                58: 0,
+                59: 0,
               };
 
             datalist.forEach(item => {
@@ -257,6 +267,12 @@ Page({
                 case 57:
                   allObj[57] += 1;
                   break;
+                case 58:
+                  allObj[58] += 1;
+                  break;
+                case 59:
+                  allObj[59] += 1;
+                  break;
               }
             })
             var arr = Object.values(allObj),
@@ -281,6 +297,7 @@ Page({
       needStr = '',
       quantity = '',
       attachment = '';
+    
     that.data.needData.forEach(v => {
       if (id === v.id) {
         if (v.type == '标准定制') {
@@ -304,9 +321,12 @@ Page({
         }
       }
     })
+    console.log("e的参数",e)
 
     wx.navigateTo({
-      url: '/pages/demandDetail/demandDetail?type=' + type + '&desc=' + desc + '&needStr=' + needStr + '&quantity=' + quantity + '&attachment=' + attachment
+      url: '/pages/demandDetail/demandDetail?type=' + type + '&desc=' + desc + '&needStr=' + needStr + '&quantity=' + quantity +
+      '&id=' + e.currentTarget.dataset.id +
+      '&attachment=' + attachment 
     })
   }
 })

@@ -721,6 +721,7 @@ Component({
         },
         getViewHeight: function (id, callback) {
             var that = this;
+            //返回一个selectorQuery对象实例，在自定义组件或包含自定义组件的页面中，使用this.createSelectorQuery()来代替.
             wx.createSelectorQuery().in(this).select(id).boundingClientRect(function (rect) {
                 if (typeof callback == "function")
                     callback(rect);

@@ -1,9 +1,9 @@
 <!--subpages/confirmScheme/confirmScheme.wxml-->
 <view class="schemeBody">
-  <view class="scheme_item">
+  <view class="scheme_item"> 
     <view class="item_head">
       <view class="item_left">
-        <view wx:if="{{needStr != 'undefined'}}">{{needStr}}</view>
+        <!-- <view wx:if="{{needStr != 'undefined'}}">{{needStr}}</view> -->
         <view class="item_type" style="margin-left: 15rpx;">{{type}}</view>
       </view>
       <view class="item_right">
@@ -16,14 +16,27 @@
         <image src="{{attachment}}"  mode="aspectFit"></image>
       </view>
     </view>
+    <view class="Merchant-reply" wx:if="{{needStr != 'undefined'}}">
+      <view>商家描述: {{needStr}}</view>
+    </view>
+    <view class="detail_box">
+        <view>报价信息</view>
+        <view class="detail_offer">
+          <view class="costPrice">原料费:{{offerObj.materialPrice}}元/g</view>
+          <view class="costPrice">单件产品价格:{{offerObj.singleProductPrice}}元/g</view>
+          <view class="costPrice">克单价:{{offerObj.unitPrice}}元/g</view>
+          <view class="costPrice">加工费及其他:{{offerObj.workPrice}}元/g</view>
+        </view>
+        <view class="totalPrice">产品总金额:{{offerObj.totalPrice}}元</view>
+      </view>
   </view>
 </view>
 
 <view class="schemeFoot">
-  <view class="scheme_query">若对方案有疑问,请联系业务员沟通方案</view>
+  <!-- <view class="scheme_query">若对方案有疑问,请联系业务员沟通方案</view> -->
   <view class="handle_box">
-    <view class="cancel_btn">取消订单</view>
-    <view class="confirm_btn">确认方案</view>
+    <view class="cancel_btn" data-status="59" bindtap="changeScheme">取消订单</view>
+    <view class="confirm_btn" data-status="52" bindtap="changeScheme">确认方案</view>
      <!-- <view class="scheme_btn" bindtap="onlineServices">沟通方案</view> -->
     <view class="scheme_btn" bindtap="adjustscheme">调整方案</view>
   </view>

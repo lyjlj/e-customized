@@ -306,6 +306,7 @@ Array.prototype.remove = function (val) {
     },
     getOpenId: function (t) {
       var e = this;
+      //void 0 == undefined void:无类型，可以指向任何类型的数据
       "" != e.globalData.openId && void 0 != e.globalData.openId ? "function" == typeof t && t(e.globalData.openId) : wx.login({
         success: function (o) {
           o.code ? wx.request({
@@ -380,7 +381,7 @@ Array.prototype.remove = function (val) {
           that.globalData.siteAll = site
         }
       })
-    },
+    }, 
     getNewUserInfo: function (phone, f) {
       var that = this;
       wx.request({

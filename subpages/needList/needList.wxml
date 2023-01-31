@@ -33,6 +33,9 @@
   <view class="customtitlel">
     <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==57?DefaultColor:''}};color:#{{Status==57?DefaultColor:''}};" data-status="57">已完成 <text class="shop_num font28" wx:if="{{statusSum[57]!=0}}">{{statusSum[57]}}</text></view>
   </view>
+  <view class="customtitlel">
+    <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==59?DefaultColor:''}};color:#{{Status==59?DefaultColor:''}};" data-status="59">已取消 <text class="shop_num font28" wx:if="{{statusSum[59]!=0}}">{{statusSum[59]}}</text></view>
+  </view>
 </scroll-view>
 
 <view class="orderListBody">
@@ -53,7 +56,7 @@
     </view>
     <view class="item_foot">
       <view class="receipt_btn" bindtap="checkReceipt" style="margin:0 5rpx">确认收货</view>
-      <view id="{{item.id}}" bindtap="checkScheme" class="check" wx:if="{{item.status != 50}}">查看方案</view>
+      <view id="{{item.id}}" bindtap="checkScheme"  class="check" wx:if="{{item.status != 50}}">查看方案</view>
     </view>
   </view>
   <view class="no_data" wx:if="{{statusAll == 0 || statusSum[Status] == 0}}">
