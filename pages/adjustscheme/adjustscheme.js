@@ -36,14 +36,17 @@ Page({
       method:'post',
       data:{
         id:this.data.id,
-        status:51,
+        status:60,
         customizationmark:{
-          adjustInputValue,
-          adjustImg
+          adjustInputValue:that.data.adjustInputValue,
+          adjustImg:that.data.adjustImg
         }
       },
-      success:function(t){
-        console.log('res')
+      success:function(res){
+        console.log('res',res)
+        wx.navigateTo({
+          url: '/subpages/needList/needList',
+        })
       }
     })
   },
@@ -147,7 +150,7 @@ Page({
         success: function (e) {
           var a = JSON.parse(e.data);
           console.log("上传图片后的值",a)
-          this.setData({
+          o.setData({
             adjustImg:a.Data[0].ImageUrl
           })
           if ("OK" == a.Status) {

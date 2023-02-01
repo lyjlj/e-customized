@@ -7,6 +7,9 @@
     <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==50?DefaultColor:''}};color:#{{Status==50?DefaultColor:''}};" data-status="50">待处理 <text class="shop_num font28" wx:if="{{statusSum[50]!=0}}">{{statusSum[50]}}</text></view>
   </view>
   <view class="customtitlel">
+    <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==60?DefaultColor:''}};color:#{{Status==60?DefaultColor:''}};" data-status="60">待调整方案 <text class="shop_num font28" wx:if="{{statusSum[60]!=0}}">{{statusSum[60]}}</text></view>
+  </view>
+  <view class="customtitlel">
     <view bindtap="onTabClick" style="border-bottom:4rpx solid #{{Status==51?DefaultColor:''}};color:#{{Status==51?DefaultColor:''}};" data-status="51">待确认 <text class="shop_num font28" wx:if="{{statusSum[51]!=0}}">{{statusSum[51]}}</text></view>
   </view>
   <view class="customtitlel">
@@ -55,6 +58,7 @@
       </view>
     </view>
     <view class="item_foot">
+      <view class="receipt_btn" bindtap="checkStyle" data-id="{{item.id}}" style="margin:0 5rpx">确认样式</view>
       <view class="receipt_btn" bindtap="checkReceipt" style="margin:0 5rpx">确认收货</view>
       <view id="{{item.id}}" bindtap="checkScheme"  class="check" wx:if="{{item.status != 50}}">查看方案</view>
     </view>

@@ -24,7 +24,8 @@ Page({
       57: '已完成',
       58: '确认样式',
       // 59: '模具制作中'
-      59: '已取消'
+      59: '已取消',
+      60: '方案调整中'
     },
     statusSum: {
       50: 0,
@@ -36,7 +37,8 @@ Page({
       56: 0,
       57: 0,
       58: 0,
-      59: 0
+      59: 0,
+      60: 0
     },
     isEmpty: false,
     statusAll: 0
@@ -111,7 +113,24 @@ Page({
       })
     }
   },
+  //确认样式
+  checkStyle(e){
+    const url = "https://spapi.zhuanyegou.com/api/values?action=EnterpriseCustomization_UpdateStatus"
+    const params = {
+      id:e.currentTarget.id,
+      status:54
+    }
+    wx.request({
+      url,
+      method:'post',
+      data:params,
+      success:function(res){
+        console.log(res)
+      }
+    })
+   
 
+  },
   /* 用户点击右上角分享 */
   onShareAppMessage() {
 
@@ -127,7 +146,8 @@ Page({
       quantity = res[0].details.quantity,
       needStr = res[0].details.needStr,
       desc = res[0].customizationmark ? res[0].customizationmark.desc : '',
-      url = res[0].customizationmark ? res[0].customizationmark.img[0].url : '',
+      // url = res[0].customizationmark ? res[0].customizationmark.img[0].url : '',
+      url = res[0].customizationmark ? res[0].customizationmark.adjustImg : '',
       n = desc ? desc : needStr,
       u = url ? url : attachment,
       offerInfo = res[0].customizationmark ? res[0].customizationmark :''
@@ -238,6 +258,7 @@ Page({
                 57: 0,
                 58: 0,
                 59: 0,
+                60: 0,
               };
 
             datalist.forEach(item => {
@@ -272,6 +293,9 @@ Page({
                   break;
                 case 59:
                   allObj[59] += 1;
+                  break;
+                case 60:
+                  allObj[60] += 1;
                   break;
               }
             })

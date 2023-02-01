@@ -1,7 +1,7 @@
 <!--pages/adjustscheme/adjustscheme.wxml-->
 <view class="container">
     <view class="content">
-        <view class="orderNo">订单编号:324</view>
+        <view class="orderNo">订单编号:{{id}}</view>
         <view class="uploadAdjust">
             <view class="skuitem {{remark.img?'skuactive':''}}" wx:if="{{!remark.img}}" bindtap="chooseimage">
                 <image src="../../images/return-img_03.jpg" bindtap="chooseImage" class="defaultImg"></image>
