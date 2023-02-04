@@ -1358,6 +1358,7 @@ Page({
                   details: JSON.stringify(e.data.formDataNormal),
                   userid: e.data.UserInfo.UserId,
                   customId: app.customId,
+                  operationtype:0
                 },
                 success: function (t) {
                   console.log(t);

@@ -1,7 +1,7 @@
 <!--pages/adjustscheme/adjustscheme.wxml-->
 <view class="container">
     <view class="content">
-        <view class="orderNo">订单编号:{{id}}</view>
+        <view class="orderNo" style="color:#83242a">订单编号:<text style="color:#83242a">{{id}}</text></view>
         <view class="uploadAdjust">
             <view class="skuitem {{remark.img?'skuactive':''}}" wx:if="{{!remark.img}}" bindtap="chooseimage">
                 <image src="../../images/return-img_03.jpg" bindtap="chooseImage" class="defaultImg"></image>
@@ -11,7 +11,7 @@
                 <view bindtap="DeleteImg" class="iconfont trush- delete" style="text-align: right"></view>
             </view>
         </view>
-        <view>修改方案:</view>
+        <view style="color:#83242a">修改方案:</view>
         <view class="adjustArea">
             <textarea class="textarea"  bindinput="handleInput"></textarea>
         </view>

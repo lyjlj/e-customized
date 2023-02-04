@@ -15,8 +15,8 @@ Page({
     adjustImg:'',
     //项目的id值
     id:'',
-
-
+    //原customizationmark值
+    offerObj:{}
   },
 
   /**
@@ -25,12 +25,14 @@ Page({
   onLoad(options) {
     console.log("options",options)
     this.setData({
-      id:options.id
+      id:options.id,
+      offerObj:options.offerObj
     })
   },
   //调整方案提交
   confirmSubmit(){
     var that = this;
+    console.log("offerObj",this.data.offerObj)
     wx.request({
       url:"https://spapi.zhuanyegou.com/api/values?action=EnterpriseCustomization_UpdateStatus",
       method:'post',
@@ -38,6 +40,7 @@ Page({
         id:this.data.id,
         status:60,
         customizationmark:{
+          ...(JSON.parse(this.data.offerObj)),
           adjustInputValue:that.data.adjustInputValue,
           adjustImg:that.data.adjustImg
         }
@@ -125,13 +128,13 @@ Page({
     })
   },
   
-  previewImage: function (e) {
-    var a = e.currentTarget.dataset.srcs;
-    wx.previewImage({
-      current: a,
-      urls: [a]
-    });
-  },
+  // previewImage: function (e) {
+  //   var a = e.currentTarget.dataset.srcs;
+  //   wx.previewImage({
+  //     current: a,
+  //     urls: [a]
+  //   });
+  // },
   UploadImage: function (e) {
     var n = "",
       o = this;

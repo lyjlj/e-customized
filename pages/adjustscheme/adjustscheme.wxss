@@ -15,7 +15,8 @@
   }
   .uploadAdjust{
     border:1px solid #702c2f;
-    margin:50rpx 0
+    margin:50rpx 0;
+    border-radius:10rpx;
   }
   .adjustArea{
   }

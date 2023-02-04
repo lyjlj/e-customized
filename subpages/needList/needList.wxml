@@ -58,8 +58,8 @@
       </view>
     </view>
     <view class="item_foot">
-      <view class="receipt_btn" bindtap="checkStyle" data-id="{{item.id}}" style="margin:0 5rpx">确认样式</view>
-      <view class="receipt_btn" bindtap="checkReceipt" style="margin:0 5rpx">确认收货</view>
+      <view class="receipt_btn" bindtap="checkStyle" data-id="{{item.id}}" style="margin:0 5rpx" wx:if="{{Status==53}}">确认样式</view>
+      <view class="receipt_btn" bindtap="checkReceipt" data-id="{{item.id}}" style="margin:0 5rpx" wx:if="{{Status==56}}">确认收货</view>
       <view id="{{item.id}}" bindtap="checkScheme"  class="check" wx:if="{{item.status != 50}}">查看方案</view>
     </view>
   </view>

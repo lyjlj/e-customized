@@ -115,9 +115,10 @@ Page({
   },
   //确认样式
   checkStyle(e){
+    console.log("确认样式",e)
     const url = "https://spapi.zhuanyegou.com/api/values?action=EnterpriseCustomization_UpdateStatus"
     const params = {
-      id:e.currentTarget.id,
+      id:e.currentTarget.dataset.id,
       status:54
     }
     wx.request({
@@ -125,16 +126,37 @@ Page({
       method:'post',
       data:params,
       success:function(res){
-        console.log(res)
+        wx.navigateTo({
+          url:"/subpages/needList/needList"
+        })
       }
     })
    
 
   },
+  //确认收货
+  checkReceipt(e){
+    const url ="https://spapi.zhuanyegou.com/api/values?action=EnterpriseCustomization_UpdateStatus"
+    const params = {
+      id:e.currentTarget.dataset.id,
+      status:57
+    }
+    wx.request({
+      url,
+      method:'post',
+      data:params,
+      success:function(res){
+        wx.navigateTo({
+          url:"/subpages/needList/needList"
+        })
+      }
+    })
+  },
   /* 用户点击右上角分享 */
   onShareAppMessage() {
 
   },
+  //查看方案
   checkScheme(e) {
     var that = this;
     console.log(that.data.needData);
@@ -151,11 +173,10 @@ Page({
       n = desc ? desc : needStr,
       u = url ? url : attachment,
       offerInfo = res[0].customizationmark ? res[0].customizationmark :''
-    console.log("res的值",res)
+    console.log("res的值",JSON.stringify(offerInfo))
     wx.navigateTo({
-      url: '/subpages/confirmScheme/confirmScheme?type=' + type + '&offerInfo='+JSON.stringify(offerInfo) +'&id=' + e.currentTarget.id + '&needStr=' + n + '&quantity=' + quantity + '&attachment=' + u ,
+      url: '/subpages/confirmScheme/confirmScheme?type=' + type + '&id=' + e.currentTarget.id + '&offerInfo='+JSON.stringify(offerInfo)  + '&needStr=' + n + '&quantity=' + quantity + '&attachment=' + u,
     })
-    
   },
   onTabClick: function (t) {
     var e = this,
@@ -345,8 +366,6 @@ Page({
         }
       }
     })
-    console.log("e的参数",e)
-
     wx.navigateTo({
       url: '/pages/demandDetail/demandDetail?type=' + type + '&desc=' + desc + '&needStr=' + needStr + '&quantity=' + quantity +
       '&id=' + e.currentTarget.dataset.id +

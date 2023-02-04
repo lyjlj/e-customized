@@ -10,7 +10,10 @@ Page({
     quantity: "",
     id:'',
     //报价信息
-    offerObj:{}
+    offerObj:{},
+    //商家最新传过来的图片
+    storePic:''
+
   },
 
   /* 生命周期函数--监听页面加载 */
@@ -18,7 +21,7 @@ Page({
     console.log(options.type);
     console.log(options.attachment);
     console.log(options);
-    const offerObj =JSON.parse(options.offerInfo)
+    const offerObj =JSON.parse(options.offerInfo?options.offerInfo :{}  )
     this.setData({
       type: options.type,
       attachment: options.attachment,
@@ -28,12 +31,13 @@ Page({
       offerObj
     })
     console.log("offerObj",this.data.id)
+    this.getOrderData(options.id)
   },
   adjustscheme(){
     wx.navigateTo({
-      url:"/pages/adjustscheme/adjustscheme?id=" + this.data.id
+      url:"/pages/adjustscheme/adjustscheme?id=" + this.data.id + '&offerObj='+ JSON.stringify(this.data.offerObj)
     })
-
+    
   },
   //修改方案
   changeScheme(e){
@@ -57,8 +61,31 @@ Page({
         }
       })
     })
-    
 
+  },
+  //获取每一个单据的方案数据;
+  getOrderData(id){
+    var that = this;
+    app.getUserInfo(function(u){
+      console.log("u的值",u)
+      const url ="https://spapi.zhuanyegou.com/api/values?action=EnterpriseCustomization_Select&returntype=tables"
+      const params ={
+         userid:u.UserId,
+         id
+      }
+      wx.request({
+        url,
+        method:'post',
+        data:params,
+        success:function(res){
+          const storePicArr = JSON.parse(res.data.data.Result_0[0].Child[0].details)
+          that.setData({
+            storePic:storePicArr.img[0].url
+          })
+        }
+      })
+    })
+   
   },
   //调整方案
   /* 生命周期函数--监听页面初次渲染完成 */

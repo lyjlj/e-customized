@@ -16,6 +16,12 @@
         <image src="{{attachment}}"  mode="aspectFit"></image>
       </view>
     </view>
+    <view style="border:1px solid #83242a"></view>
+    <view class="title" style="margin:20rpx 0 ;color:#83242a">商家上传方案</view>
+    <view style="border:1px solid #83242a;margin-bottom:5rpx"></view>
+    <view class="merchant-img">
+      <image src="{{storePic}}" mode="aspectFit"></image>
+    </view>
     <view class="Merchant-reply" wx:if="{{needStr != 'undefined'}}">
       <view>商家描述: {{needStr}}</view>
     </view>
