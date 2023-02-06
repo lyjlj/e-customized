@@ -12,7 +12,9 @@ Page({
     //报价信息
     offerObj:{},
     //商家最新传过来的图片
-    storePic:''
+    storePic:'',
+    //订单状态
+    status:''
 
   },
 
@@ -28,7 +30,8 @@ Page({
       needStr: options.needStr,
       quantity: options.quantity,
       id:options.id,
-      offerObj
+      offerObj,
+      status:options.status
     })
     console.log("offerObj",this.data.id)
     this.getOrderData(options.id)
@@ -37,7 +40,6 @@ Page({
     wx.navigateTo({
       url:"/pages/adjustscheme/adjustscheme?id=" + this.data.id + '&offerObj='+ JSON.stringify(this.data.offerObj)
     })
-    
   },
   //修改方案
   changeScheme(e){
@@ -57,7 +59,7 @@ Page({
           })
         },
         complete:function(){
-
+          
         }
       })
     })

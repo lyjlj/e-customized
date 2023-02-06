@@ -72,6 +72,7 @@ Page({
 
     // 获取所有状态的订单数量
     t.getNeedListStatus()
+    CountDown(2050, 12, 31, 24)
   },
 
   /**
@@ -115,7 +116,6 @@ Page({
   },
   //确认样式
   checkStyle(e){
-    console.log("确认样式",e)
     const url = "https://spapi.zhuanyegou.com/api/values?action=EnterpriseCustomization_UpdateStatus"
     const params = {
       id:e.currentTarget.dataset.id,
@@ -159,10 +159,9 @@ Page({
   //查看方案
   checkScheme(e) {
     var that = this;
-    console.log(that.data.needData);
-    console.log("e的值",e)
     var needList = that.data.needData,
       res = needList.filter((v, i) => v.id == e.currentTarget.id),
+      status = res[0].status,
       type = res[0].type,
       attachment = res[0].details.attachment,
       quantity = res[0].details.quantity,
@@ -173,10 +172,36 @@ Page({
       n = desc ? desc : needStr,
       u = url ? url : attachment,
       offerInfo = res[0].customizationmark ? res[0].customizationmark :''
-    console.log("res的值",JSON.stringify(offerInfo))
     wx.navigateTo({
-      url: '/subpages/confirmScheme/confirmScheme?type=' + type + '&id=' + e.currentTarget.id + '&offerInfo='+JSON.stringify(offerInfo)  + '&needStr=' + n + '&quantity=' + quantity + '&attachment=' + u,
+      url: '/subpages/confirmScheme/confirmScheme?type=' + type + '&id=' + e.currentTarget.id + '&offerInfo='+JSON.stringify(offerInfo)  + '&needStr=' + n + '&quantity=' + quantity +'&status=' + status + '&attachment=' + attachment ,
     })
+  },
+  //查看样式
+  showStyle(e){
+    console.log("查看样式",e)
+    var that = this;
+    var needList = that.data.needData,
+        styleData = needList.filter((v,i) => v.id == e.currentTarget.dataset.id),
+        uploadStyle = styleData[0].customizationmark;
+    console.log("styleData的值",needList)
+    wx.navigateTo({
+      url: '/pages/confirmStyle/confirmStyle?id=' + e.currentTarget.dataset.id + '&uploadStyle=' + JSON.stringify(uploadStyle),
+    })
+  },
+  //倒计时
+  CountDown(year, month, day, hours) {
+    let now = new Date();
+    let endDate = new Date(year, month - 1, day, hours);
+    let leftTime = endDate.getTime() - now.getTime();//计算剩余的毫秒数
+    if (leftTime <= 0) {
+        leftTime = 0;
+    }
+    let leftsecond = parseInt(leftTime / 1000);//计算剩余的秒数
+    day = Math.floor(leftsecond / (60 * 60 * 24));
+    let hour = Math.floor((leftsecond - day * 24 * 60 * 60) / 3600);
+    // let minute = Math.floor((leftsecond - day * 24 * 60 * 60 - hour * 3600) / 60);
+    // let second = Math.floor(leftTime / 1000 % 60, 10);
+    return `${day}天${hour}小时${minute}分钟${second}秒`;
   },
   onTabClick: function (t) {
     var e = this,
@@ -194,7 +219,6 @@ Page({
     e.loadData(a, e, !1)
   },
   loadData: function (e, a, i) {
-    console.log(app.globalData);
     wx.showLoading({
       title: "加载中"
     }), app.getUserInfo(function (r) {
@@ -211,7 +235,6 @@ Page({
         success: function (t) {
           if (t.data.code == 0) {
             var datalist = t.data.data;
-            console.log(datalist);
 
             datalist.forEach(item => {
               // 处理JSON数据

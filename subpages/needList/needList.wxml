@@ -46,7 +46,6 @@
     <view class="statustext">{{statusObj[item.status]}}</view>
     <view class="item_head">
       <view style="flex:1;">订单编码 : {{item.id}}</view>
-      <view style="flex:1;">顺丰单号:{{item.id}}</view>
     </view>
     <view class="item_body" bindtap="ToDetail" data-id="{{item.id}}">
       <view class="body_img">
@@ -56,11 +55,17 @@
         <view class="need">定制需求 : {{item.type == '详细定制' ? item.details.variety : item.details.needStr}}</view>
         <view class="time">创建时间 : {{item.createtime}}</view>
       </view>
+      
     </view>
+    <view class="item_head">
+          <view style="flex:3;" wx:if="{{Status=='56'}}">快递单号:{{item.customizationmark.expressNumber}}</view>
+          <view style="flex:1;" wx:if="{{Status=='56'}}">剩12日12时</view>
+      </view>
     <view class="item_foot">
-      <view class="receipt_btn" bindtap="checkStyle" data-id="{{item.id}}" style="margin:0 5rpx" wx:if="{{Status==53}}">确认样式</view>
+      <view class="receipt_btn" bindtap="checkStyle" data-id="{{item.id}}" style="margin:0 5rpx" wx:if="{{Status==58}}">确认样式</view>
       <view class="receipt_btn" bindtap="checkReceipt" data-id="{{item.id}}" style="margin:0 5rpx" wx:if="{{Status==56}}">确认收货</view>
       <view id="{{item.id}}" bindtap="checkScheme"  class="check" wx:if="{{item.status != 50}}">查看方案</view>
+      <view class="receipt_btn" bindtap="showStyle" data-id="{{item.id}}" style="margin:0 5rpx" wx:if="{{Status==58}}">查看样式</view>
     </view>
   </view>
   <view class="no_data" wx:if="{{statusAll == 0 || statusSum[Status] == 0}}">

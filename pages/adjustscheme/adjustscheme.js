@@ -128,13 +128,6 @@ Page({
     })
   },
   
-  // previewImage: function (e) {
-  //   var a = e.currentTarget.dataset.srcs;
-  //   wx.previewImage({
-  //     current: a,
-  //     urls: [a]
-  //   });
-  // },
   UploadImage: function (e) {
     var n = "",
       o = this;
@@ -192,3 +185,4 @@ Page({
     });
   },
 })
+

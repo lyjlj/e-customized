@@ -1,0 +1,11 @@
+<view class="demandDetail">
+  <view class="detail_top">
+    <text>项目单号: </text><text>{{id}}</text>
+  </view>
+  <view class="detail_centre">
+    <view class="centre_left">
+      <image src="{{uploadStyle.uploadStyle[0].url}}" mode="aspectFill"></image>
+    </view>
+  </view>
+  <view bindtap="confirmStyle" data-id="{{id}}" class="confirm_btn">确认样式</view>
+</view>

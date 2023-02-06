@@ -15,30 +15,8 @@
         数量 : ×{{detailList.quantity}}
       </view>
     </view>
-
-    <view class="countdown">
+  </view>
+ <view class="countdown">
       <view class="">倒计时</view>
     </view>
-
-    
-    <!-- <view class= "btn_option" bindtap="refuceProject">
-      <text>拒绝</text>
-    </view>
-    <view class="btn_adjust" bindtap="adjustProject" data-id>
-      <text>调整方案</text>
-    </view> -->
-  </view>
-  <!-- <view class="detail_box">
-      <view>报价信息</view>
-      <view class="detail_offer">
-        <view class="costPrice">原料费:12元/g</view>
-        <view class="costPrice">产品总金额:12元/g</view>
-        <view class="costPrice">单件产品价格:12元/g</view>
-        <view class="costPrice">克单价:12元/g</view>
-        <view class="costPrice">加工费及其他:12元/g</view>
-
-      </view>
-      <view class="totalPrice">原料款:100元</view>
-      <view class="totalPrice">总报价:323元</view>
-    </view> -->
 </view>
