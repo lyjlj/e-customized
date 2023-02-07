@@ -41,7 +41,10 @@ Page({
       60: 0
     },
     isEmpty: false,
-    statusAll: 0
+    statusAll: 0,
+    //剩余的时间
+      day:'',
+      hour:''
   },
 
   /**
@@ -72,7 +75,6 @@ Page({
 
     // 获取所有状态的订单数量
     t.getNeedListStatus()
-    CountDown(2050, 12, 31, 24)
   },
 
   /**
@@ -131,8 +133,6 @@ Page({
         })
       }
     })
-   
-
   },
   //确认收货
   checkReceipt(e){
@@ -198,10 +198,14 @@ Page({
     }
     let leftsecond = parseInt(leftTime / 1000);//计算剩余的秒数
     day = Math.floor(leftsecond / (60 * 60 * 24));
+    console.log("day的值",day)
     let hour = Math.floor((leftsecond - day * 24 * 60 * 60) / 3600);
+    this.setData({
+      day,
+      hour
+    })
     // let minute = Math.floor((leftsecond - day * 24 * 60 * 60 - hour * 3600) / 60);
     // let second = Math.floor(leftTime / 1000 % 60, 10);
-    return `${day}天${hour}小时${minute}分钟${second}秒`;
   },
   onTabClick: function (t) {
     var e = this,
@@ -219,6 +223,7 @@ Page({
     e.loadData(a, e, !1)
   },
   loadData: function (e, a, i) {
+    var that = this
     wx.showLoading({
       title: "加载中"
     }), app.getUserInfo(function (r) {
@@ -235,13 +240,30 @@ Page({
         success: function (t) {
           if (t.data.code == 0) {
             var datalist = t.data.data;
-
             datalist.forEach(item => {
+              console.log("item的值",item)
               // 处理JSON数据
               item.details = JSON.parse(item.details)
               item.customizationmark = JSON.parse(item.customizationmark);
               // 处理时间格式
-              item.createtime = item.createtime.split('T').join(' ')
+              item.createtime = item.createtime.split('T').join(' ');
+              if(item.status==56) {
+                item.customizationmark.submitTime = item.customizationmark?.submitTime?.split('-')
+                const submitTime = item.customizationmark.submitTime
+                console.log(123456,(Number(submitTime[2]))+7)
+                that.CountDown(Number(submitTime[0]),Number(submitTime[1]),Number(submitTime[2])+ 7,Number(submitTime[3]))
+                if(that.data.day==0 && that.data.hour==0){
+                  const url= 'https://spapi.zhuanyegou.com/api/values?action=EnterpriseCustomization_UpdateStatus';
+                  const params = {
+                    id:item.id,
+                    status:57,
+                    customizationmark:item.customizationmark
+                  }.then(res => {
+                    console.log('res的值',res)
+                  })
+                }
+              }
+              
             })
 
             if (i) {
@@ -275,6 +297,7 @@ Page({
       });
     });
   },
+
   getNeedListStatus() {
     var that = this;
     app.getUserInfo(function (u) {
@@ -391,7 +414,7 @@ Page({
     })
     wx.navigateTo({
       url: '/pages/demandDetail/demandDetail?type=' + type + '&desc=' + desc + '&needStr=' + needStr + '&quantity=' + quantity +
-      '&id=' + e.currentTarget.dataset.id +
+      '&id=' + e.currentTarget.dataset.id + 
       '&attachment=' + attachment 
     })
   }

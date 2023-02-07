@@ -1,6 +1,6 @@
 <view class="demandDetail">
   <view class="detail_top">
-    <text>定制需求: </text><text>{{detailList.desc}}</text>
+    <text>定制需求: </text><text>{{detailList.needStr}}</text>
   </view>
   <view class="detail_centre">
     <view class="centre_left">
@@ -16,7 +16,4 @@
       </view>
     </view>
   </view>
- <view class="countdown">
-      <view class="">倒计时</view>
-    </view>
 </view>

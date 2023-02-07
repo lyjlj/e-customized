@@ -1,4 +1,4 @@
-<view wx:if='{{flag}}'>
+<view wx:if='{{flag}}'> 
   <view class='wrap {{wrapAnimate}}' style='background:rgba(0,0,0,{{bgOpacity}});z-index:{{zindex}}'></view>
   <view catchtap='hideFrame' class='frame-wrapper {{frameAnimate}}' style="z-index:{{zindex+1}}" animation="{{closeframeAnimate}}">
     <view catchtap='catchNone' class='frame' style="z-index:{{zindex+2}}" bindtouchstart="handlerTouchstart" bindtouchmove="handlerTouchmove" bindtouchend="handlerTouchend" style="{{parse.setPosition(position)}}">

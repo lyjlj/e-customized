@@ -41,8 +41,8 @@
 <view class="schemeFoot">
   <!-- <view class="scheme_query">若对方案有疑问,请联系业务员沟通方案</view> -->
   <view class="handle_box">
-    <view class="cancel_btn" data-status="59" bindtap="changeScheme" wx:if="{{status!='50'}}">取消订单</view>
-    <view class="confirm_btn" data-status="52" bindtap="changeScheme" wx:if="{{status=='51'}}">确认方案</view>
+    <view class="cancel_btn" data-status="59" data-tip='取消' bindtap="changeScheme" wx:if="{{status!='50' && status != '56' && status != '57' && status !='59' && status != '58' && status != '54' && status != '55'}}">取消订单</view>
+    <view class="confirm_btn" data-status="52" data-tip='确认' bindtap="changeScheme" wx:if="{{status=='51'}}">确认方案</view>
      <!-- <view class="scheme_btn" bindtap="onlineServices">沟通方案</view> -->
     <view class="scheme_btn" bindtap="adjustscheme" wx:if="{{status=='51'}}">调整方案</view>
   </view>

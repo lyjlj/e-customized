@@ -1295,7 +1295,7 @@ Page({
       select = skuItem.every((v, i) => {
         console.log(skuItem[i]);
         if (skuItem[1].AttributeValue[0].UseAttributeImage === "False") {
-          if (skuItem[0].AttributeValue[0].UseAttributeImage === "selected" && skuItem[2].AttributeValue[0].UseAttributeImage === "selected" && u.data.remark.weight) {
+          if (skuItem[0].AttributeValue[0].UseAttributeImage === "selected" && skuItem[2].AttributeValue[0].UseAttributeImage === "selected" && e.data.remark.weight) {
             return true
           }
         } else if (skuItem[i].AttributeValue[0].UseAttributeImage === "selected") {

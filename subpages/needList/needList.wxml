@@ -57,9 +57,9 @@
       </view>
       
     </view>
-    <view class="item_head">
+    <view class="item_head" style="margin-bottom:10rpx">
           <view style="flex:3;" wx:if="{{Status=='56'}}">快递单号:{{item.customizationmark.expressNumber}}</view>
-          <view style="flex:1;" wx:if="{{Status=='56'}}">剩12日12时</view>
+          <view style="flex:1; color:red" wx:if="{{Status=='56'}}"><text>剩{{day}}</text>日<text>{{hour}}时</text></view>
       </view>
     <view class="item_foot">
       <view class="receipt_btn" bindtap="checkStyle" data-id="{{item.id}}" style="margin:0 5rpx" wx:if="{{Status==58}}">确认样式</view>

@@ -21,22 +21,35 @@ Page({
   },
   //确认样式
   confirmStyle(e){
-    const url = "https://spapi.zhuanyegou.com/api/values?action=EnterpriseCustomization_UpdateStatus"
-    const params = {
-      id:e.currentTarget.dataset.id,
-      status:54,
-      customizationmark:this.data.uploadStyle
-    }
-    wx.request({
-      url,
-      method:'post',
-      data:params,
-      success:function(res){
-        wx.navigateTo({
-          url:"/subpages/needList/needList"
-        })
+    wx.showModal({
+      title:'提示',
+      content:`是否确认样式？`,
+      showCancel:true,
+      confirmColor: '#83242a',
+      success(res){
+        if(res.confirm){
+          const url = "https://spapi.zhuanyegou.com/api/values?action=EnterpriseCustomization_UpdateStatus"
+          const params = {
+            id:e.currentTarget.dataset.id,
+            status:54,
+            customizationmark:this.data.uploadStyle
+          }
+          wx.request({
+            url,
+            method:'post',
+            data:params,
+            success:function(res){
+              wx.navigateTo({
+                url:"/subpages/needList/needList"
+              })
+            }
+          })
+        }else if(res.cancel){
+          console.log("res")
+        }
       }
     })
+    
   },
   /* 生命周期函数--监听页面初次渲染完成 */
   onReady() {

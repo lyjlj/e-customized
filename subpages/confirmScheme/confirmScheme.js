@@ -41,30 +41,47 @@ Page({
       url:"/pages/adjustscheme/adjustscheme?id=" + this.data.id + '&offerObj='+ JSON.stringify(this.data.offerObj)
     })
   },
-  //修改方案
+  //删除方案
   changeScheme(e){
     console.log("e的值",e)
     var that = this;
-    app.getUserInfo(function(u){
-      wx.request({
-        url: "https://spapi.zhuanyegou.com/api/values?action=EnterpriseCustomization_UpdateStatus",
-        method:'post',
-        data:{
-          id:that.data.id,
-          status:e.currentTarget.dataset.status,
-        },
-        success:function(res){
-          wx.navigateTo({
-            url:"/subpages/needList/needList"
+    wx.showModal({
+      title:'提示',
+      content:`是否${e.currentTarget.dataset.tip}方案？`,
+      showCancel:true,
+      confirmColor: '#83242a',
+      success(res){
+        if(res.confirm){
+          wx.showLoading({
+            title:'正在提交'
           })
-        },
-        complete:function(){
-          
+          app.getUserInfo(function(u){
+            wx.request({
+              url: "https://spapi.zhuanyegou.com/api/values?action=EnterpriseCustomization_UpdateStatus",
+              method:'post',
+              data:{
+                id:that.data.id,
+                status:e.currentTarget.dataset.status,
+              },
+              success:function(res){
+                wx.navigateTo({
+                  url:"/subpages/needList/needList"
+                })
+              },
+              complete:function(){
+                
+              }
+            })
+          })
+        }else if(res.cancel){
+          console.log("用户点击了取消")
         }
-      })
+      }
     })
+    
 
   },
+
   //获取每一个单据的方案数据;
   getOrderData(id){
     var that = this;
