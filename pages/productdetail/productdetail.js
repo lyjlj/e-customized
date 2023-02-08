@@ -1135,9 +1135,11 @@ Page({
     if (0 == t.target.dataset.enablevalue)
       return;
     var d = new Object();
+    console.log("d的初始值",d)
     d.valueId = r, d.value = u, d.attributeid = n;
-    console.log(d);
+    console.log("d的值",d);
     var selectlist = this.data.selectedskuList;
+    console.log("selectlist的值",selectlist)
     var i = "",
       s = this.data.SkuItemList,
       c = this.data.SkuItemList;
@@ -1238,6 +1240,10 @@ Page({
           }
         } else if (skuItem[i].AttributeValue[0].UseAttributeImage === "selected") {
           return true
+        }else if(skuItem[0].AttributeValue[0].UseAttributeImage === "False"){
+          if (skuItem[1].AttributeValue[0].UseAttributeImage === "selected" && skuItem[2].AttributeValue[0].UseAttributeImage === "selected" && u.data.remark.weight) {
+            return true
+          }
         }
       });
 
@@ -1300,6 +1306,10 @@ Page({
           }
         } else if (skuItem[i].AttributeValue[0].UseAttributeImage === "selected") {
           return true
+        }else if(skuItem[0].AttributeValue[0].UseAttributeImage === "False"){
+          if (skuItem[1].AttributeValue[0].UseAttributeImage === "selected" && skuItem[2].AttributeValue[0].UseAttributeImage === "selected" && e.data.remark.weight) {
+            return true
+          }
         }
       });
 
@@ -1325,11 +1335,50 @@ Page({
 
             e.data.selectedskuList.forEach(v => {
               // 存储商品规格信息
+              // if (v.attributeid === "10148") {
+              //   console.log("测试")
+              //   specification.HollowSolid = v.AttributeValue[0].value
+              // } else if (v.attributeid === "10147") {
+              //   if(v.AttributeValue[0].UseAttributeImage === "selected"){
+              //     specification.GoldWeight = v.AttributeValue[0].value
+              //   }else if(e.data.weightWords != "我有更好的选择"){
+              //     specification.GoldWeight= e.data.weightWords
+              //   }
+              // } else if (v.attributeid === "10142") {
+              //   specification.Percentage = v.AttributeValue[0].value
+              // }else if(v.attributeid === '10367'){
+              //   if(v.AttributeValue[0].UseAttributeImage === "selected"){
+              //     specification.GoldWeight = v.AttributeValue[0].value
+              //   }
+              //   else if(e.data.weightWords != "我有更好的选择"){
+              //     specification.GoldWeight= e.data.weightWords
+              //   }
+              // }else if (v.attributeid ==='10364'){
+              //   specification.HollowSolid = v.AttributeValue[0].value
+              // }else if(v.attributeid ==='10361'){
+              //   specification.Percentage = v.AttributeValue[0].value
+              // }
               if (v.attributeid === "10148") {
+                console.log("测试")
                 specification.HollowSolid = v.value
               } else if (v.attributeid === "10147") {
-                specification.GoldWeight = v.value
+                if(e.data.weightWords != "我有更好的选择"){
+                  specification.GoldWeight= e.data.weightWords
+                }else{ 
+                  specification.GoldWeight = v.value
+                }
               } else if (v.attributeid === "10142") {
+                specification.Percentage = v.value
+              }else if(v.attributeid === '10367'){
+                if(e.data.weightWords != "我有更好的选择"){
+                  specification.GoldWeight= e.data.weightWords
+                }else{
+                  specification.GoldWeight = v.value
+
+                }
+              }else if (v.attributeid ==='10364'){
+                specification.HollowSolid = v.value
+              }else if(v.attributeid ==='10361'){
                 specification.Percentage = v.value
               }
             })
@@ -1340,15 +1389,13 @@ Page({
             itemObj.materialName = e.data.CurrentSku.MaterialCode
             itemObj.needStr = e.data.remark.text ? e.data.remark.text : e.data.ProductName
             itemObj.quantity = e.data.Quantity
-            itemObj.weightWords = e.data.weightWords
+            itemObj.weightWords = e.data.weightWords  
             itemObj.specification = specification
             itemObj.productCode = e.data.ProductCode
-
             e.setData({
               formDataNormal: itemObj
             })
             console.log(e.data.formDataNormal);
-
             app.getOpenId(function (n) {
               wx.request({
                 url: 'https://spapi.zhuanyegou.com/api/values?action=EnterpriseCustomization_Insert',
@@ -1629,12 +1676,19 @@ Page({
         icon: "none"
       })
     } else {
-      that.setData({
-        weightWords: that.data.weightNumber,
-        ['SkuItemList[1].AttributeValue[0].UseAttributeImage']: "False",
+      if(that.data.SkuItemList[0].AttributeId === '10367'){
+        that.setData({
+          weightWords: that.data.weightNumber,
+          ['SkuItemList[0].AttributeValue[0].UseAttributeImage']: "False",
         ['remark.weight']: "skuactive",
-      })
-
+        })
+      }else{
+        that.setData({
+          weightWords: that.data.weightNumber,
+          ['SkuItemList[1].AttributeValue[0].UseAttributeImage']: "False",
+          ['remark.weight']: "skuactive",
+        })
+      }
       that.hideSelect()
     }
   },

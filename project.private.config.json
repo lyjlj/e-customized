@@ -13,6 +13,20 @@
                     "query": "status=51&index=2",
                     "launchMode": "default",
                     "scene": null
+                },
+                {
+                    "name": "商品详情",
+                    "pathName": "pages/productdetail/productdetail",
+                    "query": "id=470156",
+                    "launchMode": "default",
+                    "scene": null
+                },
+                {
+                    "name": "项目列表",
+                    "pathName": "pages/diypage/index",
+                    "query": "url=%252Fwapshop%252FTopics.aspx%253FTopicId%253D3582",
+                    "launchMode": "default",
+                    "scene": null
                 }
             ]
         }
