@@ -1680,7 +1680,7 @@ Page({
         that.setData({
           weightWords: that.data.weightNumber,
           ['SkuItemList[0].AttributeValue[0].UseAttributeImage']: "False",
-        ['remark.weight']: "skuactive",
+          ['remark.weight']: "skuactive",
         })
       }else{
         that.setData({

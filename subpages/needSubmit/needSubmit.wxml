@@ -14,10 +14,31 @@
   <view style="margin: 20rpx;background: white;border-radius: 8px;padding: 25rpx 20rpx;">
     <view class="form_item">
       <view class="title">
-        定制需求
+        定制需求<text style="color:red">*</text>
       </view>
       <view class="boxbor">
         <textarea bindinput="quickInput" placeholde="请输入您的定制要求，如定制用途、产品品类、克重、数量、定制内文字、期望交货日期等" name="" id="" cols="30" rows="10" style="padding: 10rpx;"></textarea>
+      </view>
+    </view>
+    <view class="comm-item" style="background: white;padding:10px 0;">
+        <view>材质 <text style="color:red">*</text></view>
+        <!-- <view>
+          <view class="skuitem skuactive"><input class="remarkInput" type="number" bindinput="inputMaterial" ></input></view>
+        </view> -->
+        <view style="display: flex;" class="select_item">
+        <view wx:for="{{formDataQuick.specification.Percentage}}" data-param="Percentage" bindtap="selectProject" data-name="{{item.name}}" class="{{item.selected?'selected':''}}">{{item.name}}</view>
+      </view>
+    </view>
+    <view class="comm-item" style="background: white;padding:10px 0;">
+        <view>克重 <text style="color:red">*</text></view>
+        <view>
+          <view class="skuitem skuactive"><input class="remarkInput" type="number" bindinput="inputGram" ></input></view>
+        </view>
+    </view>
+    <view class="comm-item" style="background: white;padding:10px 0;">
+      <view>输入您需要的数量 <text style="color:red">*</text></view>
+      <view>
+        <view class="skuitem skuactive"><input class="remarkInput" type="number" bindinput="inputNumber" placeholder="1"></input></view>
       </view>
     </view>
     <view class="form_item">

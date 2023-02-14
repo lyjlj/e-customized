@@ -189,7 +189,7 @@ Page({
     })
   },
   //倒计时
-  CountDown(year, month, day, hours) {
+  CountDown(year, month, day, hours,item) {
     let now = new Date();
     let endDate = new Date(year, month - 1, day, hours);
     let leftTime = endDate.getTime() - now.getTime();//计算剩余的毫秒数
@@ -198,12 +198,12 @@ Page({
     }
     let leftsecond = parseInt(leftTime / 1000);//计算剩余的秒数
     day = Math.floor(leftsecond / (60 * 60 * 24));
-    console.log("day的值",day)
     let hour = Math.floor((leftsecond - day * 24 * 60 * 60) / 3600);
     this.setData({
       day,
       hour
     })
+    console.log("day的值",day)
     // let minute = Math.floor((leftsecond - day * 24 * 60 * 60 - hour * 3600) / 60);
     // let second = Math.floor(leftTime / 1000 % 60, 10);
   },
@@ -252,6 +252,8 @@ Page({
                 const submitTime = item.customizationmark.submitTime
                 console.log(123456,(Number(submitTime[2]))+7)
                 that.CountDown(Number(submitTime[0]),Number(submitTime[1]),Number(submitTime[2])+ 7,Number(submitTime[3]))
+                item["day"] = that.data.day;
+                item["hour"] = that.data.hour;
                 if(that.data.day==0 && that.data.hour==0){
                   const url= 'https://spapi.zhuanyegou.com/api/values?action=EnterpriseCustomization_UpdateStatus';
                   const params = {
@@ -265,7 +267,6 @@ Page({
               }
               
             })
-
             if (i) {
               let needData = a.data.needData;
               needData.push.apply(needData, datalist)

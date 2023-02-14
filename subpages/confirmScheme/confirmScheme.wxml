@@ -33,6 +33,7 @@
           <view class="costPrice">克单价:{{offerObj.unitPrice}}元/g</view>
           <view class="costPrice">加工费及其他:{{offerObj.workPrice}}元/g</view>
         </view>
+        <view class="totalPrice">原料款:{{offerObj.paymaterials}}元</view>
         <view class="totalPrice">产品总金额:{{offerObj.totalPrice}}元</view>
       </view>
   </view>

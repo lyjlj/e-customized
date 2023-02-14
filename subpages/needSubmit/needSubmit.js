@@ -11,12 +11,31 @@ Page({
     tab: 0,
     formData: {
       variety: "",
-
+      
     },
     formDataQuick: {
       needStr: '',
       attachment: [],
-      brandId: ''
+      brandId: '',
+      specification:{
+        Percentage:[{
+          name: "黄金",
+          selected: false
+        },
+        {
+          name: "白银",
+          selected: false
+        },
+        {
+          name: "铜",
+          selected: false
+        }
+        ],
+        GoldWeight:''
+
+      },
+      quantity:''
+
     },
     UserCredentials: "../../images/return-img_03.jpg",
     UserCredentials1: "../../images/return-img_03.jpg",
@@ -98,7 +117,11 @@ Page({
         selected: false
       }
     ],
-    showMore: false
+    showMore: false,
+    //提交的材质
+    // specification:{
+    //   Percentage:''
+    // }
   },
 
   /**
@@ -363,6 +386,34 @@ Page({
     })
     console.log(that.data.formData);
   },
+  //选择材质
+  selectProject(e){
+    var that = this;
+    var name = e.currentTarget.dataset.name;
+    var param = e.currentTarget.dataset.param;
+    var proj = {};
+    if(param == 'Percentage'){
+      proj = that.data.formDataQuick.specification.Percentage
+    }
+    console.log("proj的值",proj)
+    proj.forEach(item => {
+      if(item.name ==name){
+        that.setData({
+          ['formDataQuick.specification.' + param] :name
+        })
+        item.selected = true
+      }else{
+        item.selected = false
+      }
+    })
+    that.setData({
+      ['formDataQuick.specification.' + param]:proj
+    })
+    // that.setData({
+    //   ["formDataQuick.specification" +param]: name
+    // })
+    console.log(123,that.data.formDataQuick);
+  },
   selectProj(e) {
     var that = this;
     var name = e.currentTarget.dataset.name;
@@ -411,7 +462,27 @@ Page({
       ["formDataQuick.needStr"]: value
     })
   },
-
+  //输入材质
+  inputMaterial(e){
+    console.log("e的值",e)
+    var that = this
+    that.setData({
+      ["formDataQuick.specification.Percentage"] :e.detail.value
+    })
+  },
+  inputGram(e){
+    var that =this
+    that.setData({
+      ["formDataQuick.specification.GoldWeight"]: e.detail.value
+    })
+  },
+  inputNumber(e){
+    var that = this
+    that.setData({
+      ["formDataQuick.quantity"]:e.detail.value
+    })
+    console.log("FORMdATA",that.data.formDataQuick)
+  },
   submitData() {
     var that = this;
     var tab = that.data.tab;
@@ -432,7 +503,23 @@ Page({
         title: '亲,是否忘填需求内容啦？',
         icon: "none"
       })
-    } else if (tab == 1 && that.data.formData.variety == '') {
+    }else if(tab===0 && that.data.formDataQuick.specification.Percentage == '' ){
+      wx.showToast({
+        title:"请填写材质",
+        icon:'none'
+      })
+    }else if (tab==0 && that.data.formDataQuick.specification.GoldWeight == '') {
+      wx.showToast({
+        title:'请填写金重',
+        icon:'none'
+      })
+    }else if (tab ==0 && that.data.formDataQuick.quantity == ''){
+      wx.showToast({
+        title:'请填写数量',
+        icon:none
+      })
+    }
+     else if (tab == 1 && that.data.formData.variety == '') {
       wx.showToast({
         title: '请选中类品',
         icon: "none"
