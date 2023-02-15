@@ -1,6 +1,7 @@
 // subpages/needSubmit/needSubmit.js
 var e = require("../../utils/config.js");
 var a = getApp();
+console.log("a的值",a)
 var app = a;
 Page({
 
@@ -11,32 +12,38 @@ Page({
     tab: 0,
     formData: {
       variety: "",
-      
+      specification:{
+        Percentage:'',
+        GoldWeight:''
+      },
+      quantity:'',
+      projBody:''
     },
     formDataQuick: {
       needStr: '',
       attachment: [],
       brandId: '',
       specification:{
-        Percentage:[{
-          name: "黄金",
-          selected: false
-        },
-        {
-          name: "白银",
-          selected: false
-        },
-        {
-          name: "铜",
-          selected: false
-        }
-        ],
+        Percentage:'',
         GoldWeight:''
-
       },
-      quantity:''
+      quantity:'',
+      
 
     },
+    Percentage:[{
+      name: "黄金",
+      selected: false
+      },
+      {
+      name: "白银",
+      selected: false
+      },
+      {
+      name: "铜",
+      selected: false
+      }
+    ],
     UserCredentials: "../../images/return-img_03.jpg",
     UserCredentials1: "../../images/return-img_03.jpg",
     varietyList: [
@@ -386,6 +393,15 @@ Page({
     })
     console.log(that.data.formData);
   },
+  //详细定制数量
+  inputDetailNumber(e){
+    console.log("详细数量的值",e)
+    var that = this;
+    // var type = e.currentTarget.dataset.type;
+    that.setData({
+      ["formData.quantity"] : e.detail.value
+    })
+  },
   //选择材质
   selectProject(e){
     var that = this;
@@ -393,7 +409,7 @@ Page({
     var param = e.currentTarget.dataset.param;
     var proj = {};
     if(param == 'Percentage'){
-      proj = that.data.formDataQuick.specification.Percentage
+      proj = that.data.Percentage
     }
     console.log("proj的值",proj)
     proj.forEach(item => {
@@ -402,16 +418,19 @@ Page({
           ['formDataQuick.specification.' + param] :name
         })
         item.selected = true
+        
       }else{
         item.selected = false
       }
+      // that.setData({
+      //   ['formDataQuick.specification.' + param]:name
+      // })
+      that.setData({
+        [param]: proj
+      })
     })
-    that.setData({
-      ['formDataQuick.specification.' + param]:proj
-    })
-    // that.setData({
-    //   ["formDataQuick.specification" +param]: name
-    // })
+    
+    
     console.log(123,that.data.formDataQuick);
   },
   selectProj(e) {
@@ -483,6 +502,37 @@ Page({
     })
     console.log("FORMdATA",that.data.formDataQuick)
   },
+  //详细定制克重
+  inputGramDetail(e){
+    var that = this;
+    that.setData({
+      ['formData.specification.GoldWeight'] : e.detail.value
+    })
+    console.log("detail的值",that.data.formData.specification)
+  },
+  //详细定制材质
+  selectProjectDetail(e){
+    var that = this;
+    var name = e.currentTarget.dataset.name;
+    var param = e.currentTarget.dataset.param;
+    var proj = {};
+    if(param == 'Percentage'){
+      proj = that.data.Percentage
+    }
+    proj.forEach(item => {
+      if(item.name ==name){
+        that.setData({
+          ['formData.specification.' + param] :name
+        })
+        item.selected = true
+      }else{
+        item.selected = false
+      }
+      that.setData({
+        [param]: proj
+      })
+    })
+  },
   submitData() {
     var that = this;
     var tab = that.data.tab;
@@ -505,12 +555,12 @@ Page({
       })
     }else if(tab===0 && that.data.formDataQuick.specification.Percentage == '' ){
       wx.showToast({
-        title:"请填写材质",
+        title:"请选择材质",
         icon:'none'
       })
     }else if (tab==0 && that.data.formDataQuick.specification.GoldWeight == '') {
       wx.showToast({
-        title:'请填写金重',
+        title:'请填写克重',
         icon:'none'
       })
     }else if (tab ==0 && that.data.formDataQuick.quantity == ''){
@@ -518,13 +568,34 @@ Page({
         title:'请填写数量',
         icon:none
       })
-    }
-     else if (tab == 1 && that.data.formData.variety == '') {
+    }else if (tab == 1 && that.data.formData.variety == '') {
       wx.showToast({
-        title: '请选中类品',
+        title: '请选中品类',
         icon: "none"
       })
-    } else {
+    }else if (tab == 1 && that.data.formData.projBody==''){
+      wx.showToast({
+        title:"请选择项目主体",
+        icon:'none'
+      })
+    }else if(tab == 1 && that.data.formData.specification.Percentage == ''){
+      wx.showToast({
+        title:"请选择材质",
+        icon:'none'
+      })
+    }
+    else if(tab == 1 && that.data.formData.quantity==''){
+      wx.showToast({
+        title:'请填写数量',
+        icon:"none"
+      })
+    }
+    else if(tab == 1 && that.data.formData.specification.GoldWeight == ''){
+      wx.showToast({
+        title:'请填写克重',
+        icon: 'none'
+      })
+    }else {
       wx.request({
         url: 'https://spapi.zhuanyegou.com/api/values?action=EnterpriseCustomization_Insert',
         method: "POST",
@@ -547,9 +618,6 @@ Page({
               url: '/pages/diypage/index?url=' + url
             })
           }, 2000)
-          // wx.redirectTo({
-          //   url: '/pages/diypage/index?TopicId=',
-          // })
         }
       })
     }

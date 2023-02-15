@@ -306,7 +306,8 @@ Array.prototype.remove = function (val) {
     },
     getOpenId: function (t) {
       var e = this;
-      //void 0 == undefined void:无类型，可以指向任何类型的数据
+      //void 0 == undefined void:无类型，可以指向任何类型的数据，t(e.globalData.openId)参数t函数
+      // console.log("123456",t(e.globalData.openId))
       "" != e.globalData.openId && void 0 != e.globalData.openId ? "function" == typeof t && t(e.globalData.openId) : wx.login({
         success: function (o) {
           o.code ? wx.request({

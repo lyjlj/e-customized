@@ -22,11 +22,8 @@
     </view>
     <view class="comm-item" style="background: white;padding:10px 0;">
         <view>材质 <text style="color:red">*</text></view>
-        <!-- <view>
-          <view class="skuitem skuactive"><input class="remarkInput" type="number" bindinput="inputMaterial" ></input></view>
-        </view> -->
         <view style="display: flex;" class="select_item">
-        <view wx:for="{{formDataQuick.specification.Percentage}}" data-param="Percentage" bindtap="selectProject" data-name="{{item.name}}" class="{{item.selected?'selected':''}}">{{item.name}}</view>
+        <view wx:for="{{Percentage}}" data-param="Percentage" bindtap="selectProject" data-name="{{item.name}}" class="{{item.selected?'selected':''}}">{{item.name}}</view>
       </view>
     </view>
     <view class="comm-item" style="background: white;padding:10px 0;">
@@ -38,7 +35,7 @@
     <view class="comm-item" style="background: white;padding:10px 0;">
       <view>输入您需要的数量 <text style="color:red">*</text></view>
       <view>
-        <view class="skuitem skuactive"><input class="remarkInput" type="number" bindinput="inputNumber" placeholder="1"></input></view>
+        <view class="skuitem skuactive"><input class="remarkInput" type="number" bindinput="inputNumber" ></input></view>
       </view>
     </view>
     <view class="form_item">
@@ -89,16 +86,36 @@
           <view wx:for="{{projBody}}" data-param="projBody" bindtap="selectProj" data-name="{{item.name}}" class="{{item.selected?'selected':''}}">{{item.name}}</view>
         </view>
       </view>
+      <view style="display: block;">
+      <view class="comm-item" style="background: white;padding:10px 0;">
+        <view>材质 <text style="color:red">*</text></view>
+        <view style="display: flex;" class="select_item">
+        <view wx:for="{{Percentage}}" data-param="Percentage" bindtap="selectProjectDetail" data-name="{{item.name}}" class="{{item.selected?'selected':''}}">{{item.name}}</view>
+      </view>
+    </view>
+    </view>
       <view class="formItem">
         <view class="item_name">数量(个)<text>*</text></view>
-        <view class="item_value"><input bindinput="inputdata" data-type="count" type="number"></input></view>
+        <view class="item_value"><input bindinput="inputDetailNumber" data-type="count" type="number"></input></view>
       </view>
+      <view style="display: block;">
+        <view class="comm-item" style="background: white;padding:10px 0;">
+        <view>克重 <text style="color:red">*</text></view>
+        <view>
+          <view class="skuitem skuactive"><input class="remarkInput" type="number" bindinput="inputGramDetail" ></input></view>
+        </view>
+        </view>
+      <!-- <view class="item_name" style="height: 80rpx;line-height: 80rpx;">克重</view>
+      <view style="display: flex;" class="select_item">
+        <view wx:for="{{weights}}" data-param="weights" bindtap="selectProj" data-name="{{item.name}}" class="{{item.selected?'selected':''}}">{{item.name}}</view>
+      </view> -->
+    </view>
       <view class="formItem">
-        <view class="item_name">总预算(元)<text>*</text></view>
+        <view class="item_name">总预算(元)</view>
         <view class="item_value"><input bindinput="inputdata" data-type="budget" type="digit"></input></view>
       </view>
       <view class="formItem">
-        <view class="item_name">企业名称<text>*</text></view>
+        <view class="item_name">企业名称</view>
         <view class="item_value"><input bindinput="inputdata" data-type="company" type="text"></input></view>
       </view>
       <view>
@@ -127,18 +144,18 @@
         <view wx:for="{{uses}}" bindtap="selectProj" data-param="uses" data-name="{{item.name}}" class="{{item.selected?'selected':''}}">{{item.name}}</view>
       </view>
     </view>
-    <view style="display: block;">
+    <!-- <view style="display: block;">
       <view class="item_name" style="height: 80rpx;line-height: 80rpx;">材质</view>
       <view style="display: flex;" class="select_item">
         <view wx:for="{{materials}}" data-param="materials" bindtap="selectProj" data-name="{{item.name}}" class="{{item.selected?'selected':''}}">{{item.name}}</view>
       </view>
-    </view>
-    <view style="display: block;">
+    </view> -->
+    <!-- <view style="display: block;">
       <view class="item_name" style="height: 80rpx;line-height: 80rpx;">克重</view>
       <view style="display: flex;" class="select_item">
         <view wx:for="{{weights}}" data-param="weights" bindtap="selectProj" data-name="{{item.name}}" class="{{item.selected?'selected':''}}">{{item.name}}</view>
       </view>
-    </view>
+    </view> -->
     <view style="display: block;">
       <view class="item_name" style="height: 80rpx;line-height: 80rpx;">常规包装</view>
       <view style="display: flex;" class="select_item">
