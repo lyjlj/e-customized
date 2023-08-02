@@ -32,7 +32,7 @@ Page({
           const params = {
             id:e.currentTarget.dataset.id,
             status:54,
-            customizationmark:this.data.uploadStyle
+            // customizationmark:this.data.uploadStyle
           }
           wx.request({
             url,

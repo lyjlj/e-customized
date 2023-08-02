@@ -15,7 +15,9 @@
         <view class="adjustArea">
             <textarea class="textarea"  bindinput="handleInput"></textarea>
         </view>
-        <view class="confirmSubmit" bindtap="confirmSubmit">确认提交</view>
+        <view class="confirmBox">
+            <view class="confirmSubmit" bindtap="confirmSubmit">确认提交</view>
+        </view>
     </view>
     
 </view>
